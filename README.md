@@ -1,4 +1,4 @@
-# Britaney
+# Home Bartender 
 December 2022 Group Project
 Project Outline
 
