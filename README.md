@@ -13,12 +13,12 @@ Features
     Save and Delete feature- Users will be able to save and delete recipes
     Category Feature- Favorites, shared, 
 
-Technologies
-    Spring Boot
-    MySQL
-    Hibernate
-    Thymeleaf templates
-    Drink API
+Technologies:
+    +Spring Boot
+    +MySQL
+    +Hibernate
+    +Thymeleaf templates
+    +Drink API
  
 What we have to learn
      We have to learn how to add the Drink API.
