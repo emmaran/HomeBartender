@@ -14,10 +14,10 @@
 <!-- head fragment -->
 
 <!--nav fragment-->
-<nav th:fragment="nav" class="navbar navbar-expand-lg" style="background-color: #191517;">
+<nav th:fragment="nav" class="navbar navbar-expand-lg" style="background-color: #7b69bf;">
     <div class="container-lg">
         <a class="navbar-brand" href="#">
-            <img src="https://www.dropbox.com/s/rz5q4e3ehhr88nr/nav-HomeBartender-circle.svg?raw=1" alt="Logo" width="40" height="32" class="d-inline-block align-text-top">
+            <img src="https://www.dropbox.com/s/0s9vj3qpfx4k6uh/nav-HomeBartender-large.svg?raw=1" alt="Logo" width="46" height="38" class="d-inline-block align-text-top">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -97,10 +97,10 @@
 <!--h1 fragment-->
 <div th:fragment="header" class="container">
     <div class="pt-5">
-        <h1 th:text="${h1}" class="display-4"></h1>
+        <h1 th:text="${h1}" class="h1"></h1>
     </div>
-    <div class="pb-5">
-        <p class="lead">That's it, home bartender! Build your Recipe by giving it catchy name, a list of ingredients, and your instructions.</p>
+    <div class="pb-5  col-md-8">
+        <p th:text="${lead}" class="lead"></p>
     </div>
 </div>
 <!--h1 fragment-->
