@@ -1,39 +1,39 @@
 package org.launchcode.HomeBartender.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 
-public class Recipe {
+@Entity
+public class Recipe extends AbstractEntity {
 
-    private int id;
-    private static int nextId = 1;
-
+    @NotBlank(message = "Recipe Name is required.")
     @Size(min = 3, max = 50, message = "Recipe Name must be between 3 and 50 characters.")
-    private String recipeName;
+    private String name;
 
     private ArrayList<Ingredient> ingredients = new ArrayList<>();
 
     private ArrayList<Instruction> instructions = new ArrayList<>();
 
-    public Recipe(String recipeName, ArrayList<Ingredient> ingredients, ArrayList<Instruction> instructions) {
-        this();
-        this.recipeName = recipeName;
+    public Recipe(String name, ArrayList<Ingredient> ingredients, ArrayList<Instruction> instructions) {
+        this.name = name;
         this.ingredients = ingredients;
-        this.instructions = instructions;
+//        this.instructions = instructions;
     }
 
-    public Recipe() {
-        this.id = nextId;
-        nextId++;
+    public Recipe() {}
+
+    public String getName() {
+        return name;
     }
 
-    public String getRecipeName() {
-        return recipeName;
-    }
-
-    public void setRecipeName(String recipeName) {
-        this.recipeName = recipeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public ArrayList<Ingredient> getIngredients() {
@@ -51,4 +51,14 @@ public class Recipe {
     public void setInstructions(ArrayList<Instruction> instructions) {
         this.instructions = instructions;
     }
+
+
+
+    //~~~~~~~~~     CUSTOM METHODS     ~~~~~~~~~
+    public void addIngredient(String ingredientName) {
+        Ingredient newIngredient = new Ingredient(ingredientName);
+        ingredients.add(newIngredient);
+    }
+
+
 }
