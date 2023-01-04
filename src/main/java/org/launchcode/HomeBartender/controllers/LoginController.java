@@ -1,32 +1,37 @@
 package org.launchcode.HomeBartender.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class LoginController {
-    @GetMapping()
     @ResponseBody
-    public String login() {
-        return "LOGIN";
-    }
-
-    @GetMapping("Sign Up")
-    @ResponseBody
-    public String signUp() {
-        return "Sign Up";
-        }
-
+    @RequestMapping("LoginOld")
+//    @PostMapping("Sign Up")
+//    public String signUp() {
+//        return "Sign Up";
+//        }
+//@RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value= "login")
+//public String helloWithQueryParam(@RequestParam String name){
+//        return "Hello, " + name + "!";
+//}
 
     //Handles request of the form /login/LaunchCode
-@GetMapping("Login")
-@ResponseBody
-public String loginWithPathParam(@PathVariable String name) {
-        return "";
-
+//@GetMapping("Login/{name}")
+//public String loginWithPathParam(@PathVariable String name) {
+//        return "Hello, " + name + "!";
+//
+//}
+@GetMapping("form")
+    public String helloForm(){
+        return "<html>"+
+                "<body>"+
+                "<form action='login' method='post'>"+
+                "<input type='text' name='name'>"+
+                "<input type='submit' value='Login Greeting'"+
+                "</form>"+
+                "</body>"+
+                "</html>";
 }
 
 }
