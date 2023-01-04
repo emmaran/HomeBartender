@@ -1,37 +1,31 @@
 package org.launchcode.HomeBartender.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class LoginController {
+    @RequestMapping("login")
     @ResponseBody
-    @RequestMapping("LoginOld")
-//    @PostMapping("Sign Up")
-//    public String signUp() {
-//        return "Sign Up";
-//        }
-//@RequestMapping(method = {RequestMethod.GET, RequestMethod.POST}, value= "login")
-//public String helloWithQueryParam(@RequestParam String name){
-//        return "Hello, " + name + "!";
-//}
+    public String index() {
+        return "form";
+    }
+//    need to code to display form
+@GetMapping("login")
+public String renderFormMethodName(Model model) {
+//model.addAttribute("login", login);
+    // Method code...
 
-    //Handles request of the form /login/LaunchCode
-//@GetMapping("Login/{name}")
-//public String loginWithPathParam(@PathVariable String name) {
-//        return "Hello, " + name + "!";
+    return "login";
+
+
+}
+//    @PostMapping("login")
+//    public String processLogin(@RequestParam String parameter1) {
+//  model.addAttribute("
 //
-//}
-@GetMapping("form")
-    public String helloForm(){
-        return "<html>"+
-                "<body>"+
-                "<form action='login' method='post'>"+
-                "<input type='text' name='name'>"+
-                "<input type='submit' value='Login Greeting'"+
-                "</form>"+
-                "</body>"+
-                "</html>";
+//        return "redirect:login";
+//    }
 }
 
-}

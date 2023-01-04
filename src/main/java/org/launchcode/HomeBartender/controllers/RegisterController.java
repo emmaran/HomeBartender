@@ -12,23 +12,15 @@ public class RegisterController {
     @RequestMapping("register")
     @ResponseBody
     public String index() {
-        return "register";
+        return "form";
     }
 
     //    need to code to display form
-    @PostMapping ("register")
-    public String renderFormMethodName(Model model) {
-//model.addAttribute("login", )
+    @GetMapping("register")
+    public String renderRegister(Model model) {
+//model.addAttribute("login", login);
         // Method code...
 
         return "register";
     }
-
-    @GetMapping("create")
-
-    public String renderCreateUserForm() {
-        return "create user";
-    }
 }
-
-
