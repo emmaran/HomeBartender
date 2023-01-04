@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class NewLoginController {
-    @RequestMapping(value = "Login")
+    @RequestMapping("Login")
     @ResponseBody
     public String index() {
         return "New login test";
@@ -14,7 +14,7 @@ public class NewLoginController {
 //    need to code to display form
 @GetMapping("form")
 public String renderFormMethodName(Model model) {
-//model.addAttribute("login", )
+//model.addAttribute("login", login);
     // Method code...
 
     return "newLogin";
