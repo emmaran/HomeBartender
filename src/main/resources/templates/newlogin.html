@@ -1,56 +1,121 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
-    <form>
-        <!-- Email input -->
-        <div class="form-outline mb-4">
-            <input type="email" id="form2Example1" class="form-control" />
-            <label class="form-label" for="form2Example1">Email address</label>
-        </div>
+    <form method = "post">
+        <section class=" text-center text-lg-start">
+            <style>
+    .rounded-t-5 {
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+    }
 
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-            <input type="password" id="form2Example2" class="form-control" />
-            <label class="form-label" for="form2Example2">Password</label>
-        </div>
+    @media (min-width: 992px) {
+      .rounded-tr-lg-0 {
+        border-top-right-radius: 0;
+      }
 
-        <!-- 2 column grid layout for inline styling -->
-        <div class="row mb-4">
-            <div class="col d-flex justify-content-center">
-                <!-- Checkbox -->
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-                    <label class="form-check-label" for="form2Example31"> Remember me </label>
+      .rounded-bl-lg-5 {
+        border-bottom-left-radius: 0.5rem;
+      }
+    }
+  </style>
+            <div class="card mb-3">
+                <div class="row g-0 d-flex align-items-center">
+                    <div class="col-lg-4 d-none d-lg-flex">
+                        <img src="https://cdn.4uc.org/i/images/crn/8900208/stumpbanner.jpg" alt="Fancy Drinks"
+                             class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="card-body py-5 px-md-5">
+
+                            <form>
+                                <!-- Email input -->
+                                <div class="form-outline mb-4">
+                                    <input type="email" id="form2Example1" class="form-control" />
+                                    <label class="form-label" for="form2Example1">Email address</label>
+                                </div>
+
+                                <!-- Password input -->
+                                <div class="form-outline mb-4">
+                                    <input type="password" id="form2Example2" class="form-control" />
+                                    <label class="form-label" for="form2Example2">Password</label>
+                                </div>
+
+                                <!-- 2 column grid layout for inline styling -->
+                                <div class="row mb-4">
+                                    <div class="col d-flex justify-content-center">
+                                        <!-- Checkbox -->
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
+                                            <label class="form-check-label" for="form2Example31"> Remember me </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <!-- Simple link -->
+                                        <a href="#!">Forgot password?</a>
+                                    </div>
+                                </div>
+
+                                <!-- Submit button -->
+                                <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+
+                            </form>
+
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
+        <!-- Email input -->
+<!--        <div class="form-outline mb-4">-->
+<!--            <input type="email" id="form2Example1" class="form-control" />-->
+<!--            <label class="form-label" for="form2Example1">Email address</label>-->
+<!--        </div>-->
 
-            <div class="col">
-                <!-- Simple link -->
-                <a href="#!">Forgot password?</a>
-            </div>
-        </div>
+<!--        &lt;!&ndash; Password input &ndash;&gt;-->
+<!--        <div class="form-outline mb-4">-->
+<!--            <input type="password" id="form2Example2" class="form-control" />-->
+<!--            <label class="form-label" for="form2Example2">Password</label>-->
+<!--        </div>-->
 
-        <!-- Submit button -->
-        <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+<!--        &lt;!&ndash; 2 column grid layout for inline styling &ndash;&gt;-->
+<!--        <div class="row mb-4">-->
+<!--            <div class="col d-flex justify-content-center">-->
+<!--                &lt;!&ndash; Checkbox &ndash;&gt;-->
+<!--                <div class="form-check">-->
+<!--                    <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />-->
+<!--                    <label class="form-check-label" for="form2Example31"> Remember me </label>-->
+<!--                </div>-->
+<!--            </div>-->
 
-        <!-- Register buttons -->
-        <div class="text-center">
-            <p>Not a member? <a href="#!">Register</a></p>
-            <p>or sign up with:</p>
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fab fa-facebook-f"></i>
-            </button>
+<!--            <div class="col">-->
+<!--                &lt;!&ndash; Simple link &ndash;&gt;-->
+<!--                <a href="#!">Forgot password?</a>-->
+<!--            </div>-->
+<!--        </div>-->
 
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fab fa-google"></i>
-            </button>
+<!--        &lt;!&ndash; Submit button &ndash;&gt;-->
+<!--        <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>-->
 
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fab fa-twitter"></i>
-            </button>
+<!--        &lt;!&ndash; Register buttons &ndash;&gt;-->
+<!--        <div class="text-center">-->
+<!--            <p>Not a member? <a href="#!">Register</a></p>-->
+<!--            <p>or sign up with:</p>-->
+<!--            <button type="button" class="btn btn-link btn-floating mx-1">-->
+<!--                <i class="fab fa-facebook-f"></i>-->
+<!--            </button>-->
 
-            <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="fab fa-github"></i>
-            </button>
-        </div>
+<!--            <button type="button" class="btn btn-link btn-floating mx-1">-->
+<!--                <i class="fab fa-google"></i>-->
+<!--            </button>-->
+
+<!--            <button type="button" class="btn btn-link btn-floating mx-1">-->
+<!--                <i class="fab fa-twitter"></i>-->
+<!--            </button>-->
+
+<!--            <button type="button" class="btn btn-link btn-floating mx-1">-->
+<!--                <i class="fab fa-github"></i>-->
+<!--            </button>-->
+<!--        </div>-->
     </form>

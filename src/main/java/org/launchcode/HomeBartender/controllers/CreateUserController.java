@@ -24,6 +24,7 @@ public class CreateUserController {
     }
 
     @GetMapping("create")
+
     public String renderCreateUserForm() {
         return "create user";
     }
