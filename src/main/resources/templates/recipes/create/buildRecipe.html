@@ -18,42 +18,63 @@
 
                 <!--   ---- RECIPE IMAGE ----    -->
                 <div class="pb-5">
-                    <label for="formFile" class="form-label">Recipe Image</label>
-                    <input class="form-control" type="file" id="formFile">
+                        <label for="formFile" class="form-label">Recipe Image</label>
+                        <input class="form-control" type="file" id="formFile">
                 </div>
 
                 <!--   ---- INGREDIENTS ----    -->
                 <div class="pb-5">
-                    <div class="row g-2 pb-4">
-                        <div class="col-md">
-                            <label class="form-label">Ingredients</label>
-                            <label class="visually-hidden">Ingredients</label>
-                            <input type="text" class="form-control" th:value="${ingredientName}" placeholder="Amt. of Ingredient">
+<!--                    <div class="row g-2 pb-4">-->
+<!--                        <ul class="list-group list-group-flush" id="list">-->
+<!--                            <li class="list-group-item d-flex justify-content-between align-items-center"></li>-->
+<!--                        </ul>-->
+
+<!--                        <div class="col-md">-->
+<!--                            <label class="form-label">Ingredients</label>-->
+<!--                            <label class="visually-hidden">Ingredients</label>-->
+<!--                            <input type="text" class="form-control" id="candidate" placeholder="Amt. of Ingredient">-->
+<!--                            <button type="button" onclick="addItem()" class="btn btn-outline-primary align-self-end">Add Ingredient</button>-->
+<!--                        </div>-->
+<!--                        <div class="col-auto d-md-flex justify-content-md-end">-->
+<!--                            <div class="d-grid gap-2">-->
+<!--                                <button type="button" onclick="addItem()" class="btn btn-outline-primary align-self-end">Add Ingredient</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+
+                    <div class="row-g2 pb-4" id="addItem">
+<!--                            <input type="text" class="form-control" id="itemName" name="itemName" th:value="${ingredient.name}" placeholder="Amt. of Ingredient"/>-->
+<!--                            <button type="submit" id="addItemBtn" class="btn btn-outline-primary align-self-end">Add Ingredient</button>-->
+
+<!--                        <ul id="list" class="list-group list-group-flush" th:each="ingredient : ${ingredients}">-->
+<!--                            <li th:text="${ingredient.name}"></li>-->
+<!--                        </ul>-->
+
+                        <div id="itemInputDiv">
+                            <input type="text" class="form-control" id="itemNameInput" placeholder="Amt. of Ingredient"/>
+                            <span onclick="newElement()" class="btn btn-outline-primary align-self-end">Add Ingredient</span>
                         </div>
-                        <div class="col-auto d-md-flex justify-content-md-end">
-                            <div class="d-grid gap-2">
-                                <button type="button" name="addIngredient" th:onclick="recipe.addIngredient(ingredientName)" class="btn btn-outline-primary align-self-end">Add Ingredient</button>
-                            </div>
-                        </div>
+
+                        <ul id="list" class="list-group list-group-flush">
+
+                        </ul>
+
                     </div>
 
-                    <ul class="list-group list-group-flush">
-                        <div th:each="ingredient : ${recipe.ingredients}">
-                            <li th:text="${ingredient}"></li>
-                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>
-                            </li>
-                        </div>
 
-                        <li class="list-group-item d-flex justify-content-between align-items-center">1.5oz of Rum
-                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">1.5oz of Pineapple Juice
-                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">3oz of Coconut Milk
-                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </li>
-                    </ul>
+
+<!--                        <li class="list-group-item d-flex justify-content-between align-items-center">1.5oz of Rum-->
+<!--                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>-->
+<!--                        </li>-->
+<!--                        <li class="list-group-item d-flex justify-content-between align-items-center">1.5oz of Pineapple Juice-->
+<!--                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>-->
+<!--                        </li>-->
+<!--                        <li class="list-group-item d-flex justify-content-between align-items-center">3oz of Coconut Milk-->
+<!--                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
                 </div>
 
                 <!--   ---- INSTRUCTIONS ----    -->
@@ -88,7 +109,7 @@
                 <div class="row g-2 pb-5">
                     <div class="col-md">
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-primary col-md">Save Recipe</button>
+                            <button type="submit" name="target_2" class="btn btn-primary col-md">Save Recipe</button>
                         </div>
                     </div>
                     <div class="col-auto d-md-flex justify-content-md-end">

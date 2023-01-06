@@ -6,6 +6,16 @@
 
 <header th:replace="fragments :: header"></header>
 
+<div class="container">
+    <form method="post" id="recipe-name">
+        <div class="pb-5">
+            <label class="form-label">Recipe Name</label>
+            <input type="text" class="form-control" th:field="${recipeDetail.name}" placeholder="Recipe Name">
+        </div>
+    </form>
+
+    <button type="submit" name="_target1" class="btn btn-primary col-md" form="recipe-name">Next</button>
+</div>
 
 
 </body>

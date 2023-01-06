@@ -1,12 +1,18 @@
 package org.launchcode.HomeBartender.models;
 
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
+import java.util.Optional;
 
 @MappedSuperclass
-public class AbstractEntity {
+public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue
@@ -26,4 +32,5 @@ public class AbstractEntity {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

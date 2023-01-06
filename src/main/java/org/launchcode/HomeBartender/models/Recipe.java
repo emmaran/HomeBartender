@@ -1,18 +1,16 @@
 package org.launchcode.HomeBartender.models;
 
+import javax.annotation.ManagedBean;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 
+@ManagedBean
 @Entity
 public class Recipe extends AbstractEntity {
 
-    @NotBlank(message = "Recipe Name is required.")
+    @NotEmpty
     @Size(min = 3, max = 50, message = "Recipe Name must be between 3 and 50 characters.")
     private String name;
 
@@ -22,8 +20,12 @@ public class Recipe extends AbstractEntity {
 
     public Recipe(String name, ArrayList<Ingredient> ingredients, ArrayList<Instruction> instructions) {
         this.name = name;
-        this.ingredients = ingredients;
+//        this.ingredients = ingredients;
 //        this.instructions = instructions;
+    }
+
+    public Recipe(String name) {
+        this.name = name;
     }
 
     public Recipe() {}
@@ -51,6 +53,8 @@ public class Recipe extends AbstractEntity {
     public void setInstructions(ArrayList<Instruction> instructions) {
         this.instructions = instructions;
     }
+
+
 
 
 
