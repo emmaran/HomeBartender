@@ -14,6 +14,7 @@ public class FriendsController {
         return "/friendsList";
     }
 
+    //This is to add a Friend to user's list & will return an updated list of Friends
     @PostMapping("friendsList_add")
     public String add(){
         //will return updated list of Friends
