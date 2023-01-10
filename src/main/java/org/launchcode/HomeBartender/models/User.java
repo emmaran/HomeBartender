@@ -4,12 +4,10 @@ package org.launchcode.HomeBartender.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.ArrayList;
 
 @Entity
 
-public class user {
+public class User {
     @Id
     @GeneratedValue
 

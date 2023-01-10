@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: nav"></nav>
+
+<header th:replace="fragments :: header"></header>
+
+<div class="container">
+    <div class="row g-3">
+        <div class="col-sm-6">
+            <form>
+                <!--   ---- RECIPE NAME ----    -->
+                <div class="pb-5">
+                    <label for="exampleFormControlInput1" class="form-label">Recipe Name</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Recipe Name">
+                </div>
+
+                <!--   ---- RECIPE IMAGE ----    -->
+                <div class="pb-5">
+                    <label for="formFile" class="form-label">Recipe Image</label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+
+                <!--   ---- INGREDIENTS ----    -->
+                <div class="pb-5">
+                    <div class="row g-2 pb-4">
+                        <div class="col-md">
+                            <label for="exampleFormControlInput1" class="form-label">Ingredients</label>
+                            <label for="inputPassword2" class="visually-hidden">Ingredients</label>
+                            <input type="text" class="form-control" id="inputPassword2" placeholder="Amt. of Ingredient">
+                        </div>
+                        <div class="col-auto d-md-flex justify-content-md-end">
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-outline-primary align-self-end">Add Ingredient</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">1.5oz of Rum
+                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">1.5oz of Pineapple Juice
+                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">3oz of Coconut Milk
+                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--   ---- INSTRUCTIONS ----    -->
+
+                <div class="pb-6">
+                    <div class="row pb-4">
+                        <div class="pb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Steps</label>
+                            <label for="inputPassword2" class="visually-hidden">Steps</label>
+                            <textarea class="form-control" id="inputPassword3" placeholder="Write your instructions in order."></textarea>
+                        </div>
+                        <div class="d-grid gap-2 d-md-block">
+                            <button type="submit" class="btn btn-outline-primary align-self-end">Add Step</button>
+                        </div>
+                    </div>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">1.5oz of Rum
+                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">1.5oz of Pineapple Juice
+                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">3oz of Coconut Milk
+                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--   ---- BUTTONS ----    -->
+
+                <div class="row g-2 pb-5">
+                    <div class="col-md">
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary col-md">Save Recipe</button>
+                        </div>
+                    </div>
+                    <div class="col-auto d-md-flex justify-content-md-end">
+                        <button type="button" class="btn btn-outline-danger col-auto">Delete Recipe</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm">Recipe Preview</div>
+    </div>
+</div>
+
+
+
+</body>
+
+<footer th:replace="fragments :: footer"></footer>
+</html>
