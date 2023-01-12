@@ -1,14 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${friendsRecipes}"></title>
-    <head th:replace="fragments :: head"></head>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
 <body>
 <nav th:replace="fragments :: nav"></nav>
 
 <header th:replace="fragments :: header"></header>
 
-
+    <h2>Recipes My Friends Have Shared with Me</h2>
 </body>
 </html>

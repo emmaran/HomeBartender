@@ -16,20 +16,25 @@ public class MyDrinksController {
     }
 
     @RequestMapping("my_recipes")
-    @ResponseBody
+    //@ResponseBody
     public String myRecipes(){
-        return "This is where the list of 'My Concoctions' will be displayed";
+
+        //return "This is where the list of 'My Concoctions' will be displayed";
+        return "my_recipes";
     }
 
     @RequestMapping("friends_recipes")
-    @ResponseBody
+    //@ResponseBody
     public String friendsRecipes(){
-        return "This will be where you can see the recipes that your friends have shared with you";
+        //return "This will be where you can see the recipes that your friends have shared with you";
+        return "friends_recipes";
     }
 
     @RequestMapping("my_favorites")
-    @ResponseBody
+    //@ResponseBody
     public String faveRecipes(){
-        return "This will be where the list of favorited drink recipes will appear";
+
+        //return "This will be where the list of favorited drink recipes will appear";
+        return "my_favorites";
     }
 }
