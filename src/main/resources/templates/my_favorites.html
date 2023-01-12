@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${faveRecipes}"></title>
-</head>
+    <head th:replace="fragments :: head"></head>
 <body>
+<nav th:replace="fragments :: nav"></nav>
+
+<header th:replace="fragments :: header"></header>
 
 </body>
 </html>

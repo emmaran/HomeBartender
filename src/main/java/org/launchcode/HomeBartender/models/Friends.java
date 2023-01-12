@@ -2,11 +2,13 @@ package org.launchcode.HomeBartender.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Friends {
+
+//    @ManyToOne
+//    @JoinColumn(name="user_id")
+//    private User user;
 
     @Id
     @GeneratedValue
@@ -21,6 +23,10 @@ public class Friends {
         this.id = id;
         this.name = name;
 //        this.birthday = birthday;
+    }
+
+    public Friends(){
+
     }
 
     public int getId() {
