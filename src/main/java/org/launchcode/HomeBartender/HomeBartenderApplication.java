@@ -11,3 +11,4 @@ public class HomeBartenderApplication {
 	}
 
 }
+//model is where I will create the objects
