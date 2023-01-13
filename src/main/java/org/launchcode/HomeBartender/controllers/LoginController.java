@@ -19,9 +19,26 @@ public String renderFormMethodName(Model model) {
 
     return "login";
 
-
 }
-//    @PostMapping("login")
+
+@PostMapping
+public void addLogin(String username, String password) {
+//     send username/password from the client
+};
+
+public int getUserId(String username, String password){
+    return 0;
+}
+
+//localStorage.getItem('UserID');
+
+
+//1 post method called addLogin
+
+
+//    @PostMapping
+
+//    for saving username and password
 //    public String processLogin(@RequestParam String parameter1) {
 //  model.addAttribute("
 //
