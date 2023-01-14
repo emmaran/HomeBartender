@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
-<form action="action_page.php">
+<form th:action="@{/register}" th:object="${userData}" method="post">
     <div class="container">
         <h1>Create a HomeBartender Account</h1>
         <p>Please complete this form to create a new HomeBartender account.</p>
@@ -16,6 +16,12 @@
         <label for="psw-repeat"><b>Repeat Password</b></label>
         <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
 
+        <label for="DOB"><b>Date of Birth</b></label>
+        <input type="date" placeholder="Enter Date of Birth" name="DOB" id="DOB" required>
+
+        <label for="UserName"><b>User Name</b></label>
+        <input type="text" placeholder="Enter User Name" name="UserName" id="UserName" required>
+
         <hr>
 
         <button type="submit" class="registerbtn">Register</button>
@@ -25,3 +31,4 @@
         <p>Already have an account? <a href="login">Sign in</a>.</p>
     </div>
 </form>
+
