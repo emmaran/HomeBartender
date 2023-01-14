@@ -9,12 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
-
-
-
-
-
 @Entity
 
 public class User {
@@ -22,16 +16,14 @@ public class User {
     @GeneratedValue
     private int id;
 
-    @NotNull
-    @NotBlank(message = "Password is required")
-    @Size(min = 3, max = 6, message = "Password must be at least 6 characters")
+//    @NotNull
+//    @NotBlank(message = "Password is required")
+    @Size(min = 6, max = 20, message = "Password must be at least 6 characters")
     private String password;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email. Try again.")
     private String email;
-
-    private int DOB;
 
     private String userName;
 
@@ -57,14 +49,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getDOB() {
-        return DOB;
-    }
-
-    public void setDOB(int DOB) {
-        this.DOB = DOB;
     }
 
     public String getUserName() {

@@ -29,7 +29,9 @@ public class RegisterController {
     public String renderSignIn(@ModelAttribute UserData userData, Model model) {
     User user = new User();
         user.setUserName(userData.getUserName());
-
+        user.setEmail(userData.getEmail());
+        user.setPassword(userData.getPsw());
+        userRepository.save(user);
         return "register";
     }
 }

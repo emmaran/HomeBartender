@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head>
-    <form method = "post" action="form/login">
+    <form th:action="@{/login}" th:object="${loginData}" method="post">
 
         <div class="card mb-3">
             <div class="row g-0 d-flex align-items-center">
@@ -27,6 +27,11 @@
                         <div class="row mb-4">
                             <div class="col d-flex justify-content-center">
                                 <!-- Checkbox -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="form2Example30" checked />
+                                    <label class="form-check-label" for="form2Example31"> I certify that I am 21 or older. </label>
+                                </div>
+                            </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
                                     <label class="form-check-label" for="form2Example31"> Remember me </label>

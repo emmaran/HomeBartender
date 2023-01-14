@@ -1,11 +1,17 @@
 package org.launchcode.HomeBartender.controllers;
 
+import org.launchcode.HomeBartender.data.LoginData;
+import org.launchcode.HomeBartender.data.UserRepository;
+import org.launchcode.HomeBartender.models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class LoginController {
+    @Autowired
+    UserRepository userRepository;
     @RequestMapping("login")
     @ResponseBody
     public String index() {
@@ -14,26 +20,23 @@ public class LoginController {
 //    need to code to display form
 @GetMapping("login")
 public String renderFormMethodName(Model model) {
-//model.addAttribute("login", login);
-    // Method code...
 
     return "login";
 
 }
 
 @PostMapping
-public void addLogin(String username, String password) {
-//     send username/password from the client
+public void addLogin(@ModelAttribute LoginData loginData) {
+User user = userRepository.findByUsername(loginData.getUserName());
 };
-
+//    if statement to see if user isn't equal to null, you would get user passwrod. then check to see if password is equal to logindata.getpassword.
+//    if passwords match, takes to landing page, if not, error popup.
 public int getUserId(String username, String password){
     return 0;
 }
 
 //localStorage.getItem('UserID');
 
-
-//1 post method called addLogin
 
 
 //    @PostMapping
