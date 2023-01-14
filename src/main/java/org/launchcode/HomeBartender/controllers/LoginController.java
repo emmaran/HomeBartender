@@ -27,11 +27,11 @@ public String renderFormMethodName(Model model) {
 
 @PostMapping
 public void addLogin(@ModelAttribute LoginData loginData) {
-User user = userRepository.findByUsername(loginData.getUserName());
+User user = userRepository.findByUserName(loginData.getUserName());
 };
 //    if statement to see if user isn't equal to null, you would get user passwrod. then check to see if password is equal to logindata.getpassword.
 //    if passwords match, takes to landing page, if not, error popup.
-public int getUserId(String username, String password){
+public int getUserId(String username, String pwHash){
     return 0;
 }
 

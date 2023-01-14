@@ -16,10 +16,8 @@ public class User {
     @GeneratedValue
     private int id;
 
-//    @NotNull
-//    @NotBlank(message = "Password is required")
     @Size(min = 6, max = 20, message = "Password must be at least 6 characters")
-    private String password;
+    private String pwHash;
 
     @NotBlank(message = "Email is required")
     @Email(message = "Invalid email. Try again.")
@@ -35,12 +33,12 @@ public class User {
         this.id = id;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPwHash() {
+        return pwHash;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPwHash(String pwHash) {
+        this.pwHash = getPwHash();
     }
 
     public String getEmail() {

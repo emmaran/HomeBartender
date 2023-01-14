@@ -30,7 +30,7 @@ public class RegisterController {
     User user = new User();
         user.setUserName(userData.getUserName());
         user.setEmail(userData.getEmail());
-        user.setPassword(userData.getPsw());
+        user.setPwHash(userData.getPsw());
         userRepository.save(user);
         return "register";
     }
