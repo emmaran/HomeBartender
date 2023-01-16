@@ -1,9 +1,15 @@
 package org.launchcode.HomeBartender.controllers;
 
+import org.launchcode.HomeBartender.data.UserIngredientRepository;
+import org.launchcode.HomeBartender.data.UserRecipeRepository;
+import org.launchcode.HomeBartender.models.Recipe;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("")
@@ -15,11 +21,11 @@ public class MyDrinksController {
         return "/index";
     }
 
+
     @RequestMapping("my_recipes")
     //@ResponseBody
     public String myRecipes(){
 
-        //return "This is where the list of 'My Concoctions' will be displayed";
         return "my_recipes";
     }
 
