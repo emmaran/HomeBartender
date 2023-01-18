@@ -28,6 +28,7 @@ dependencies {
 	compileOnly('javax.persistence:javax.persistence-api:2.2')
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
 }
 
 tasks.named('test') {
