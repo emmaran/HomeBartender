@@ -5,15 +5,20 @@ import org.launchcode.HomeBartender.data.UserRecipeRepository;
 import org.launchcode.HomeBartender.models.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+
 @Controller
 @RequestMapping("")
 public class MyDrinksController {
+
+    @Autowired
+    UserRecipeRepository userRecipeRepository;
 
     @GetMapping("")
     public String index(){
@@ -24,8 +29,8 @@ public class MyDrinksController {
 
     @RequestMapping("my_recipes")
     //@ResponseBody
-    public String myRecipes(){
-
+    public String myRecipes(Model model){
+        model.addAttribute("recipe", userRecipeRepository.findAll());
         return "my_recipes";
     }
 

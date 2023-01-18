@@ -4,23 +4,21 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Friends {
+public class Friends extends AbstractEntity{
 
 //    @ManyToOne
 //    @JoinColumn(name="user_id")
 //    private User user;
 
-    @Id
-    @GeneratedValue
-    private int id;
 
     @NotNull
     private String name;
 
+    //may add birthday info in the future
 //    private int birthday;
 
     public Friends(int id, String name) {
-        this.id = id;
+        super();
         this.name = name;
 //        this.birthday = birthday;
     }
@@ -29,9 +27,6 @@ public class Friends {
 
     }
 
-    public int getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
