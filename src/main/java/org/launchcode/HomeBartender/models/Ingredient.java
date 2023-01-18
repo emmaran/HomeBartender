@@ -1,34 +1,30 @@
 package org.launchcode.HomeBartender.models;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class Ingredient {
-
-    private int id;
-
-    private static int nextId = 1;
+@Entity
+public class Ingredient extends AbstractEntity {
 
     @NotBlank
     @Size(min = 2, max = 50, message = "Ingredient Name must be between 2–50 characters.")
-    private String ingredientName;
+    private String name;
 
-    public Ingredient(String ingredientName) {
-        this();
-        this.ingredientName = ingredientName;
+
+    public Ingredient(String name) {
+        this.name = name;
     }
 
-    public Ingredient() {
-        this.id = nextId;
-        nextId++;
+    public Ingredient() {}
+
+    public String getName() {
+        return name;
     }
 
-    public String getIngredientName() {
-        return ingredientName;
-    }
-
-    public void setIngredientName() {
-        this.ingredientName = ingredientName;
+    public void setName() {
+        this.name = name;
     }
 
 }
