@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.ManagedBean;
 import javax.persistence.Entity;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,6 +24,7 @@ public class RecipeController {
 
     @Autowired
     private UserRecipeRepository userRecipeRepository;
+
 
     @Autowired
     private UserIngredientRepository userIngredientRepository;

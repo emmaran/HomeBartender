@@ -1,10 +1,39 @@
 <!DOCTYPE html>
-<html lang="en"xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${myRecipes}"></title>
-</head>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
 <body>
+<nav th:replace="fragments :: nav"></nav>
 
+<header th:replace="fragments :: header"></header>
+
+<h2>Look at all the Recipes I have added</h2>
+
+<!--    <div class="recipes" th:each="recipe : ${recipes}">-->
+<!--        <div class="card" style="width: 18rem;">-->
+<!--            <img src="..." class="card-img-top" alt="...">-->
+<!--            <div class="card-body">-->
+<!--                <h5 class="card-title" th:text="${recipe.name}"></h5>-->
+<!--                <p class="card-text" th:text="${recipe.ingredients}"></p>-->
+<!--                <p class="card-text" th:text="${recipe.instructions"></p>-->
+<!--               <a href="#" class="btn btn-primary">See Full Recipe</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+        <div class="recipes">
+
+                <div class="card" style="width: 18rem;">
+                    <tr th:each="myRecipe : ${recipe}">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${myRecipe.name}"></h5>
+                            <p class="card-text" >test</p>
+                            <a href="#" class="btn btn-primary">See Full Recipe</a>
+                        </div>
+                    </tr>
+                </div>
+
+
+        </div>
 </body>
 </html>
