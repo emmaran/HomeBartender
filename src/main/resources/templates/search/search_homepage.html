@@ -7,15 +7,15 @@
 <body>
 
 <div class="container body-content">
-    <h1>Search Recipes</h1>
+    <h1>Search for Recipes</h1>
 
     <form th:action="@{/search/results}" method="post">
 
         <div class="input-group">
             <label th:for="searchTerm">Search:</label>
-            <input type="text" class="form-control" th:name="searchTerm" placeholder="Type text here..." readonly>
+            <input type="text" class="form-control" th:name="searchTerm" aria-label="Text input with segmented dropdown button" placeholder="Type text here..." readonly>
         <div class="input-group-append">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="Select" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select</button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" th:name="byKeyword">Search by Keyword</a>
                     <a class="dropdown-item" th:name="byIngredient">Search by Ingredient</a>
