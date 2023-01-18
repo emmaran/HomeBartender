@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+
+<div class="container body-content">
+    <h1>Search Recipes</h1>
+
+    <form th:action="@{/search/results}" method="post">
+
+        <div class="input-group">
+            <label th:for="searchTerm">Search:</label>
+            <input type="text" class="form-control" th:name="searchTerm" placeholder="Type text here..." readonly>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="Select" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" th:name="byKeyword">Search by Keyword</a>
+                    <a class="dropdown-item" th:name="byIngredient">Search by Ingredient</a>
+                     <div role="separator" class="dropdown-divider"></div>
+                    <a class="dropdown-item" th:name="isAlcoholic">Search Mocktails</a>
+                 </div>
+        </div>
+    <input type="submit" value="Search"/>
+        </div>
+
+    </form>
+
+    <hr />
+
+    <table class="search results">
+        <tr>
+            <td>
+
+            </td>
+        </tr>
+    </table>
+
+
+</div>
+
+</body>
+</html>
