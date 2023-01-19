@@ -5,7 +5,18 @@
 
 <header th:replace="fragments :: header"></header>
 
-<form method="post">
+<form th:action="@{/login}" th:object="${loginData}" method="post">
+
+    <h1>Welcome to HomeBartender!</h1>
+    <p>Login below to start crafting delicious cocktails. Cheers!</p>
+    <hr>
+
+    <div class="card mb-3">
+                    <div class="row g-0 d-flex align-items-center">
+                        <div class="col-lg-4 d-none d-lg-flex">
+                            <img src="https://cdn.4uc.org/i/images/crn/8900208/stumpbanner.jpg" alt="Fancy Drinks"
+                                 class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
+                        </div>
     <div class="form-group">
         <label th:for="username">Username
             <input class="form-control" th:field="${loginFormDTO.username}">
@@ -20,9 +31,10 @@
     </div>
 
     <input type="submit" class="btn btn-primary" value="Log In" />
+
 </form>
 
-<p>Don't have an account? <a href="/register">Register for one.</a></p>
+<p>Not a HomeBartender? <a href="register">Register</a></p>
 
 </body>
 </html>

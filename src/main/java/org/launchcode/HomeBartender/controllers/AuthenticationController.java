@@ -73,11 +73,13 @@ public class AuthenticationController {
             model.addAttribute("title", "Register");
             return "register";
         }
+        User newUser = new User();
+        newUser.setUserName(registerFormDTO.getUsername());
+        newUser.setPwHash(registerFormDTO.getPassword());
 
-        User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:";
+        return "redirect:/login";
     }
 }

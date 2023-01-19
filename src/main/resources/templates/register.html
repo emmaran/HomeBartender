@@ -4,7 +4,11 @@
 
 <header th:replace="fragments :: header"></header>
 
-<form method="post">
+<form th:action="@{/register}" th:object="${userData}" method="post">
+        <div class="container">
+            <h1>Create a HomeBartender Account</h1>
+            <p>Please complete this form to create a new HomeBartender account.</p>
+            <hr>
     <div class="form-group">
         <label>Username
             <input class="form-control" th:field="${registerFormDTO.username}" />

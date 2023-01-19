@@ -2,6 +2,7 @@ package org.launchcode.HomeBartender.models;
 
 import org.launchcode.HomeBartender.controllers.AuthenticationController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +15,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
-
-
 @Entity
 
 public class User {
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
     @Id
     @GeneratedValue
     private int id;
@@ -27,7 +27,7 @@ public class User {
     @Size(min = 6, max = 20, message = "Password must be at least 6 characters")
     private String pwHash;
 
-    @NotBlank(message = "Email is required")
+//    @NotBlank(message = "Email is required")
     @Email(message = "Invalid email. Try again.")
     private String email;
 
@@ -36,7 +36,9 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String pwHash) {
+        this.userName=username;
+        this.pwHash=pwHash;
     }
 
     public int getId() {
@@ -52,8 +54,12 @@ public class User {
     }
 
     public void setPwHash(String pwHash) {
-        this.pwHash = getPwHash();
-    }
+        this.pwHash = pwHash;
+//            this.pwHash = encoder.encode(pwHash);
+        }
+//        public boolean isMatchingPassword(String password) {
+//            return encoder.matches(password, pwHash);
+//        }
 
     public String getEmail() {
         return email;
@@ -74,7 +80,6 @@ public class User {
 
 
 //    not sure how to make this work.......
-//    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 //    public User(String username, String password) {
 //        this.username = username;
 //        this.pwHash = encoder.encode(password);

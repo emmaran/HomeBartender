@@ -33,6 +33,7 @@ public class LoginController {
                                    Errors errors, HttpServletRequest request,
                                    Model model) {
         if (errors.hasErrors()) {
+            errors.rejectValue("username", "user.invalid", "ERROR ONE");
             model.addAttribute("title", "Log In");
             return "login";
         }
@@ -46,8 +47,10 @@ public class LoginController {
         }
 
         String password = loginFormDTO.getPassword();
+        System.out.println(password);
+        System.out.println(theUser.getPwHash());
 //if password from database doesn't equal password
-        if (theUser.getPwHash()!=password) {
+        if (!theUser.getPwHash().equals(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
             model.addAttribute("title", "Log In");
             return "login";
@@ -55,7 +58,7 @@ public class LoginController {
 
         setUserInSession(request.getSession(), theUser);
 
-        return "redirect:";
+        return "index";
     }
 
     @GetMapping("logout")
