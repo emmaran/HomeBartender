@@ -1,6 +1,7 @@
 package org.launchcode.HomeBartender.controllers;
 
 import org.launchcode.HomeBartender.Repositories.CocktailRepository;
+import org.launchcode.HomeBartender.Repositories.RecipeRepository;
 import org.launchcode.HomeBartender.data.UserIngredientRepository;
 import org.launchcode.HomeBartender.data.UserRecipeRepository;
 import org.launchcode.HomeBartender.models.Recipe;
@@ -24,7 +25,9 @@ public class MyDrinksController {
 
     @Autowired
     CocktailRepository cocktailRepository;
-    //List<cocktailRepository> cocktails = cocktailRepository.findAll();
+
+    @Autowired
+    RecipeRepository recipeRepository;
 
 
     //the landing page once logged in
@@ -39,6 +42,20 @@ public class MyDrinksController {
     public String myRecipes(Model model){
         model.addAttribute("recipe", userRecipeRepository.findAll());
         return "my_recipes";
+    }
+
+
+//    @GetMapping("view_all")
+//    public String viewAllCocktails(Model model){
+//        model.addAttribute("allCocktails", cocktailRepository.findAll());
+//        return "view_all";
+//    }
+
+    @RequestMapping("view_all")
+    public String viewAllRecipes(Model model){
+        model.addAttribute("allRecipes", recipeRepository.findAll());
+        model.addAttribute("allCocktails", cocktailRepository.findAll());
+        return "view_all";
     }
 
     //will show all the recipes the user's friends shared with them
@@ -56,10 +73,5 @@ public class MyDrinksController {
 //    }
 
 
-    @RequestMapping("view_all")
-    public String viewAllRecipes(Model model){
-        model.addAttribute("allRecipes", cocktailRepository.findAll());
-        return "view_all";
-    }
 
 }
