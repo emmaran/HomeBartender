@@ -8,32 +8,19 @@
 
 <h2>Look at all the Recipes I have added</h2>
 
-<!--    <div class="recipes" th:each="recipe : ${recipes}">-->
-<!--        <div class="card" style="width: 18rem;">-->
-<!--            <img src="..." class="card-img-top" alt="...">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title" th:text="${recipe.name}"></h5>-->
-<!--                <p class="card-text" th:text="${recipe.ingredients}"></p>-->
-<!--                <p class="card-text" th:text="${recipe.instructions"></p>-->
-<!--               <a href="#" class="btn btn-primary">See Full Recipe</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
         <div class="recipes">
-
+            <tr th:each="myRecipe : ${recipe}">
                 <div class="card" style="width: 18rem;">
-                    <tr th:each="myRecipe : ${recipe}">
-                        <img src="..." class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${myRecipe.name}"></h5>
-                            <p class="card-text" >test</p>
-                            <a href="#" class="btn btn-primary">See Full Recipe</a>
-                        </div>
-                    </tr>
+                    <img src="..." class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${myRecipe.name}"></h5>
+                        <p class="card-text" th:text="${myRecipe.ingredients}"></p>
+                        <p class="card-text" th:text="${myRecipe.instructions}"></p>
+<!--                    <a href="#" class="btn btn-primary">See Full Recipe</a>-->
+                    </div>
                 </div>
-
-
+            </tr>
         </div>
 </body>
+<footer th:replace="fragments :: footer"></footer>
 </html>
