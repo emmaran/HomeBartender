@@ -2,33 +2,38 @@ package org.launchcode.HomeBartender.models;
 
 import javax.annotation.ManagedBean;
 import javax.persistence.Entity;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.List;
 
 @ManagedBean
 @Entity
 public class Recipe extends AbstractEntity {
 
-    @NotEmpty
+//    @NotEmpty
     @Size(min = 3, max = 50, message = "Recipe Name must be between 3 and 50 characters.")
     private String name;
 
-    private ArrayList<Ingredient> ingredients = new ArrayList<>();
+//    @Size(min=1)
+    @OneToMany(mappedBy = "recipe")
+    private List<UserIngredient> ingredients = new ArrayList<>();
 
-    private ArrayList<Instruction> instructions = new ArrayList<>();
-
-    public Recipe(String name, ArrayList<Ingredient> ingredients, ArrayList<Instruction> instructions) {
-        this.name = name;
-//        this.ingredients = ingredients;
-//        this.instructions = instructions;
-    }
+    @OneToMany(mappedBy = "recipe")
+    private List<UserInstruction> instructions = new ArrayList<>();
 
     public Recipe(String name) {
         this.name = name;
     }
 
-    public Recipe() {}
+    public Recipe(String name, List<UserIngredient> ingredients, List<UserInstruction> instructions) {
+        this.name = name;
+        this.ingredients = ingredients;
+        this.instructions = instructions;
+    }
+
+    public Recipe() {
+    }
 
     public String getName() {
         return name;
@@ -38,30 +43,28 @@ public class Recipe extends AbstractEntity {
         this.name = name;
     }
 
-    public ArrayList<Ingredient> getIngredients() {
+    public List<UserIngredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(ArrayList<Ingredient> ingredients) {
+    public void setIngredients(List<UserIngredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public ArrayList<Instruction> getInstructions() {
-        return instructions;
-    }
+    public List<UserInstruction> getInstructions() { return instructions; }
 
-    public void setInstructions(ArrayList<Instruction> instructions) {
+    public void setInstructions(List<UserInstruction> instructions) {
         this.instructions = instructions;
     }
 
 
-
-
-
     //~~~~~~~~~     CUSTOM METHODS     ~~~~~~~~~
-    public void addIngredient(String ingredientName) {
-        Ingredient newIngredient = new Ingredient(ingredientName);
-        ingredients.add(newIngredient);
+    public void addIngredient(UserIngredient ingredient) {
+        ingredients.add(ingredient);
+    }
+
+    public void addInstruction(UserInstruction instruction) {
+        instructions.add(instruction);
     }
 
 
