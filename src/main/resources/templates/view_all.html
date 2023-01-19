@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: nav"></nav>
+
+<header th:replace="fragments :: header"></header>
+
+    <h2>Recipes, Recipes, & more RECIPES </h2>
+
+    <div class="recipes">
+      <tr th:each="recipe : ${allRecipes}">
+        <div class="card" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title" th:text="${recipe.drink}"></h5>
+<!--            <p class="card-text" th:text="${myRecipe.ingredients}"></p>-->
+<!--            <p class="card-text" th:text="${myRecipe.instructions}"></p>-->
+            <!--<a href="#" class="btn btn-primary">See Full Recipe</a>-->
+          </div>
+        </div>
+      </tr>
+    </div>
+</body>
+</html>
