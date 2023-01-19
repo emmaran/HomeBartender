@@ -105,7 +105,7 @@ public class RecipeController {
         }
 
 
-        return "redirect:/recipe/new-recipe";
+        return "redirect:/my_recipes";
     }
 
     @GetMapping("/view/{recipeId}")

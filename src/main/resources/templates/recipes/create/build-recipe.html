@@ -13,7 +13,6 @@
                   th:object="${recipeForm}"
                   method="post">
 
-<!--                <input type="hidden" th:value="${recipe.id}" name="recipe-id" />-->
 
                 <!--   ---- RECIPE NAME ----    -->
                 <div class="pb-5">
@@ -33,7 +32,7 @@
                         <div id="ingredient-forms"
                              th:ingredient-count="${recipeForm.ingredientForms.size()}">
                                 <th:block th:each="ingredient, iter : ${recipeForm.ingredientForms}">
-                                    <div th:replace="recipe/create/add-ingredient :: add-ingredient-form(index=${iter.index}, holdRecipeName='recipeForm')">
+                                    <div th:replace="recipes/create/add-ingredient :: add-ingredient-form(index=${iter.index}, holdRecipeName='recipeForm')">
                                     </div>
                                 </th:block>
                         </div>
@@ -53,7 +52,7 @@
                     <div id="instruction-forms"
                          th:instruction-count="${recipeForm.instructionForms.size()}">
                         <th:block th:each="instruction, iter : ${recipeForm.instructionForms}">
-                            <div th:replace="recipe/create/add-instruction :: add-instruction-form(instructionIndex=${iter.index}, holdRecipeName2='recipeForm')">
+                            <div th:replace="recipes/create/add-instruction :: add-instruction-form(instructionIndex=${iter.index}, holdRecipeName2='recipeForm')">
                             </div>
                         </th:block>
                     </div>
@@ -64,30 +63,6 @@
                            id="add-instruction-button"
                            onclick=addExtraInstructionForm()>Add Step</a>
                     </div>
-
-
-<!--                    <div class="row pb-4">-->
-<!--                        <div class="pb-3">-->
-<!--                            <label class="form-label">Steps</label>-->
-<!--                            <label class="visually-hidden">Steps</label>-->
-<!--                            <textarea class="form-control" placeholder="Write your instructions in order."></textarea>-->
-<!--                        </div>-->
-<!--                        <div class="d-grid gap-2 d-md-block">-->
-<!--                            <button type="submit" class="btn btn-outline-primary align-self-end">Add Step</button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <ul class="list-group list-group-flush">-->
-<!--                        <li class="list-group-item d-flex justify-content-between align-items-center">1.5oz of Rum-->
-<!--                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>-->
-<!--                        </li>-->
-<!--                        <li class="list-group-item d-flex justify-content-between align-items-center">1.5oz of Pineapple Juice-->
-<!--                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>-->
-<!--                        </li>-->
-<!--                        <li class="list-group-item d-flex justify-content-between align-items-center">3oz of Coconut Milk-->
-<!--                            <button type="button" class="btn-close-sm" data-bs-dismiss="toast" aria-label="Close"></button>-->
-<!--                        </li>-->
-<!--                    </ul>-->
                 </div>
 
                 <!--   ---- BUTTONS ----    -->
