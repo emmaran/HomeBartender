@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body class="container  body-content">
+
+
+
+<p th:unless="${friends} and ${friends.size()}">no friends added yet!</p>
+
+<div class="container body-content">
+    <h2>Friends</h2>
+    <ul>
+        <li th:each="friend : ${friends}">
+            <a th:href="@{'/friends/view/' + ${friend.id}}" th:text="${friend.name}"></a>
+        </li>
+    </ul>
+    <a th:href="@{'/friends/search'}">Find More Friends</a>
+
+</div>
+
+</body>
+</html>

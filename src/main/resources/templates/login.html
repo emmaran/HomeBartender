@@ -1,50 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
-<head>
-    <form method = "post" action="form/login">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
 
-        <div class="card mb-3">
-            <div class="row g-0 d-flex align-items-center">
-                <div class="col-lg-4 d-none d-lg-flex">
-                    <img src="https://cdn.4uc.org/i/images/crn/8900208/stumpbanner.jpg" alt="Fancy Drinks"
-                         class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
-                </div>
-                <div class="col-lg-8">
-                    <form>
-                        <!-- Email input -->
-                        <div class="form-outline mb-4">
-                            <input type="email" id="form2Example1" class="form-control" />
-                            <label class="form-label" for="form2Example1">Email address (Required)</label>
+<header th:replace="fragments :: header"></header>
+
+<form th:action="@{/login}" th:object="${loginData}" method="post">
+
+    <h1>Welcome to HomeBartender!</h1>
+    <p>Login below to start crafting delicious cocktails. Cheers!</p>
+    <hr>
+
+    <div class="card mb-3">
+                    <div class="row g-0 d-flex align-items-center">
+                        <div class="col-lg-4 d-none d-lg-flex">
+                            <img src="https://cdn.4uc.org/i/images/crn/8900208/stumpbanner.jpg" alt="Fancy Drinks"
+                                 class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
                         </div>
+                    </div>
+    </div>
+    <div class="form-group">
+        <label th:for="username">Username
+            <input class="form-control" th:field="${loginFormDTO.username}">
+        </label>
+        <p class="error" th:errors="${loginFormDTO.username}"></p>
+    </div>
+    <div class="form-group">
+        <label>Password
+            <input class="form-control" th:field="${loginFormDTO.password}" type="password">
+        </label>
+        <p class="error" th:errors="${loginFormDTO.password}"></p>
+    </div>
 
-                        <!-- Password input -->
-                        <div class="form-outline mb-4">
-                            <input type="password" id="form2Example2" class="form-control" />
-                            <label class="form-label" for="form2Example2">Password (Required)</label>
-                        </div>
+    <input type="submit" class="btn btn-primary" value="Log In">
 
-                        <!-- 2 column grid layout for inline styling -->
-                        <div class="row mb-4">
-                            <div class="col d-flex justify-content-center">
-                                <!-- Checkbox -->
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="form2Example31" checked />
-                                    <label class="form-check-label" for="form2Example31"> Remember me </label>
-                                </div>
-                            </div>
+</form>
 
-                            <div class="col">
-                                <!-- Simple link -->
-                                <a href="#!">Forgot password?</a>
-                            </div>
-                        </div>
+<p>Not a HomeBartender? <a href="register">Register</a></p>
 
-                        <!-- Submit button -->
-                        <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+</body>
+</html>
 
-                        <!-- Register buttons -->
-                        <div class="text-center">
-                            <p>Not a HomeBartender? <a href="#!">Register</a></p>
-                        </div>
-
-                    </form>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: nav"></nav>
+
+<header th:replace="fragments :: header"></header>
+
+<div class="container">
+    <div class="row g-3">
+        <div class="col-sm-6">
+            <form id="recipe-form"
+                  th:object="${recipeForm}"
+                  method="post">
+
+
+                <!--   ---- RECIPE NAME ----    -->
+                <div class="pb-5">
+                    <label class="form-label">Recipe Name</label>
+                    <input type="text" class="form-control" th:field="${recipeForm.name}" id="name" placeholder="Recipe Name">
+                </div>
+
+                <!--   ---- RECIPE IMAGE ----    -->
+<!--                <div class="pb-5">-->
+<!--                        <label for="formFile" class="form-label">Recipe Image</label>-->
+<!--                        <input class="form-control" type="file" id="formFile">-->
+<!--                </div>-->
+
+                <!--   ---- INGREDIENTS ----    -->
+                <div class="pb-5">
+                        <label class="form-label">Ingredients</label>
+                        <div id="ingredient-forms"
+                             th:ingredient-count="${recipeForm.ingredientForms.size()}">
+                                <th:block th:each="ingredient, iter : ${recipeForm.ingredientForms}">
+                                    <div th:replace="recipes/create/add-ingredient :: add-ingredient-form(index=${iter.index}, holdRecipeName='recipeForm')">
+                                    </div>
+                                </th:block>
+                        </div>
+
+                        <div>
+                            <a href="#"
+                               class="btn btn-outline-primary align-self-end"
+                               id="add-ingredient-button"
+                               onclick=addExtraIngredientForm()>Add Ingredient</a>
+                        </div>
+                </div>
+
+                <!--   ---- INSTRUCTIONS ----    -->
+
+                <div class="pb-5">
+                    <label class="form-label">Steps</label>
+                    <div id="instruction-forms"
+                         th:instruction-count="${recipeForm.instructionForms.size()}">
+                        <th:block th:each="instruction, iter : ${recipeForm.instructionForms}">
+                            <div th:replace="recipes/create/add-instruction :: add-instruction-form(instructionIndex=${iter.index}, holdRecipeName2='recipeForm')">
+                            </div>
+                        </th:block>
+                    </div>
+
+                    <div>
+                        <a href="#"
+                           class="btn btn-outline-primary align-self-end"
+                           id="add-instruction-button"
+                           onclick=addExtraInstructionForm()>Add Step</a>
+                    </div>
+                </div>
+
+                <!--   ---- BUTTONS ----    -->
+
+                <div class="row g-2 pb-5">
+                    <div class="col-md">
+                        <div class="d-grid">
+                            <button type="submit" name="save" class="btn btn-primary col-md">Save Recipe</button>
+                        </div>
+                    </div>
+                    <div class="col-auto d-md-flex justify-content-md-end">
+                        <button type="button" class="btn btn-outline-danger col-auto">Delete Recipe</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+<!--        <div class="col-sm-2"></div>-->
+<!--        <div class="col-sm">Recipe Preview</div>-->
+    </div>
+</div>
+
+
+
+</body>
+
+<footer th:replace="fragments :: footer"></footer>
+</html>

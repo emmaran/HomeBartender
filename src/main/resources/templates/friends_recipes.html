@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${friendsRecipes}"></title>
-</head>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
 <body>
+<nav th:replace="fragments :: nav"></nav>
 
+<header th:replace="fragments :: header"></header>
+
+    <h2>Recipes My Friends Have Shared with Me</h2>
+
+<!--    <div class="recipes">-->
+<!--        <tr th:each="recipe : ${friendsRecipe}">-->
+<!--            <div class="card" style="width: 18rem;">-->
+<!--                <img src="..." class="card-img-top" alt="...">-->
+<!--                <div class="card-body">-->
+<!--                    <h5 class="card-title" th:text="${recipe.name}"></h5>-->
+<!--                    <p class="card-text" >test</p>-->
+<!--                    &lt;!&ndash;                    <a href="#" class="btn btn-primary">See Full Recipe</a>&ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </tr>-->
+<!--    </div>-->
 </body>
 </html>
