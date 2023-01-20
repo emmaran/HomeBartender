@@ -1,35 +1,77 @@
 package org.launchcode.HomeBartender.controllers;
 
+import org.launchcode.HomeBartender.Repositories.CocktailRepository;
+import org.launchcode.HomeBartender.Repositories.RecipeRepository;
+import org.launchcode.HomeBartender.data.UserIngredientRepository;
+import org.launchcode.HomeBartender.data.UserRecipeRepository;
+import org.launchcode.HomeBartender.models.Recipe;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+
 
 @Controller
 @RequestMapping("")
 public class MyDrinksController {
 
+    //Connects to database of recipes the user created
+    @Autowired
+    UserRecipeRepository userRecipeRepository;
+
+    @Autowired
+    CocktailRepository cocktailRepository;
+
+    @Autowired
+    RecipeRepository recipeRepository;
+
+
+    //the landing page once logged in
     @GetMapping("")
     public String index(){
-        //return "This will be the landing page where you can go to the different categories of recipes";
+
         return "/index";
     }
 
+    //shows all the recipes the user created
     @RequestMapping("my_recipes")
-    @ResponseBody
-    public String myRecipes(){
-        return "This is where the list of 'My Concoctions' will be displayed";
+    public String myRecipes(Model model){
+        model.addAttribute("recipe", userRecipeRepository.findAll());
+        return "my_recipes";
     }
 
-    @RequestMapping("friends_recipes")
-    @ResponseBody
-    public String friendsRecipes(){
-        return "This will be where you can see the recipes that your friends have shared with you";
+
+//    @GetMapping("view_all")
+//    public String viewAllCocktails(Model model){
+//        model.addAttribute("allCocktails", cocktailRepository.findAll());
+//        return "view_all";
+//    }
+
+    @RequestMapping("view_all")
+    public String viewAllRecipes(Model model){
+        model.addAttribute("allRecipes", recipeRepository.findAll());
+        model.addAttribute("allCocktails", cocktailRepository.findAll());
+        return "view_all";
     }
 
-    @RequestMapping("my_favorites")
-    @ResponseBody
-    public String faveRecipes(){
-        return "This will be where the list of favorited drink recipes will appear";
-    }
+    //will show all the recipes the user's friends shared with them
+//    @RequestMapping("friends_recipes")
+//    public String friendsRecipes(){
+//
+//        return "friends_recipes";
+//    }
+
+    //will show all the recipes the user has favorited from api
+//    @RequestMapping("my_favorites")
+//    public String faveRecipes(){
+//
+//        return "my_favorites";
+//    }
+
+
+
 }

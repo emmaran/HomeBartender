@@ -2,30 +2,31 @@ package org.launchcode.HomeBartender.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-public class Friends {
+public class Friends extends AbstractEntity{
 
-    @Id
-    @GeneratedValue
-    private int id;
+//    @ManyToOne
+//    @JoinColumn(name="user_id")
+//    private User user;
+
 
     @NotNull
     private String name;
 
+    //may add birthday info in the future
 //    private int birthday;
 
     public Friends(int id, String name) {
-        this.id = id;
+        super();
         this.name = name;
 //        this.birthday = birthday;
     }
 
-    public int getId() {
-        return id;
+    public Friends(){
+
     }
+
 
     public String getName() {
         return name;

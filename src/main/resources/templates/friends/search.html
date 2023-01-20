@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>Let's Find More Friends</title>
+</head>
+<body>
+<div class="container body-content">
+
+  <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
+
+  <form th:action="@{friends/search/results}" method = "post">
+    <h2>Enter a Friend's Name</h2>
+
+
+    <p>
+      <label for="searchTerm">Keyword:</label>
+      <input type="text" name="searchTerm" id="searchTerm" />
+    </p>
+
+    <input type="submit" value="Search" />
+  </form>
+
+  <hr />
+</div>
+</body>
+</html>
