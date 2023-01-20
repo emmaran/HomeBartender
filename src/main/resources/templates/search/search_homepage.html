@@ -24,7 +24,7 @@
                 <option name="isAlcholic">Search Mocktails</option>
             </select>
             <hr/>
-            <button type="button" class="btn btn-primary btn-lg btn-block">Submit</button>
+            <input type="submit" value="Submit">
         </div>
 
 
@@ -32,9 +32,9 @@
 
     <div>
         <ol>
-            <a>
+
             <li th:each ="Cocktail: ${results}" th:text = "${Cocktail.strDrink}"></li>
-            </a>
+
         </ol>
 
     </div>

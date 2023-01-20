@@ -73,7 +73,7 @@ public class SearchController {
                 model.addAttribute("results", keywordSearch);
                 return "/search/search_homepage";
 
-          /*  } else if (searchType.toLowerCase().equals("ingredient")) {
+            } else if (searchType.toLowerCase().equals("ingredient")) {
                 for (Ingredients ingredient: ingredientResults) {
                     if (ingredient.getIngredient().contains(searchTerm)) {
                         ingredientSearch.add(ingredient);
@@ -89,7 +89,7 @@ public class SearchController {
                     }
                 }
                 model.addAttribute("results", cocktails);
-*/
+
         }
         return "/search/search_homepage";
     }
