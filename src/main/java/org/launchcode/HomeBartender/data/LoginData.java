@@ -23,5 +23,3 @@ public class LoginData {
 
     }
 
-//    method to find specific username, if not in database, block from logging in.
-
