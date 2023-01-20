@@ -6,28 +6,24 @@
 
 <header th:replace="fragments :: header"></header>
 
-    <h2>Recipes, Recipes, & more RECIPES </h2>
-
+    <h2 class="drinksTitle">Drinks, Drinks, & more DRINKS </h2>
+    <br>
+    <br>
     <div class="allRecipes">
 
-        <tr th:each="cocktail : ${allCocktails}">
-<!--            <a th:href="@{/viewRecipes/{id}(id=${cocktail.id})}">-->
-
-            <td th:text="${cocktail.strDrink}"></td>
-
-            <td th:each="recipe : ${allRecipes}"  >
-                <ul th:if="${recipe.cocktails.id} == ${cocktail.id}" th:text=" ${recipe.strInstructions}">
-<!--                <li><img th:src="${recipe.strDrinkThumb}" width="200" height="200"></li>>-->
-                    <li th:text="${recipe.strInstructions}"></li>
-                    <li th:each="ingredient : ${ingredients}" th:if="${recipe.ingredients.id} == ${ingredient.id}">
-                        <span th:text="${ingredient.ingredient}"></span>
-                    </li>
-                </ul>
-            </td>
-            <br>
-
-<!--            </a>-->
-        </tr>
+        <div class="columns">
+                <div class="boxes" th:each="cocktail : ${allCocktails}">
+                    <a th:href="@{/viewRecipes/{id}(id=${cocktail.id})}">
+                        <h5 th:text="${cocktail.strDrink}"></h5>
+                    </a>
+                    <div th:each="recipe : ${allRecipes}" >
+                        <p th:if="${recipe.cocktails.id} == ${cocktail.id}">
+                        <span><img th:src="${recipe.strDrinkThumb}" width="200" height="200"></span>
+    <!--                        <span th:text="${recipe.strInstructions}"></span>-->
+                        </p>
+                    </div>
+                </div>
+        </div>
     </div>
 
 </body>
