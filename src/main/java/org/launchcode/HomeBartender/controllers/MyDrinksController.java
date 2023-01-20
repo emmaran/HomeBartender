@@ -1,6 +1,7 @@
 package org.launchcode.HomeBartender.controllers;
 
 import org.launchcode.HomeBartender.Repositories.CocktailRepository;
+import org.launchcode.HomeBartender.Repositories.IngredientsRepository;
 import org.launchcode.HomeBartender.Repositories.RecipeRepository;
 import org.launchcode.HomeBartender.data.UserIngredientRepository;
 import org.launchcode.HomeBartender.data.UserRecipeRepository;
@@ -29,6 +30,9 @@ public class MyDrinksController {
     @Autowired
     RecipeRepository recipeRepository;
 
+    @Autowired
+    IngredientsRepository ingredientsRepository;
+
 
     //the landing page once logged in
     @GetMapping("")
@@ -45,16 +49,12 @@ public class MyDrinksController {
     }
 
 
-//    @GetMapping("view_all")
-//    public String viewAllCocktails(Model model){
-//        model.addAttribute("allCocktails", cocktailRepository.findAll());
-//        return "view_all";
-//    }
-
+    //shows all api drinks
     @RequestMapping("view_all")
     public String viewAllRecipes(Model model){
         model.addAttribute("allRecipes", recipeRepository.findAll());
         model.addAttribute("allCocktails", cocktailRepository.findAll());
+        model.addAttribute("ingredients", ingredientsRepository.findAll());
         return "view_all";
     }
 
