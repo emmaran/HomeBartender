@@ -1,42 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org/">
+<html xmlns:th="http://www.thymeleaf.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org/ ">
 <head>
-    <meta charset="UTF-8">
-    <title>Search</title>
+    <meta charset="UTF-8"/>
+    <title>Search Recipes</title>
 </head>
 <body>
-
+    <h1>Search Recipes</h1>
 <div class="container body-content">
-    <h1>Search for Recipes</h1>
+
+    <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
 
     <form th:action="@{/search/results}" method="post">
 
         <div class="input-group">
             <label th:for="searchTerm">Search:</label>
-            <input type="text" class="form-control" th:name="searchTerm" aria-label="Text input with segmented dropdown button" placeholder="Type text here..." readonly>
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select</button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" th:name="byKeyword">Search by Keyword</a>
-                    <a class="dropdown-item" th:name="byIngredient">Search by Ingredient</a>
-                     <div role="separator" class="dropdown-divider"></div>
-                    <a class="dropdown-item" th:name="isAlcoholic">Search Mocktails</a>
-                 </div>
+            <input type="text" class="form-control" name="searchTerm"
+                   aria-label="Text input with segmented dropdown button" placeholder="text here...">
+            <select class="custom-select" name="searchType">
+                <option selected>Select Search Type</option>
+                <option name="byKeyword">Keyword</option>
+                <option name="byIngredient">Ingredient</option>
+                <option name="isAlcholic">Search Mocktails</option>
+            </select>
+            <hr/>
+            <button type="button" class="btn btn-primary btn-lg btn-block">Submit</button>
         </div>
-    <input type="submit" value="Search"/>
-        </div>
+
 
     </form>
 
-    <hr />
+    <div>
+        <ol>
+            <a>
+            <li th:each ="Cocktail: ${results}" th:text = "${Cocktail.strDrink}"></li>
+            </a>
+        </ol>
 
-    <table class="search results">
-        <tr>
-            <td>
-
-            </td>
-        </tr>
-    </table>
+    </div>
 
 
 </div>
