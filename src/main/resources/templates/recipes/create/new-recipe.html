@@ -10,7 +10,7 @@
     <div class="row g-3">
         <div class="col-sm-6">
 
-                <!--                <input type="hidden" th:value="${recipe.id}" name="recipe-id" />-->
+                <!--                <input type="hidden" th:value="${userRecipe.id}" name="userRecipe-id" />-->
 
                 <!--   ---- RECIPE NAME ----    -->
                 <div class="pb-5">
@@ -20,7 +20,7 @@
 
                 <!--   ---- RECIPE IMAGE ----    -->
                 <!--                <div class="pb-5">-->
-                <!--                        <label for="formFile" class="form-label">Recipe Image</label>-->
+                <!--                        <label for="formFile" class="form-label">UserRecipe Image</label>-->
                 <!--                        <input class="form-control" type="file" id="formFile">-->
                 <!--                </div>-->
 
@@ -30,7 +30,7 @@
                     <div id="ingredient-forms"
                          th:ingredient-count="${recipeForm.ingredientForms.size()}">
                         <th:block th:each="ingredient, iter : ${recipeForm.ingredientForms}">
-                            <div th:replace="recipe/create/add-ingredient :: add-ingredient-form(index=${iter.index}, holdRecipeName='recipeForm')">
+                            <div th:replace="userRecipe/create/add-ingredient :: add-ingredient-form(index=${iter.index}, holdRecipeName='recipeForm')">
                             </div>
                         </th:block>
                     </div>
@@ -50,7 +50,7 @@
                     <div id="instruction-forms"
                          th:instruction-count="${recipeForm.instructionForms.size()}">
                         <th:block th:each="instruction, iter : ${recipeForm.instructionForms}">
-                            <div th:replace="recipe/create/add-instruction :: add-instruction-form(instructionIndex=${iter.index}, holdRecipeName2='recipeForm')">
+                            <div th:replace="userRecipe/create/add-instruction :: add-instruction-form(instructionIndex=${iter.index}, holdRecipeName2='recipeForm')">
                             </div>
                         </th:block>
                     </div>
@@ -102,7 +102,7 @@
 
         </div>
         <!--        <div class="col-sm-2"></div>-->
-        <!--        <div class="col-sm">Recipe Preview</div>-->
+        <!--        <div class="col-sm">UserRecipe Preview</div>-->
     </div>
 </div>
 

@@ -1,5 +1,7 @@
 package org.launchcode.HomeBartender.models;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -7,8 +9,10 @@ import java.util.ArrayList;
 public class CreateRecipeFormData extends AbstractEntity {
 
     @NotBlank
-    @Size(min = 3, max = 50, message = "Recipe Name must be between 3 and 50 characters.")
+    @Size(min = 3, max = 50, message = "UserRecipe Name must be between 3 and 50 characters.")
     private String name;
+
+    private MultipartFile userRecipeImage;
 
 //    @NotNull
 //    @Size(min=1)
@@ -46,6 +50,14 @@ public class CreateRecipeFormData extends AbstractEntity {
         this.name = name;
     }
 
+    public MultipartFile getUserRecipeImage() {
+        return userRecipeImage;
+    }
+
+    public void setUserRecipeImage(MultipartFile userRecipeImage) {
+        this.userRecipeImage = userRecipeImage;
+    }
+
     public ArrayList<IngredientFormData> getIngredientForms() {
         return ingredientForms;
     }
@@ -77,8 +89,10 @@ public class CreateRecipeFormData extends AbstractEntity {
     public void setInstructions(ArrayList<String> instructions) {
         this.instructions = instructions;
     }
-//
-//    public ArrayList<UserIngredient> getIngredientsAsArrayList(Recipe recipe) {
+
+    //custom methods
+
+//    public ArrayList<UserIngredient> getIngredientsAsArrayList(UserRecipe recipe) {
 //
 //        for (int i=0; i < ingredientForms.size(); i++) {
 //            String newIngredientName = ingredientForms.get(i).getName();

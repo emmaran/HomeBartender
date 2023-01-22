@@ -7,11 +7,13 @@ import org.launchcode.HomeBartender.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -31,9 +33,9 @@ public class RecipeController {
 
     @GetMapping("/new-recipe")
     public String createNewRecipe(Model model) {
-        model.addAttribute("title", "Create Recipe");
-        model.addAttribute("h1", "Recipe Name");
-        model.addAttribute("lead", "Woo! New recipe! Give it a name.");
+        model.addAttribute("title", "Create A New Recipe");
+        model.addAttribute("h1", "Create a new recipe");
+//        model.addAttribute("lead", "Add another drink recipe to your home menu. You'll just need a creative name, the yummy ingredients, and some helpful steps!");
         model.addAttribute("recipeForm", new CreateRecipeFormData());
 
         return "recipes/create/build-recipe";
@@ -62,67 +64,108 @@ public class RecipeController {
     }
 
     @PostMapping("/new-recipe")
-    public String processNewRecipe(@ModelAttribute("recipeForm") CreateRecipeFormData recipeFormData, Errors errors, Model model) {
+    public String processNewRecipe(@ModelAttribute("recipeForm") CreateRecipeFormData recipeFormData,
+                                   @RequestParam("userRecipeImage") MultipartFile multipartFile,
+                                   Errors errors, Model model) throws IOException {
         if (errors.hasErrors()) {
             System.out.println(errors);
             System.out.println("end errors");
             return "recipes/create/build-recipe";
         }
 
-        Recipe newRecipe = new Recipe();
-        newRecipe.setName(recipeFormData.getName());
+        // create new User Recipe
+        UserRecipe newUserRecipe = new UserRecipe();
 
+        // get and set Name from form
+        newUserRecipe.setName(recipeFormData.getName());
+
+        // get Ingredients from form
         ArrayList<IngredientFormData> ingredientForms = recipeFormData.getIngredientForms();
-        
-        for (int i=0; i < ingredientForms.size(); i++) {
+
+        // for every Ingredient, set Ingredient Name and Recipe on new User Ingredient
+        // add User Ingredient to new User Recipe object
+        for (int i = 0; i < ingredientForms.size(); i++) {
             String newIngredientName = ingredientForms.get(i).getName();
             UserIngredient newIngredient = new UserIngredient();
             newIngredient.setName(newIngredientName);
-            newIngredient.setRecipe(newRecipe);
+            newIngredient.setRecipe(newUserRecipe);
 
-            newRecipe.addIngredient(newIngredient);
+            newUserRecipe.addIngredient(newIngredient);
         }
 
+        // get Instructions from form
         ArrayList<InstructionFormData> instructionForms = recipeFormData.getInstructionForms();
 
-        for (int j=0; j < instructionForms.size(); j++) {
+        // for every Instruction, set Instruction Name and Recipe on new User Instruction
+        // add User Instruction to new User Recipe object
+        for (int j = 0; j < instructionForms.size(); j++) {
             String newInstructionDescription = instructionForms.get(j).getDescription();
             UserInstruction newInstruction = new UserInstruction();
             newInstruction.setDescription(newInstructionDescription);
-            newInstruction.setRecipe(newRecipe);
+            newInstruction.setRecipe(newUserRecipe);
 
-            newRecipe.addInstruction(newInstruction);
-        }
-
-        userRecipeRepository.save(newRecipe);
-        
-        for (int k=0; k < newRecipe.getIngredients().size(); k++) {
-            userIngredientRepository.save(newRecipe.getIngredients().get(k));
-        }
-
-        for (int l=0; l < newRecipe.getInstructions().size(); l++) {
-            userInstructionRepository.save(newRecipe.getInstructions().get(l));
+            newUserRecipe.addInstruction(newInstruction);
         }
 
 
-        return "redirect:/my_recipes";
+        // check for Image in form
+        // if Image exists, get file name
+        // set Image on new User Recipe object
+        // if Images does NOT exist, set Image to null on new User Recipe object
+        if (!multipartFile.isEmpty()) {
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            newUserRecipe.setImage(fileName);
+
+            // assign a variable for Saved Recipe in User Recipe Repository
+            UserRecipe savedRecipe = userRecipeRepository.save(newUserRecipe);
+
+            // get Ingredients and Instructions from Saved Recipe, and save to repositories
+            saveIngredientsAndInstructionsToRepository(savedRecipe);
+
+        } else if (recipeFormData.getUserRecipeImage().isEmpty()) {
+            newUserRecipe.setImage(null);
+
+            // assign a variable for Saved Recipe in User Recipe Repository
+            UserRecipe savedRecipe = userRecipeRepository.save(newUserRecipe);
+
+            // get Ingredients and Instructions from Saved Recipe, and save to repositories
+            saveIngredientsAndInstructionsToRepository(savedRecipe);
+
+        }
+
+        return "/my_recipes";
+
     }
 
-    @GetMapping("/view/{recipeId}")
-    public String viewUserRecipe(Model model, @PathVariable int recipeId) {
-        Recipe recipeToView = userRecipeRepository.findById(recipeId).get();
-        model.addAttribute("recipe", recipeToView);
+    public void saveIngredientsAndInstructionsToRepository(UserRecipe userRecipe) {
 
-        String recipeName = recipeToView.getName();
-        List<UserIngredient> ingredients = recipeToView.getIngredients();
-        List<UserInstruction> instructions = recipeToView.getInstructions();
+        for (int k = 0; k < userRecipe.getIngredients().size(); k++) {
+            userIngredientRepository.save(userRecipe.getIngredients().get(k));
+        }
 
-        model.addAttribute("title", recipeName);
-        model.addAttribute("h1", recipeName);
-        model.addAttribute("lead", "Recipe description.");
-        model.addAttribute("ingredients", ingredients);
-        model.addAttribute("instructions", instructions);
+        for (int l = 0; l < userRecipe.getInstructions().size(); l++) {
+            userInstructionRepository.save(userRecipe.getInstructions().get(l));
+        }
+
+    }
+
+    @GetMapping("/view")
+    public String viewUserRecipe(Model model, @RequestParam Integer recipeId) {
+
+        // get User Recipe to view
+        Optional<UserRecipe> result = userRecipeRepository.findById(recipeId);
+
+        // check if valid
+        if (result.isEmpty()) {
+
+        } else {
+            UserRecipe recipe = result.get();
+            model.addAttribute("title", recipe.getName());
+            model.addAttribute("recipe", recipe);
+
+        }
 
         return "recipes/view/view-user-recipe";
     }
+
 }

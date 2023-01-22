@@ -4,9 +4,36 @@
 <body>
 <nav th:replace="fragments :: nav"></nav>
 
-<header th:replace="fragments :: header"></header>
+<header style="background-color: #151019" class="py-5">
+    <div class="container px-5">
+        <div class="row gx-5 align-items-center justify-content-center">
 
-<>
+            <div class="col-lg-8 col-xl-7 col-xxl-6">
+                <div class="my-5 text-center text-xl-start">
+                    <h1 class="display-5 fw-bolder text-white mb-2" th:text="${recipe.name}"></h1>
+                </div>
+            </div>
+
+            <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                <img class="img-fluid rounded-3 my-5"
+                     th:src="@{'/images/' + ${recipe.getId()}} + '/' + ${recipe.getImage()}"/>
+            </div>
+
+        </div>
+    </div>
+</header>
+<h1 th:text="${h1}" class="h1"></h1>
+<div class="container">
+    <div class="row">
+        <div class="row g-6">
+
+            <p th:text="${recipe.name}"></p>
+            <h3 th:text="${recipe.id}"></h3>
+
+
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

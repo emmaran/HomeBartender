@@ -3,7 +3,6 @@ package org.launchcode.HomeBartender.models;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @Entity
 public class UserInstruction extends AbstractEntity {
@@ -13,10 +12,10 @@ public class UserInstruction extends AbstractEntity {
     private String description;
 
     @ManyToOne
-    private Recipe recipe;
+    private UserRecipe recipe;
 
 
-    public UserInstruction(String description, Recipe recipe) {
+    public UserInstruction(String description, UserRecipe recipe) {
         this.description = description;
         this.recipe = recipe;
     }
@@ -35,12 +34,12 @@ public class UserInstruction extends AbstractEntity {
         this.description = description;
     }
 
-    public Recipe getRecipe() {
+    public UserRecipe getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
+    public void setRecipe(UserRecipe userRecipe) {
+        this.recipe = userRecipe;
     }
 
     @Override
