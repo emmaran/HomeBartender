@@ -4,36 +4,52 @@
 <body>
 <nav th:replace="fragments :: nav"></nav>
 
-<header style="background-color: #151019" class="py-5">
+<header style="background-color: #151019" class="py-3">
     <div class="container px-5">
         <div class="row gx-5 align-items-center justify-content-center">
 
             <div class="col-lg-8 col-xl-7 col-xxl-6">
                 <div class="my-5 text-center text-xl-start">
                     <h1 class="display-5 fw-bolder text-white mb-2" th:text="${recipe.name}"></h1>
+                    <p class="h2 white mb-4 opacity-50" th:text="${recipe.description}"></p>
                 </div>
             </div>
 
             <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-                <img class="img-fluid rounded-3 my-5"
-                     th:src="@{'/images/' + ${recipe.getId()}} + '/' + ${recipe.getImage()}"/>
+                <img class="preview rounded-3 my-5"
+                     src="https://images.pexels.com/photos/5097049/pexels-photo-5097049.jpeg"/>
             </div>
 
         </div>
     </div>
 </header>
-<h1 th:text="${h1}" class="h1"></h1>
-<div class="container">
-    <div class="row">
-        <div class="row g-6">
-
-            <p th:text="${recipe.name}"></p>
-            <h3 th:text="${recipe.id}"></h3>
 
 
+<div class="container px-5 py-3 pb-5">
+    <div class="row gx-5">
+
+        <div class="col-lg-8 col-xl-7 col-xxl-6">
+            <div class="my-5 text-center text-xl-start">
+                <ol class="lead">
+                    <li th:each="instruction : ${recipe.instructions}" th:text="${instruction}"
+                        class="pb-3"></li>
+                </ol>
+            </div>
         </div>
+
+        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+            <div class="ps-3 my-5 text-center text-xl-start border-start">
+                <div class="fw-bold pb-2"
+                     th:each="ingredient : ${recipe.ingredients}"
+                     th:text="${ingredient}">
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
+
 </body>
+<footer th:replace="fragments :: footer"></footer>
 </html>

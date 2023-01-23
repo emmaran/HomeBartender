@@ -393,5 +393,10 @@ h1, .h1 {
 
 /*   ****  IMAGE UPLOAD PREVIEW  ****   */
 .preview {
-    width: 100%;
+    max-height: 230px;
+}
+
+/*   ****  WHITE TEXT  ****   */
+.white {
+    color: #FFFFFF;
 }

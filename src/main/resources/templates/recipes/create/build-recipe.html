@@ -26,6 +26,15 @@
                     <input type="text" class="form-control" th:field="${recipeForm.name}" id="name" placeholder="Recipe Name">
                 </div>
 
+                <div class="pb-5">
+                    <label class="form-label">Description</label>
+                    <textarea type="text"
+                          class="form-control"
+                          th:field="${recipeForm.description}"
+                          placeholder="Write a short description of your drink.">
+                    </textarea>
+                </div>
+
                 <!--   ---- RECIPE IMAGE ----    -->
                 <div class="pb-5">
 
@@ -34,7 +43,7 @@
                             th:field="${recipeForm.userRecipeImage}" accept="image/png, image/jpeg"
                             onchange="previewImage(event);">
 
-                    <div class="preview mt-5">
+                    <div class="mt-5">
                         <div class="border rounded p-3 img-fluid">
                             <img id="preview-selected-image" src="https://www.dropbox.com/s/y8e76zkc72oxp7z/img-preview.svg?raw=1" class="opacity-75"/>
                         </div>

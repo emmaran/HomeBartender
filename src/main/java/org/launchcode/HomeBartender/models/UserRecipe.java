@@ -16,6 +16,8 @@ public class UserRecipe extends AbstractEntity {
     @Size(min = 3, max = 50, message = "Recipe Name must be between 3 and 50 characters.")
     private String name;
 
+    private String description;
+
     private String image;
 
     private String imagePath;
@@ -31,8 +33,9 @@ public class UserRecipe extends AbstractEntity {
         this.name = name;
     }
 
-    public UserRecipe(String name, List<UserIngredient> ingredients, List<UserInstruction> instructions) {
+    public UserRecipe(String name, String description, List<UserIngredient> ingredients, List<UserInstruction> instructions) {
         this.name = name;
+        this.description = description;
         this.ingredients = ingredients;
         this.instructions = instructions;
     }
@@ -46,6 +49,14 @@ public class UserRecipe extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getImage() {

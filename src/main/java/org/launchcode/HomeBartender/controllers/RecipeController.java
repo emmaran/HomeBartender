@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -78,6 +83,7 @@ public class RecipeController {
 
         // get and set Name from form
         newUserRecipe.setName(recipeFormData.getName());
+        newUserRecipe.setDescription(recipeFormData.getDescription());
 
         // get Ingredients from form
         ArrayList<IngredientFormData> ingredientForms = recipeFormData.getIngredientForms();
@@ -119,6 +125,17 @@ public class RecipeController {
             // assign a variable for Saved Recipe in User Recipe Repository
             UserRecipe savedRecipe = userRecipeRepository.save(newUserRecipe);
 
+//            // create path
+//            String uploadDir = "./images/" + savedRecipe.getId();
+//            Path uploadPath = Paths.get(uploadDir);
+//
+//            try (InputStream inputStream = multipartFile.getInputStream()) {
+//                Path filePath = uploadPath.resolve(fileName);
+//                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+//            } catch (IOException e) {
+//                throw new IOException("Could not save uploaded file:" + fileName);
+//            }
+
             // get Ingredients and Instructions from Saved Recipe, and save to repositories
             saveIngredientsAndInstructionsToRepository(savedRecipe);
 
@@ -133,7 +150,7 @@ public class RecipeController {
 
         }
 
-        return "/my_recipes";
+        return "redirect:/my_recipes";
 
     }
 
