@@ -2,6 +2,8 @@ package org.launchcode.HomeBartender.models;
 
 import javax.annotation.ManagedBean;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
@@ -17,6 +19,10 @@ public class UserRecipe extends AbstractEntity {
     private String name;
 
     private String description;
+
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User author;
 
     private String image;
 
