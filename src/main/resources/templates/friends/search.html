@@ -18,40 +18,14 @@
 
         <div class="input-group">
             <label th:for="friendName">Enter a Friend's Name:</label>
-<!--            <input type="text" class="form-control" name="friendName">-->
+
             <input type="text" name="friendName" id="searchTerm" >
-<!--            <hr/>-->
-<!--              <button type="button" class="btn btn-primary btn-lg btn-block">Submit</button>-->
+
             <input type="submit" value="Search" >
         </div>
 
     </form>
 
-<!--    <div class="input-group">-->
-<!--        <label th:for="searchTerm">Search:</label>-->
-<!--        <input type="text" class="form-control" name="searchTerm"-->
-<!--               aria-label="Text input with segmented dropdown button" placeholder="text here...">-->
-<!--        <select class="custom-select" name="searchType">-->
-<!--            <option selected>Select Search Type</option>-->
-<!--            <option name="byKeyword">Keyword</option>-->
-<!--            <option name="byIngredient">Ingredient</option>-->
-<!--            <option name="isAlcholic">Search Mocktails</option>-->
-<!--        </select>-->
-<!--        <hr/>-->
-<!--        <button type="button" class="btn btn-primary btn-lg btn-block">Submit</button>-->
-<!--    </div>-->
-
-
-</div>
-
-    <div>
-        <ol>
-<!--            <li th:each="friend : ${friends}" >-->
-<!--                <a th:href="@${'searchFriends/results/'}" th:text="${friend.userName}"></a>-->
-<!--            </li>-->
-        </ol>
-
-    </div>
 
 </body>
 <footer th:replace="fragments :: footer"></footer>

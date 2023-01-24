@@ -19,7 +19,6 @@
                     <div th:each="recipe : ${allRecipes}" >
                         <p th:if="${recipe.cocktails.id} == ${cocktail.id}">
                         <span><img th:src="${recipe.strDrinkThumb}" width="200" height="200"></span>
-    <!--                        <span th:text="${recipe.strInstructions}"></span>-->
                         </p>
                     </div>
                 </div>

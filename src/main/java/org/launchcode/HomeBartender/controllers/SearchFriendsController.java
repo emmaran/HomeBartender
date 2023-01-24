@@ -41,6 +41,12 @@ public class SearchFriendsController {
             if(friendName.toLowerCase().equals(friend.getUserName())){
                 friends.add(friend);
             }
+//            if(friendName.toLowerCase() != friend.getUserName()){
+//                return ""
+//            }
+            if(friendName.isBlank()){
+                return "redirect: /searchFriends";
+            }
         }
 //        if(friendName.toLowerCase().equals("searchTerm")){
 //            for(User friend : friendsList) {

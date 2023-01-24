@@ -50,14 +50,14 @@ public class MyDrinksController {
 //        model.addAttribute("username", username);
 
         model.addAttribute("recipes", userRecipeRepository.findAll());
-//        Iterable<Recipe> myRecipes = userRecipeRepository.findAll();
+
         return "/index";
     }
 
     //shows all the recipes the user created
     @RequestMapping("my_recipes")
     public String myRecipes(Model model){
-//        model.addAttribute("recipe", userRecipeRepository.findAll());
+        model.addAttribute("recipe", userRecipeRepository.findAll());
         return "my_recipes";
     }
 
