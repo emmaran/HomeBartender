@@ -1,18 +1,17 @@
 package org.launchcode.HomeBartender.controllers;
 
-import org.launchcode.HomeBartender.data.LoginData;
-import org.launchcode.HomeBartender.data.UserRecipeRepository;
-import org.launchcode.HomeBartender.data.UserRepository;
+import org.launchcode.HomeBartender.Repositories.UserRecipeRepository;
+import org.launchcode.HomeBartender.Repositories.UserRepository;
 import org.launchcode.HomeBartender.models.User;
-import org.launchcode.HomeBartender.models.dto.LoginFormDTO;
+import org.launchcode.HomeBartender.data.LoginFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import static org.launchcode.HomeBartender.controllers.AuthenticationController.setUserInSession;
@@ -37,7 +36,7 @@ public class LoginController {
     @PostMapping("login")
     public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO,
                                    Errors errors, HttpServletRequest request,
-                                   Model model) {
+                                   Model model, HttpSession session) {
         if (errors.hasErrors()) {
             errors.rejectValue("username", "user.invalid", "ERROR ONE");
             model.addAttribute("title", "Log In");
@@ -62,7 +61,8 @@ public class LoginController {
             return "login";
         }
 
-        setUserInSession(request.getSession(), theUser);
+//        setUserInSession(request.getSession(), theUser);
+        session.setAttribute("username",loginFormDTO.getUsername() );
 
 
         model.addAttribute("username", theUser.getUserName());
@@ -77,30 +77,4 @@ public class LoginController {
         return "redirect:/login";
     }
 
-//    this is what I had before chapter 19.
 }
-//    @Autowired
-//    UserRepository userRepository;
-//    @RequestMapping("login")
-//    @ResponseBody
-//    public String index() {
-//        return "form";
-//    }
-////    need to code to display form
-//@GetMapping("login")
-//public String renderFormMethodName(Model model) {
-//
-//    return "login";
-//
-//}
-//
-//@PostMapping
-//public void addLogin(@ModelAttribute LoginData loginData) {
-//User user = userRepository.findByUserName(loginData.getUserName());
-//};
-
-////Aaron suggested using this.
-////localStorage.getItem('UserID');
-//
-//}
-
