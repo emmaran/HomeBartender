@@ -1,10 +1,12 @@
 package org.launchcode.HomeBartender.controllers;
 
 import org.launchcode.HomeBartender.data.LoginData;
+import org.launchcode.HomeBartender.data.UserRecipeRepository;
 import org.launchcode.HomeBartender.data.UserRepository;
 import org.launchcode.HomeBartender.models.User;
 import org.launchcode.HomeBartender.models.dto.LoginFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -21,6 +23,10 @@ public class LoginController {
 //    I added lines 22-23 to connect it with users on 1/17
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserRecipeRepository userRecipeRepository;
+
     @GetMapping("login")
     public String displayLoginForm(Model model) {
         model.addAttribute(new LoginFormDTO());
@@ -58,6 +64,10 @@ public class LoginController {
 
         setUserInSession(request.getSession(), theUser);
 
+
+        model.addAttribute("username", theUser.getUserName());
+
+        model.addAttribute("recipes", userRecipeRepository.findAll());
         return "index";
     }
 
