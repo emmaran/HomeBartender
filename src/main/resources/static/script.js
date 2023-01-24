@@ -57,4 +57,16 @@ const previewImage = (event) => {
 
 }
 
+    function updateCharCount(input) {
+        // Get the maxlength attribute value
+        var maxLength = input.getAttribute("maxlength");
 
+        // Get the current length of the input value
+        var currentLength = input.value.length;
+
+        // Calculate the remaining characters
+        var remaining = maxLength - currentLength;
+
+        // Update the character count
+        document.getElementById("charsLeft").innerHTML = remaining+"/255";
+    }

@@ -416,3 +416,42 @@ h1, .h1 {
 .drinksTitle{
     text-align: center;
 }
+
+
+
+
+.reviews{
+border: 2px solid black;
+margin: 15px;
+width: 50%
+}
+
+.textField{
+padding: 10px;
+white-space: normal;
+word-wrap: break-word;
+}
+
+.reviewForm{
+margin: 15px;
+}
+
+.submitReview{
+color:white;
+background-color: black;
+transition: background-color 0.5s ease;
+}
+
+.submitReview:hover{
+background-color: green;
+}
+
+.deleteReview{
+background-color:red;
+color: white;
+transition: background-color 0.5s ease;
+}
+
+.deleteReview:hover{
+ background-color:darkred;
+ }
