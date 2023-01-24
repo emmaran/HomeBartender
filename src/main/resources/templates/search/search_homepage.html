@@ -6,36 +6,37 @@
     <title>Search Recipes</title>
 </head>
 <body>
-    <h1>Search Recipes</h1>
+<h1>Search Recipes</h1>
 <div class="container body-content">
 
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
 
-    <form th:action="@{/search/results}" method="post">
-
+    <form th:action="@{/search/results}" th:object="${searchData}" method="post">
+        <div th:if="${#fields.hasErrors('searchType')}" th:errors="*{searchType}">Error</div>
         <div class="input-group">
             <label th:for="searchTerm">Search:</label>
             <input type="text" class="form-control" name="searchTerm"
-                   aria-label="Text input with segmented dropdown button" placeholder="text here...">
-            <select class="custom-select" name="searchType">
-                <option selected>Select Search Type</option>
-                <option name="byKeyword">Keyword</option>
-                <option name="byIngredient">Ingredient</option>
-                <option name="isAlcholic">Search Mocktails</option>
+                   aria-label="Text input with segmented dropdown button" placeholder="text here..." required>
+                <div th:if="${#fields.hasErrors('searchTerm')}" th:errors="*{searchTerm}">Error</div>
+            <select class="custom-select" name="searchType" required>
+                <option value="">Select Search Type</option>
+                <option value="keyword">Keyword</option>
+                <option value="ingredient">Ingredient</option>
+                <option value="isAlcholic">Search Mocktails</option>
             </select>
             <hr/>
-            <button type="button" class="btn btn-primary btn-lg btn-block">Submit</button>
+            <input type="submit" value="Submit">
         </div>
 
 
     </form>
 
     <div>
-        <ol>
-            <a>
-            <li th:each ="Cocktail: ${results}" th:text = "${Cocktail.strDrink}"></li>
-            </a>
+       <!-- <ol th:if="${results.size()}"> -->
+            <li th:each ="Cocktail: ${results}" th:text = "${Cocktail.strDrink}">No Results!</li>
         </ol>
+
+      <!-- <h1 th:unless="${results.size()}">No Results!</h1> -->
 
     </div>
 
