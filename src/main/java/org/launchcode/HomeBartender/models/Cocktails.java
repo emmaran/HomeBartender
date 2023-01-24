@@ -38,4 +38,8 @@ public class Cocktails {
     public void setStrDrink(String strDrink) {
         this.strDrink = strDrink;
     }
+
+    public int getId() {
+        return id;
+    }
 }

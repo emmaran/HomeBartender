@@ -400,3 +400,19 @@ h1, .h1 {
 .white {
     color: #FFFFFF;
 }
+
+
+/*  ***** Styling for View All ***** */
+.columns {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  justify-content: space-evenly;
+  text-align: center;
+}
+.boxes{
+    border-style:double;
+}
+
+.drinksTitle{
+    text-align: center;
+}

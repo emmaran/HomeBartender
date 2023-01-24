@@ -6,9 +6,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Friends extends AbstractEntity{
 
-//    @ManyToOne
-//    @JoinColumn(name="user_id")
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
 
     @NotNull
@@ -26,7 +26,6 @@ public class Friends extends AbstractEntity{
     public Friends(){
 
     }
-
 
     public String getName() {
         return name;

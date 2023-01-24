@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: nav"></nav>
+
+<header th:replace="fragments :: header"></header>
+
+<h3>Friends Search Results</h3>
+
+
+<!--<div class="recipes">-->
+<!--  <tr th:each="friend : ${friends}">-->
+<!--    <div class="card" style="width: 18rem;">-->
+<!--      &lt;!&ndash;                    <img src="..." class="card-img-top" alt="...">&ndash;&gt;-->
+<!--      <div class="card-body">-->
+<!--        <h5 class="card-title" th:text="${myRecipe.name}"></h5>-->
+<!--        <p class="card-text" th:text="${myRecipe.ingredients}"></p>-->
+<!--        <p class="card-text" th:text="${myRecipe.instructions}"></p>-->
+<!--        &lt;!&ndash;                    <a href="#" class="btn btn-primary">See Full Recipe</a>&ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </tr>-->
+
+<div>
+  <ol th:each="friend : ${friends}">
+    <li th:text = "${friend.userName}"></li>
+  </ol>
+</div>
+<br>
+<a th:href="@{/searchFriends}">Return to Search</a>
+
+</body>
+<footer th:replace="fragments :: footer"></footer>
+</html>
