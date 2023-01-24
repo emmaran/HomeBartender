@@ -2,6 +2,9 @@ package org.launchcode.HomeBartender.models;
 
 import javax.annotation.ManagedBean;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotEmpty;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -9,30 +12,41 @@ import java.util.List;
 
 @ManagedBean
 @Entity
-public class Recipe extends AbstractEntity {
+public class UserRecipe extends AbstractEntity {
 
-//    @NotEmpty
+    @NotEmpty
     @Size(min = 3, max = 50, message = "Recipe Name must be between 3 and 50 characters.")
     private String name;
 
-//    @Size(min=1)
+    private String description;
+
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User author;
+
+    private String image;
+
+    private String imagePath;
+
     @OneToMany(mappedBy = "recipe")
     private List<UserIngredient> ingredients = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe")
     private List<UserInstruction> instructions = new ArrayList<>();
 
-    public Recipe(String name) {
+
+    public UserRecipe(String name) {
         this.name = name;
     }
 
-    public Recipe(String name, List<UserIngredient> ingredients, List<UserInstruction> instructions) {
+    public UserRecipe(String name, String description, List<UserIngredient> ingredients, List<UserInstruction> instructions) {
         this.name = name;
+        this.description = description;
         this.ingredients = ingredients;
         this.instructions = instructions;
     }
 
-    public Recipe() {
+    public UserRecipe() {
     }
 
     public String getName() {
@@ -41,6 +55,30 @@ public class Recipe extends AbstractEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public List<UserIngredient> getIngredients() {
@@ -58,7 +96,9 @@ public class Recipe extends AbstractEntity {
     }
 
 
-    //~~~~~~~~~     CUSTOM METHODS     ~~~~~~~~~
+
+        //~~~~~~~~~     CUSTOM METHODS     ~~~~~~~~~
+
     public void addIngredient(UserIngredient ingredient) {
         ingredients.add(ingredient);
     }
@@ -69,3 +109,4 @@ public class Recipe extends AbstractEntity {
 
 
 }
+

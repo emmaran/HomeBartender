@@ -167,6 +167,11 @@ input:focus {
     focus-shadow: 0 0 0.05rem 0.15rem #e3d4ff;
 }
 
+input[type=file]::file-selector-button {
+  background-color: #FFFFFF;
+  border-color: #856AAC;
+}
+
 
 /*   ****  BUTTON  ****   */
 
@@ -245,7 +250,6 @@ input:focus {
 /*  *******************************************
     ************* CUSTOM ELEMENTS *************
     *******************************************  */
-
 
 /*   ****  BUTTON-NAV  ****   */
 
@@ -385,6 +389,16 @@ h1, .h1 {
     color: #151019;
       font-size: 1.25rem;
       font-weight: 300;
+}
+
+/*   ****  IMAGE UPLOAD PREVIEW  ****   */
+.preview {
+    max-height: 230px;
+}
+
+/*   ****  WHITE TEXT  ****   */
+.white {
+    color: #FFFFFF;
 }
 
 

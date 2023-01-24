@@ -13,10 +13,10 @@ public class UserIngredient extends AbstractEntity {
     private String name;
 
     @ManyToOne
-    private Recipe recipe;
+    private UserRecipe recipe;
 
 
-    public UserIngredient(String name, Recipe recipe) {
+    public UserIngredient(String name, UserRecipe recipe) {
         this.name = name;
         this.recipe = recipe;
     }
@@ -35,12 +35,12 @@ public class UserIngredient extends AbstractEntity {
         this.name = name;
     }
 
-    public Recipe getRecipe() {
+    public UserRecipe getRecipe() {
         return recipe;
     }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
+    public void setRecipe(UserRecipe userRecipe) {
+        this.recipe = userRecipe;
     }
 
     @Override
