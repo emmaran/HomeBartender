@@ -12,12 +12,16 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -35,6 +39,9 @@ public class RecipeController {
     @Autowired
     private UserInstructionRepository userInstructionRepository;
 
+    @Autowired
+    AuthenticationController authenticationController;
+
 
     @GetMapping("/new-recipe")
     public String createNewRecipe(Model model) {
@@ -42,6 +49,10 @@ public class RecipeController {
         model.addAttribute("h1", "Create a new recipe");
 //        model.addAttribute("lead", "Add another drink recipe to your home menu. You'll just need a creative name, the yummy ingredients, and some helpful steps!");
         model.addAttribute("recipeForm", new CreateRecipeFormData());
+
+//        HttpSession session = request.getSession();
+//        User user = authenticationController.getUserFromSession(session);
+//        model.addAttribute("user", user);
 
         return "recipes/create/build-recipe";
     }
@@ -71,6 +82,7 @@ public class RecipeController {
     @PostMapping("/new-recipe")
     public String processNewRecipe(@ModelAttribute("recipeForm") CreateRecipeFormData recipeFormData,
                                    @RequestParam("userRecipeImage") MultipartFile multipartFile,
+                                   HttpServletRequest request,
                                    Errors errors, Model model) throws IOException {
         if (errors.hasErrors()) {
             System.out.println(errors);
@@ -80,6 +92,11 @@ public class RecipeController {
 
         // create new User Recipe
         UserRecipe newUserRecipe = new UserRecipe();
+
+        // get and set User
+        HttpSession session = request.getSession();
+        User user = authenticationController.getUserFromSession(session);
+        newUserRecipe.setAuthor(user);
 
         // get and set Name from form
         newUserRecipe.setName(recipeFormData.getName());
@@ -169,6 +186,12 @@ public class RecipeController {
     @GetMapping("/view")
     public String viewUserRecipe(Model model, @RequestParam Integer recipeId) {
 
+        //test
+//        HttpSession session = request.getSession();
+//        User user = authenticationController.getUserFromSession(session);
+//        model.addAttribute("username", user.getUserName());
+
+
         // get User Recipe to view
         Optional<UserRecipe> result = userRecipeRepository.findById(recipeId);
 
@@ -179,6 +202,7 @@ public class RecipeController {
             UserRecipe recipe = result.get();
             model.addAttribute("title", recipe.getName());
             model.addAttribute("recipe", recipe);
+            model.addAttribute("author", recipe.getAuthor().getUserName());
 
         }
 

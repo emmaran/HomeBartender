@@ -20,9 +20,8 @@ public class UserRecipe extends AbstractEntity {
 
     private String description;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User author;
+    @ManyToOne
+    private User author;
 
     private String image;
 
@@ -63,6 +62,14 @@ public class UserRecipe extends AbstractEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public String getImage() {

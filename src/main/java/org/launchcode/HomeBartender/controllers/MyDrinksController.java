@@ -6,7 +6,6 @@ import org.launchcode.HomeBartender.Repositories.RecipeRepository;
 import org.launchcode.HomeBartender.data.UserIngredientRepository;
 import org.launchcode.HomeBartender.data.UserRecipeRepository;
 import org.launchcode.HomeBartender.data.UserRepository;
-import org.launchcode.HomeBartender.models.Recipe;
 import org.launchcode.HomeBartender.models.User;
 import org.launchcode.HomeBartender.models.dto.LoginFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
