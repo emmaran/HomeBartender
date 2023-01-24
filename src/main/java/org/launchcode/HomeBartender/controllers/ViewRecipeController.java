@@ -1,0 +1,105 @@
+package org.launchcode.HomeBartender.controllers;
+
+import org.launchcode.HomeBartender.Repositories.CocktailRepository;
+import org.launchcode.HomeBartender.Repositories.IngredientsRepository;
+import org.launchcode.HomeBartender.Repositories.RecipeRepository;
+import org.launchcode.HomeBartender.Repositories.ReviewRepository;
+import org.launchcode.HomeBartender.data.CocktailData;
+import org.launchcode.HomeBartender.data.ReviewData;
+import org.launchcode.HomeBartender.models.Cocktails;
+import org.launchcode.HomeBartender.models.Recipes;
+import org.launchcode.HomeBartender.models.Review;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.time.LocalDate;
+
+@Controller
+public class ViewRecipeController {
+
+    @Autowired
+    private CocktailRepository cocktailRepository;
+    @Autowired
+    private IngredientsRepository ingredientsRepository;
+    @Autowired
+    private RecipeRepository recipeRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+
+    @RequestMapping("/viewRecipes/{id}")
+    public String viewRecipeById(@PathVariable int id, Model model, HttpSession session)
+    {
+        String username = (String) session.getAttribute("username");
+
+        model.addAttribute("username", username);
+        Iterable<Cocktails> cocktails;
+        Iterable<Recipes> recipes;
+        cocktails = CocktailData.findById(id,cocktailRepository.findAll());
+        recipes = CocktailData.findByRId(id,recipeRepository.findAll());
+        model.addAttribute("reviewData", new ReviewData());
+        model.addAttribute("cocktails" , cocktails);
+        model.addAttribute("recipes" , recipes);
+        model.addAttribute("ingredients",ingredientsRepository.findAll());
+        model.addAttribute("reviews" , reviewRepository.findAll());
+        return "viewRecipes";
+    }
+
+    @RequestMapping("/review")
+    public String review(Model model, HttpSession session)
+    {
+        String username = (String) session.getAttribute("username");
+
+        model.addAttribute("username", username);
+        Iterable<Review> reviews;
+
+        model.addAttribute("reviews" , reviewRepository.findAll());
+        return "viewRecipes";
+    }
+
+    @PostMapping("/review/{id}")
+    public String enterReview(@PathVariable int id, @Valid @ModelAttribute("reviewData") ReviewData reviewData, BindingResult bindingResult, Model model, HttpSession session) {
+        LocalDate currentDate =  LocalDate.now();
+        String username = (String) session.getAttribute("username");
+        Review review = new Review();
+        System.out.println("CocktailName from the form " + reviewData.getCocktailName());
+        System.out.println("username  from the form " + username);
+        review.setCocktailName(reviewData.getCocktailName());
+        review.setUserName(username);
+        review.setCocktailId(reviewData.getCocktailId());
+        review.setReview(reviewData.getReview());
+        review.setCurrentDate(currentDate);
+        reviewRepository.save(review);
+
+        model.addAttribute("user", username);
+        model.addAttribute("reviewData", new ReviewData());
+
+
+        return "redirect:/viewRecipes/"+id;
+    }
+
+    @RequestMapping("/deleteReview/{id}/{cocktailId}")
+    public String deleteReview(@PathVariable int id,@PathVariable int cocktailId,  Model model, HttpSession session) {
+
+        System.out.println("Are you getting here");
+
+
+        reviewRepository.deleteById(id);
+        String username = (String) session.getAttribute("username");
+
+        model.addAttribute("user", username);
+        model.addAttribute("reviewData", new ReviewData());
+
+
+        return "redirect:/viewRecipes/"+cocktailId;
+    }
+
+}
