@@ -98,7 +98,6 @@ public class ViewRecipeController {
         model.addAttribute("user", username);
         model.addAttribute("reviewData", new ReviewData());
 
-
         return "redirect:/viewRecipes/"+cocktailId;
     }
 
