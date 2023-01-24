@@ -52,7 +52,6 @@ public class SearchController {
         allIngredients = ingredientsRepository.findAll();
 
         if (searchData.getSearchType().equals("Select Search Type")) {
-            System.out.println("This is the SearchType: " + searchData.getSearchType());
             bindingResult.rejectValue("searchType", "error.searchType", "Must Select Search Type");
             model.addAttribute("searchData", new SearchData());
             return "/search/search_homepage";
@@ -63,6 +62,7 @@ public class SearchController {
             model.addAttribute("searchData", new SearchData());
             return "/search/search_homepage";
         }
+
         if (searchType.toLowerCase().equals("keyword")) {
             keywordSearchResults = new ArrayList<>();
             for (Cocktails cocktails: keywordResults) {
@@ -75,19 +75,16 @@ public class SearchController {
             return "/search/search_homepage";
 
         } else if (searchType.toLowerCase().equals("ingredient")) {
-            System.out.println("1. Right here!");
             keywordSearchResults = new ArrayList<>();
             cocktailResults = new ArrayList<>();
             ingredientSearchResults = new ArrayList<>();
-            System.out.println("?");
             for (Ingredients ingredient: allIngredients) {
-                System.out.println("1.5 Right here!");
+
                 if (ingredient.getIngredient().toLowerCase().contains(searchTerm.toLowerCase())) {
                     System.out.println("2. Right here!");
                     ingredientSearchResults.add(ingredient);
                 }
             }
-            System.out.println(ingredientSearchResults.size());
 
             for (Ingredients ingred : ingredientSearchResults) {
                     Cocktails cocktails = ingred.getRecipes().getCocktails();

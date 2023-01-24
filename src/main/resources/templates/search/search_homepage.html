@@ -28,15 +28,11 @@
             <input type="submit" value="Submit">
         </div>
 
-
     </form>
 
     <div>
-       <!-- <ol th:if="${results.size()}"> -->
-            <li th:each ="Cocktail: ${results}" th:text = "${Cocktail.strDrink}">No Results!</li>
-        </ol>
-
-      <!-- <h1 th:unless="${results.size()}">No Results!</h1> -->
+        <p th:if="${results != null}">No Results!</p>
+            <li th:each ="Cocktail: ${results}" th:text = "${Cocktail.strDrink}"></li>
 
     </div>
 
