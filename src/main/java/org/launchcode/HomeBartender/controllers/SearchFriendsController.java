@@ -1,16 +1,20 @@
 package org.launchcode.HomeBartender.controllers;
 
 import org.launchcode.HomeBartender.data.UserRepository;
+import org.launchcode.HomeBartender.models.Friends;
 import org.launchcode.HomeBartender.models.User;
+import org.launchcode.HomeBartender.models.data.FriendsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("searchFriends")
@@ -19,9 +23,15 @@ public class SearchFriendsController {
     @Autowired
     UserRepository userRepository;
 
+//    @Autowired
+//    FriendsRepository friendsRepository;
+
+
     private String friendName;
 
     private ArrayList<User> userFriends = new ArrayList<>();
+
+
 
     @GetMapping("")
     public String search(Model model){
@@ -42,7 +52,7 @@ public class SearchFriendsController {
 //            if(friendName.toLowerCase() != friend.getUserName()){
 //                return ""
 //            }
-            if(friendName.isBlank()){
+            if(friendName.toLowerCase().isBlank()){
                 return "redirect: /searchFriends";
             }
         }

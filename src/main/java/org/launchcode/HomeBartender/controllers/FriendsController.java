@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("friends")
@@ -30,8 +31,23 @@ public class FriendsController {
     AuthenticationController authenticationController;
 
     @GetMapping("view")
-    public String list(Model model){
-        model.addAttribute("friends", friendsRepository.findAll());
+    public String list(Model model, HttpServletRequest request){
+
+
+        HttpSession session = request.getSession();
+        User user = authenticationController.getUserFromSession(session);
+
+        int id = user.getId();
+        Iterable<Friends> allFriends = friendsRepository.findAll();
+        ArrayList<Friends> friends = new ArrayList<>();
+
+        for(Friends friend : allFriends ){
+            if(friend.getUser().getId() == id ){
+                friends.add(friend);
+            }
+        }
+
+        model.addAttribute("friends", friends);
         return "friends/view";
     }
 
@@ -50,25 +66,19 @@ public class FriendsController {
     }
 
     @PostMapping("add")
-    public String processAddFriend(@ModelAttribute @Valid Friends newFriend, Errors errors, Model model){
+    public String processAddFriend(@ModelAttribute @Valid Friends newFriend, Errors errors, Model model, HttpServletRequest request){
         if(errors.hasErrors()){
             model.addAttribute("username", "Create Friend");
             return "friends/results";
         }
 
-
-
+        HttpSession session = request.getSession();
+        User user = authenticationController.getUserFromSession(session);
+        newFriend.setUser(user);
 
         friendsRepository.save(newFriend);
-        return "redirect: friends/view";
+        return "redirect:/friends/view";
     }
 
-//    @PutMapping("/{friendId}/users/{userId}")
-//    Friends assignUserAsFriend(@PathVariable int friendId, @PathVariable int userId){
-//        Friends friends = friendsRepository.findById(friendId).get();
-//        User user = userRepository.findById(userId).get();
-//        friends.addFriend(user);
-//        return friendsRepository.save(friends);
-//    }
 
 }

@@ -16,7 +16,7 @@
     <p th:unless="${friends} and ${friends.size()}">no friends added yet!</p>
     <br>
     <ul>
-        <li th:each="friend : ${friends}" th:text = "${friend.userName}">
+        <li th:each="friend : ${friends}" th:text = "${friend.username}">
 <!--            <a th:href="@{'/friends/view/' + ${friend.id}}" th:text="${friend.name}"></a>-->
         </li>
     </ul>
