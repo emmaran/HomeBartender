@@ -11,7 +11,6 @@
       <div class="col-lg-8 col-xl-7 col-xxl-6">
         <div class="my-5 text-center text-xl-start">
           <h1 class="display-5 fw-bolder text-white mb-2" th:text="${cocktail.strDrink}"></h1>
-<!--          <p class="h2 white mb-4 opacity-50" th:text="${recipe.description}"></p>-->
         </div>
       </div>
 
@@ -64,15 +63,6 @@
     <span id="charsLeft">255/255</span>
   </form>
 
-<!--  <div th:each="review : ${reviews}" >-->
-<!--    <div th:id="ReviewContainer" th:if="${review.cocktailId}==${cocktail.id}" >-->
-<!--      <div>-->
-<!--&lt;!&ndash;        <b><span  th:text="'Created by: ' + ${review.userName} + ' on '"></span></b>&ndash;&gt;-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <span ></span>-->
-<!--      </div>-->
-
       <div class="reviews" th:each="review : ${reviews}" th:if="${review.cocktailId}==${cocktail.id}">
         <div >
           <h5 th:text=" ${review.userName} + ' - ' + ${review.currentDate}">class="modal-title">Modal title</h5>
@@ -82,7 +72,6 @@
           <form  th:if="${review.userName}==${username}" th:action="@{/deleteReview/{id}/{cocktailId}(id=${review.id}, cocktailId = ${cocktail.id})}" th:method="delete" >
             <button type="submit" class = "deleteReview" th:text="Delete" ></button>
           </form>
-<!--          <button th:if="${review.userName}==${username}" type="submit"  class = "deleteReview" th:text="Delete" ></button>        </div>-->
       </div>
 
 
