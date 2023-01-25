@@ -14,7 +14,7 @@ public class CreateRecipeFormData extends AbstractEntity {
 
     private String description;
 
-    private MultipartFile userRecipeImage;
+    private MultipartFile image;
 
 //    @NotNull
 //    @Size(min=1)
@@ -60,12 +60,12 @@ public class CreateRecipeFormData extends AbstractEntity {
         this.description = description;
     }
 
-    public MultipartFile getUserRecipeImage() {
-        return userRecipeImage;
+    public MultipartFile getImage() {
+        return image;
     }
 
-    public void setUserRecipeImage(MultipartFile userRecipeImage) {
-        this.userRecipeImage = userRecipeImage;
+    public void setImage(MultipartFile image) {
+        this.image = image;
     }
 
     public ArrayList<IngredientFormData> getIngredientForms() {

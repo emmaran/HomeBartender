@@ -1,11 +1,8 @@
 package org.launchcode.HomeBartender.models;
 
 import javax.annotation.ManagedBean;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +20,8 @@ public class UserRecipe extends AbstractEntity {
     @ManyToOne
     private User author;
 
-    private String image;
-
-    private String imagePath;
+    @OneToOne
+    private UserImageData image;
 
     @OneToMany(mappedBy = "recipe")
     private List<UserIngredient> ingredients = new ArrayList<>();
@@ -72,20 +68,12 @@ public class UserRecipe extends AbstractEntity {
         this.author = author;
     }
 
-    public String getImage() {
+    public UserImageData getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(UserImageData image) {
         this.image = image;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
     }
 
     public List<UserIngredient> getIngredients() {

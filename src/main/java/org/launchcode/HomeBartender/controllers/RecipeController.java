@@ -1,10 +1,16 @@
 package org.launchcode.HomeBartender.controllers;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.launchcode.HomeBartender.data.UserImageRepository;
 import org.launchcode.HomeBartender.data.UserIngredientRepository;
 import org.launchcode.HomeBartender.data.UserInstructionRepository;
 import org.launchcode.HomeBartender.data.UserRecipeRepository;
 import org.launchcode.HomeBartender.models.*;
+import org.launchcode.HomeBartender.util.UserImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -15,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -40,7 +47,10 @@ public class RecipeController {
     private UserInstructionRepository userInstructionRepository;
 
     @Autowired
-    AuthenticationController authenticationController;
+    private AuthenticationController authenticationController;
+
+    @Autowired
+    private UserImageController userImageController;
 
 
     @GetMapping("/new-recipe")
@@ -80,8 +90,8 @@ public class RecipeController {
     }
 
     @PostMapping("/new-recipe")
-    public String processNewRecipe(@ModelAttribute("recipeForm") CreateRecipeFormData recipeFormData,
-                                   @RequestParam("userRecipeImage") MultipartFile multipartFile,
+    public String processNewRecipe(@ModelAttribute("recipeForm") CreateRecipeFormData recipeFormData,/*
+                                   @RequestParam("userRecipeImage") MultipartFile multipartFile,*/
                                    HttpServletRequest request,
                                    Errors errors, Model model) throws IOException {
         if (errors.hasErrors()) {
@@ -135,28 +145,22 @@ public class RecipeController {
         // if Image exists, get file name
         // set Image on new User Recipe object
         // if Images does NOT exist, set Image to null on new User Recipe object
-        if (!multipartFile.isEmpty()) {
-            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-            newUserRecipe.setImage(fileName);
+        MultipartFile imageFromForm = recipeFormData.getImage();
 
-            // assign a variable for Saved Recipe in User Recipe Repository
+        if (!imageFromForm.isEmpty()) {
+
+            UserImageData imageData = new UserImageData(imageFromForm.getOriginalFilename(), imageFromForm.getContentType(), imageFromForm.getBytes(), newUserRecipe);
+
+            newUserRecipe.setImage(imageData);
+
+            userImageController.uploadImage(imageData);
+
             UserRecipe savedRecipe = userRecipeRepository.save(newUserRecipe);
-
-//            // create path
-//            String uploadDir = "./images/" + savedRecipe.getId();
-//            Path uploadPath = Paths.get(uploadDir);
-//
-//            try (InputStream inputStream = multipartFile.getInputStream()) {
-//                Path filePath = uploadPath.resolve(fileName);
-//                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-//            } catch (IOException e) {
-//                throw new IOException("Could not save uploaded file:" + fileName);
-//            }
 
             // get Ingredients and Instructions from Saved Recipe, and save to repositories
             saveIngredientsAndInstructionsToRepository(savedRecipe);
 
-        } else if (recipeFormData.getUserRecipeImage().isEmpty()) {
+        } else if (imageFromForm.isEmpty()) {
             newUserRecipe.setImage(null);
 
             // assign a variable for Saved Recipe in User Recipe Repository
@@ -186,12 +190,6 @@ public class RecipeController {
     @GetMapping("/view")
     public String viewUserRecipe(Model model, @RequestParam Integer recipeId) {
 
-        //test
-//        HttpSession session = request.getSession();
-//        User user = authenticationController.getUserFromSession(session);
-//        model.addAttribute("username", user.getUserName());
-
-
         // get User Recipe to view
         Optional<UserRecipe> result = userRecipeRepository.findById(recipeId);
 
@@ -202,11 +200,21 @@ public class RecipeController {
             UserRecipe recipe = result.get();
             model.addAttribute("title", recipe.getName());
             model.addAttribute("recipe", recipe);
+//            model.addAttribute("name", recipe.getName());
             model.addAttribute("author", recipe.getAuthor().getUserName());
+            model.addAttribute("imageName", recipe.getImage().getName());
 
         }
 
         return "recipes/view/view-user-recipe";
     }
+
+//    @GetMapping("/image/blue-drink.jpg")
+//    public void showProductImage(HttpServletResponse response) throws IOException {
+//        response.setContentType("image/jpeg");
+//        UserRecipe recipe = userRecipeRepository.findById(196).get();
+//        InputStream is = new ByteArrayInputStream(recipe.getImage());
+//        IOUtils.copy(is, response.getOutputStream());
+//    }
 
 }
