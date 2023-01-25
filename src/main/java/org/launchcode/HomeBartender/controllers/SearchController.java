@@ -4,16 +4,25 @@ import org.launchcode.HomeBartender.Repositories.CocktailRepository;
 import org.launchcode.HomeBartender.Repositories.IngredientsRepository;
 import org.launchcode.HomeBartender.models.Cocktails;
 import org.launchcode.HomeBartender.models.Ingredients;
+
+
+import org.launchcode.HomeBartender.models.data.SearchData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import org.thymeleaf.TemplateEngine;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("search")
@@ -24,71 +33,77 @@ public class SearchController {
 
     private String searchTerm;
     private String searchType;
-    private boolean byKeyword;
-    private boolean byIngredient;
-    private boolean isAlcoholic;
 
 
-    //use the ArrayLists from the apiService class
-    private ArrayList<Cocktails> keywordSearch = new ArrayList<>();
-    private ArrayList<Ingredients> ingredientSearch = new ArrayList<>();
-    private ArrayList<Cocktails> cocktails = new ArrayList<>();
-
-    //this will hold multiple searchTerms for more than one input text
-    //private static List<String> searchTerms = new ArrayList<>();
+    private ArrayList<Cocktails> keywordSearchResults;
+    private ArrayList<Ingredients> ingredientSearchResults;
+    private ArrayList<Cocktails> cocktailResults;
 
     @GetMapping
     public String search(Model model){
-        //renders search_homepage text search box with drop down menu to select
-        // keyword, ingredient, or mocktials
         model.addAttribute("searchTerm", searchTerm);
         model.addAttribute("searchType", searchType);
-        model.addAttribute("byKeyword", byKeyword);
-        model.addAttribute("byIngredient", byIngredient);
-        model.addAttribute("isAlcoholic", isAlcoholic);
+        model.addAttribute("searchData", new SearchData());
+
         return "/search/search_homepage";
     }
 
     @PostMapping("/results")
     public String searchResults(Model model,
                                 @RequestParam String searchTerm,
-                                //@RequestParam boolean byKeyword,
-                               //@RequestParam boolean byIngredient,
-                               //@RequestParam boolean isAlcoholic
-                                @RequestParam String searchType) {
-
-        //searchTerms.add(searchTerm); <-will store multiple search terms
-
-        //returns the results of the if and for each statements
+               @RequestParam String searchType, @Valid SearchData searchData, BindingResult bindingResult) {
         Iterable<Cocktails> keywordResults;
-        Iterable<Ingredients> ingredientResults;
+        Iterable<Ingredients> allIngredients;
         keywordResults = cocktailRepository.findAll();
-        ingredientResults = ingredientsRepository.findAll();
-            if (searchType.toLowerCase().equals("keyword")) {
-                for (Cocktails cocktails: keywordResults) {
-                    if (cocktails.getStrDrink().toLowerCase().contains(searchTerm)) {
-                        keywordSearch.add(cocktails);
-                    }
-                }
-                model.addAttribute("results", keywordSearch);
-                return "/search/search_homepage";
+        allIngredients = ingredientsRepository.findAll();
 
-            } else if (searchType.toLowerCase().equals("ingredient")) {
-                for (Ingredients ingredient: ingredientResults) {
-                    if (ingredient.getIngredient().contains(searchTerm)) {
-                        ingredientSearch.add(ingredient);
-                    }
-                    for (Ingredients ingred : ingredientSearch) {
-                        Cocktails cocktails = ingred.getRecipes().getCocktails();
-                        keywordSearch.add(cocktails);
-                    }
-                    for (Cocktails cocktail : keywordSearch) {
-                        if (!cocktails.contains(cocktail)) {
-                            cocktails.add(cocktail);
-                        }
+        if (searchData.getSearchType().equals("Select Search Type")) {
+            bindingResult.rejectValue("searchType", "error.searchType", "Must Select Search Type");
+            model.addAttribute("searchData", new SearchData());
+            return "/search/search_homepage";
+
+        }
+        if (searchData.getSearchTerm() == null) {
+            bindingResult.rejectValue("searchTerm", "error.searchTerm", "Must Enter Search Term");
+            model.addAttribute("searchData", new SearchData());
+            return "/search/search_homepage";
+        }
+
+        if (searchType.toLowerCase().equals("keyword")) {
+            keywordSearchResults = new ArrayList<>();
+            for (Cocktails cocktails: keywordResults) {
+                if (cocktails.getStrDrink().toLowerCase().contains(searchTerm)) {
+                    keywordSearchResults.add(cocktails);
+                }
+            }
+            model.addAttribute("results", keywordSearchResults);
+            model.addAttribute("searchData", new SearchData());
+            return "/search/search_homepage";
+
+        } else if (searchType.toLowerCase().equals("ingredient")) {
+            keywordSearchResults = new ArrayList<>();
+            cocktailResults = new ArrayList<>();
+            ingredientSearchResults = new ArrayList<>();
+            for (Ingredients ingredient: allIngredients) {
+
+                if (ingredient.getIngredient().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    System.out.println("2. Right here!");
+                    ingredientSearchResults.add(ingredient);
+                }
+            }
+
+            for (Ingredients ingred : ingredientSearchResults) {
+                    Cocktails cocktails = ingred.getRecipes().getCocktails();
+                    keywordSearchResults.add(cocktails);
+                }
+                for (Cocktails cocktail : keywordSearchResults) {
+                    if (!cocktailResults.contains(cocktail)) {
+                        cocktailResults.add(cocktail);
                     }
                 }
-                model.addAttribute("results", cocktails);
+            model.addAttribute("results", cocktailResults);
+            model.addAttribute("searchData", new SearchData());
+            return "/search/search_homepage";
 
         }
         return "/search/search_homepage";
