@@ -1,6 +1,7 @@
 package org.launchcode.HomeBartender.controllers;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.launchcode.HomeBartender.Service.UserImageStorageService;
 import org.launchcode.HomeBartender.data.UserImageRepository;
 import org.launchcode.HomeBartender.data.UserIngredientRepository;
 import org.launchcode.HomeBartender.data.UserInstructionRepository;
@@ -49,8 +50,11 @@ public class RecipeController {
     @Autowired
     private AuthenticationController authenticationController;
 
+//    @Autowired
+//    private UserImageController userImageController;
+
     @Autowired
-    private UserImageController userImageController;
+    private UserImageStorageService service;
 
 
     @GetMapping("/new-recipe")
@@ -153,7 +157,7 @@ public class RecipeController {
 
             newUserRecipe.setImage(imageData);
 
-            userImageController.uploadImage(imageData);
+            uploadImage(imageData);
 
             UserRecipe savedRecipe = userRecipeRepository.save(newUserRecipe);
 
@@ -209,12 +213,21 @@ public class RecipeController {
         return "recipes/view/view-user-recipe";
     }
 
-//    @GetMapping("/image/blue-drink.jpg")
-//    public void showProductImage(HttpServletResponse response) throws IOException {
-//        response.setContentType("image/jpeg");
-//        UserRecipe recipe = userRecipeRepository.findById(196).get();
-//        InputStream is = new ByteArrayInputStream(recipe.getImage());
-//        IOUtils.copy(is, response.getOutputStream());
-//    }
+
+    public ResponseEntity<?> uploadImage(@RequestParam("image") UserImageData file) throws IOException {
+        String uploadImage = service.uploadImage(file);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(uploadImage);
+    }
+
+    @GetMapping("/image/{fileName}")
+    public ResponseEntity<?> downloadImage(@PathVariable String fileName) {
+        byte[] imageData = service.downloadImage(fileName);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf("image/jpg"))
+                .body(imageData);
+
+    }
 
 }
