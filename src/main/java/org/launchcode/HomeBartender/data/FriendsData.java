@@ -1,4 +1,4 @@
-package org.launchcode.HomeBartender.models;
+package org.launchcode.HomeBartender.data;
 
 import java.util.ArrayList;
 

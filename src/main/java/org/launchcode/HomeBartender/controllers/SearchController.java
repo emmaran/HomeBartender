@@ -4,15 +4,19 @@ import org.launchcode.HomeBartender.Repositories.CocktailRepository;
 import org.launchcode.HomeBartender.Repositories.IngredientsRepository;
 import org.launchcode.HomeBartender.models.Cocktails;
 import org.launchcode.HomeBartender.models.Ingredients;
+
+
 import org.launchcode.HomeBartender.models.data.SearchData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import org.thymeleaf.TemplateEngine;
 
 import javax.validation.Valid;
@@ -30,6 +34,7 @@ public class SearchController {
     private String searchTerm;
     private String searchType;
 
+
     private ArrayList<Cocktails> keywordSearchResults;
     private ArrayList<Ingredients> ingredientSearchResults;
     private ArrayList<Cocktails> cocktailResults;
@@ -39,13 +44,14 @@ public class SearchController {
         model.addAttribute("searchTerm", searchTerm);
         model.addAttribute("searchType", searchType);
         model.addAttribute("searchData", new SearchData());
+
         return "/search/search_homepage";
     }
 
     @PostMapping("/results")
     public String searchResults(Model model,
                                 @RequestParam String searchTerm,
-                                @RequestParam String searchType, @Valid SearchData searchData, BindingResult bindingResult) {
+               @RequestParam String searchType, @Valid SearchData searchData, BindingResult bindingResult) {
         Iterable<Cocktails> keywordResults;
         Iterable<Ingredients> allIngredients;
         keywordResults = cocktailRepository.findAll();
@@ -98,6 +104,7 @@ public class SearchController {
             model.addAttribute("results", cocktailResults);
             model.addAttribute("searchData", new SearchData());
             return "/search/search_homepage";
+
         }
         return "/search/search_homepage";
     }

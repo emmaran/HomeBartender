@@ -3,22 +3,16 @@ package org.launchcode.HomeBartender.controllers;
 import org.launchcode.HomeBartender.Repositories.CocktailRepository;
 import org.launchcode.HomeBartender.Repositories.IngredientsRepository;
 import org.launchcode.HomeBartender.Repositories.RecipeRepository;
-import org.launchcode.HomeBartender.data.UserIngredientRepository;
-import org.launchcode.HomeBartender.data.UserRecipeRepository;
-import org.launchcode.HomeBartender.data.UserRepository;
-import org.launchcode.HomeBartender.models.Recipe;
+import org.launchcode.HomeBartender.Repositories.UserRecipeRepository;
 import org.launchcode.HomeBartender.models.User;
-import org.launchcode.HomeBartender.models.dto.LoginFormDTO;
+import org.launchcode.HomeBartender.data.LoginFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Array;
-import java.util.List;
 
 
 @Controller
@@ -46,9 +40,8 @@ public class MyDrinksController {
     //the landing page once logged in
     @GetMapping("")
     public String index(Model model, HttpSession session){
-//        String username = (String) session.getAttribute("username");
-//        model.addAttribute("username", username);
-
+        String username = (String) session.getAttribute("username");
+        model.addAttribute("username", username);
         model.addAttribute("recipes", userRecipeRepository.findAll());
 //        Iterable<Recipe> myRecipes = userRecipeRepository.findAll();
         return "/index";
@@ -56,18 +49,27 @@ public class MyDrinksController {
 
     //shows all the recipes the user created
     @RequestMapping("my_recipes")
-    public String myRecipes(Model model){
-//        model.addAttribute("recipe", userRecipeRepository.findAll());
+    public String myRecipes(Model model, HttpSession session){
+        String username = (String) session.getAttribute("username");
+        model.addAttribute("username", username);
         return "my_recipes";
     }
 
 
     //shows all api drinks
     @RequestMapping("view_all")
-    public String viewAllRecipes(Model model){
+    public String viewAllRecipes(Model model, HttpSession session){
+        String username = (String) session.getAttribute("username");
+
+        model.addAttribute("username", username);
         model.addAttribute("allRecipes", recipeRepository.findAll());
         model.addAttribute("allCocktails", cocktailRepository.findAll());
         model.addAttribute("ingredients", ingredientsRepository.findAll());
+
+        model.addAttribute("cocktails",cocktailRepository.findAll());
+        model.addAttribute("ingredients",ingredientsRepository.findAll());
+        model.addAttribute("recipes",recipeRepository.findAll());
+
         return "view_all";
     }
 

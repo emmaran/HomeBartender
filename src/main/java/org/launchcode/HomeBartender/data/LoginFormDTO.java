@@ -1,4 +1,4 @@
-package org.launchcode.HomeBartender.models.dto;
+package org.launchcode.HomeBartender.data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

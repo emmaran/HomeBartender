@@ -1,8 +1,11 @@
 package org.launchcode.HomeBartender.controllers;
 
-import org.launchcode.HomeBartender.data.UserIngredientRepository;
-import org.launchcode.HomeBartender.data.UserInstructionRepository;
-import org.launchcode.HomeBartender.data.UserRecipeRepository;
+import org.launchcode.HomeBartender.Repositories.UserIngredientRepository;
+import org.launchcode.HomeBartender.Repositories.UserInstructionRepository;
+import org.launchcode.HomeBartender.Repositories.UserRecipeRepository;
+import org.launchcode.HomeBartender.data.CreateRecipeFormData;
+import org.launchcode.HomeBartender.data.IngredientFormData;
+import org.launchcode.HomeBartender.data.InstructionFormData;
 import org.launchcode.HomeBartender.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,12 +15,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -37,7 +36,10 @@ public class RecipeController {
 
 
     @GetMapping("/new-recipe")
-    public String createNewRecipe(Model model) {
+    public String createNewRecipe(Model model,HttpSession session) {
+        String username = (String) session.getAttribute("username");
+
+        model.addAttribute("username", username);
         model.addAttribute("title", "Create A New Recipe");
         model.addAttribute("h1", "Create a new recipe");
 //        model.addAttribute("lead", "Add another drink recipe to your home menu. You'll just need a creative name, the yummy ingredients, and some helpful steps!");
@@ -47,9 +49,12 @@ public class RecipeController {
     }
 
     @GetMapping("/add-ingredient-fragment")
-    public String getAddIngredientFragment(Model model, @RequestParam("index") int index) {
+    public String getAddIngredientFragment(Model model, @RequestParam("index") int index, HttpSession session) {
+
+        String username = (String) session.getAttribute("username");
+
+        model.addAttribute("username", username);
         model.addAttribute("index", index);
-        System.out.println(index);
         model.addAttribute("holdRecipeName", "holdRecipe");;
         model.addAttribute("holdRecipe", new CreateRecipeFormData());
 
@@ -58,9 +63,12 @@ public class RecipeController {
     }
 
     @GetMapping("/add-instruction-fragment")
-    public String getAddInstructionFragment(Model model, @RequestParam("instructionIndex") int index) {
+    public String getAddInstructionFragment(Model model, @RequestParam("instructionIndex") int index, HttpSession session) {
+        String username = (String) session.getAttribute("username");
+
+        model.addAttribute("username", username);
         model.addAttribute("instructionIndex", index);
-        System.out.println(index);
+
         model.addAttribute("holdRecipeName2", "holdRecipe2");;
         model.addAttribute("holdRecipe2", new CreateRecipeFormData());
 
@@ -69,14 +77,17 @@ public class RecipeController {
     }
 
     @PostMapping("/new-recipe")
-    public String processNewRecipe(@ModelAttribute("recipeForm") CreateRecipeFormData recipeFormData,
-                                   @RequestParam("userRecipeImage") MultipartFile multipartFile,
-                                   Errors errors, Model model) throws IOException {
+    public String processNewRecipe(@ModelAttribute("recipeForm") CreateRecipeFormData recipeFormData, @RequestParam("userRecipeImage") MultipartFile multipartFile,Errors errors, Model model, HttpSession session) throws IOException {
         if (errors.hasErrors()) {
-            System.out.println(errors);
-            System.out.println("end errors");
+            String username = (String) session.getAttribute("username");
+
+            model.addAttribute("username", username);
+
             return "recipes/create/build-recipe";
         }
+        String username = (String) session.getAttribute("username");
+
+        model.addAttribute("username", username);
 
         // create new User Recipe
         UserRecipe newUserRecipe = new UserRecipe();
@@ -125,16 +136,6 @@ public class RecipeController {
             // assign a variable for Saved Recipe in User Recipe Repository
             UserRecipe savedRecipe = userRecipeRepository.save(newUserRecipe);
 
-//            // create path
-//            String uploadDir = "./images/" + savedRecipe.getId();
-//            Path uploadPath = Paths.get(uploadDir);
-//
-//            try (InputStream inputStream = multipartFile.getInputStream()) {
-//                Path filePath = uploadPath.resolve(fileName);
-//                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-//            } catch (IOException e) {
-//                throw new IOException("Could not save uploaded file:" + fileName);
-//            }
 
             // get Ingredients and Instructions from Saved Recipe, and save to repositories
             saveIngredientsAndInstructionsToRepository(savedRecipe);
@@ -150,7 +151,7 @@ public class RecipeController {
 
         }
 
-        return "redirect:/my_recipes";
+        return "recipes/view/view-user-recipe";
 
     }
 
@@ -167,8 +168,10 @@ public class RecipeController {
     }
 
     @GetMapping("/view")
-    public String viewUserRecipe(Model model, @RequestParam Integer recipeId) {
+    public String viewUserRecipe(Model model, @RequestParam Integer recipeId, HttpSession session) {
+        String username = (String) session.getAttribute("username");
 
+        model.addAttribute("username", username);
         // get User Recipe to view
         Optional<UserRecipe> result = userRecipeRepository.findById(recipeId);
 

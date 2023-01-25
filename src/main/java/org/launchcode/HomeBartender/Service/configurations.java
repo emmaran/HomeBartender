@@ -1,4 +1,4 @@
-package org.launchcode.HomeBartender.data;
+package org.launchcode.HomeBartender.Service;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

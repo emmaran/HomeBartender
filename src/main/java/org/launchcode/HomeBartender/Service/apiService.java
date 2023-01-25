@@ -68,9 +68,12 @@ public class apiService {
 
     //post construct will run the below method right away when loading the program
     //@PostConstruct
+
+ 
     //@Transactional
     //@GetMapping(value = "/cocktailAPI")
     public List<Ingredients> addApiToDB() {
+
         List<Cocktails> cocktailList = new ArrayList<>();
         List<Recipes> recipesList = new ArrayList<>();
         List<Ingredients> ingredientsList = new ArrayList<>();
