@@ -1,8 +1,6 @@
 package org.launchcode.HomeBartender.controllers;
 
-import org.launchcode.HomeBartender.data.UserRepository;
-import org.launchcode.HomeBartender.models.Friends;
-import org.launchcode.HomeBartender.models.FriendsData;
+import org.launchcode.HomeBartender.Repositories.UserRepository;
 import org.launchcode.HomeBartender.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 @Controller
@@ -26,14 +25,19 @@ public class SearchFriendsController {
     private ArrayList<User> friends = new ArrayList<>();
 
     @GetMapping("")
-    public String search(Model model){
-//        model.addAttribute("name", userRepository.findAll());
+    public String search(Model model, HttpSession session){
+        String username = (String) session.getAttribute("username");
+
+        model.addAttribute("username", username);
         model.addAttribute("friendName", friendName);
         return "friends/search";
     }
 
     @PostMapping("results")
-    public String displaySearchFriendsResults(Model model, @RequestParam String friendName){
+    public String displaySearchFriendsResults(Model model, @RequestParam String friendName, HttpSession session){
+        String username = (String) session.getAttribute("username");
+
+        model.addAttribute("username", username);
         Iterable<User> friendsList;
         friendsList = userRepository.findAll();
 
@@ -42,18 +46,6 @@ public class SearchFriendsController {
                 friends.add(friend);
             }
         }
-//        if(friendName.toLowerCase().equals("searchTerm")){
-//            for(User friend : friendsList) {
-//                friends.add(friend);
-//            }
-//            model.addAttribute("friends", friends);
-//            return "friends/results";
-//        }
-//        else{
-//            user = User.findByValue(searchTerm, userRepository.findAll());
-//        }
-
-
         model.addAttribute("friends", friends);
         return "friends/results";
     }

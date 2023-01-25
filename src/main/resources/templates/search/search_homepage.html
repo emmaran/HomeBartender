@@ -7,7 +7,10 @@
 </head>
 <body>
 <nav th:replace="fragments :: nav"></nav>
+
+
 <h1>Search Recipes</h1>
+
 <div class="container body-content">
 
     <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
@@ -24,10 +27,13 @@
                 <option value="keyword">Keyword</option>
                 <option value="ingredient">Ingredient</option>
                 <option value="isAlcholic">Search Mocktails</option>
+
             </select>
             <hr/>
             <input type="submit" value="Submit">
         </div>
+
+
 
     </form>
 
@@ -36,6 +42,7 @@
         <ol th:if = "${results}">
             <li th:each ="Cocktail: ${results}" th:text = "${Cocktail.strDrink}"></li>
         </ol>
+
         <p th:unless = "${results}">No Results!</p>
     </div>
 
