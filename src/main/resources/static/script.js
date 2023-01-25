@@ -57,7 +57,7 @@ const previewImage = (event) => {
 
 }
 
-    function updateCharCount(input) {
+function updateCharCount(input) {
         // Get the maxlength attribute value
         var maxLength = input.getAttribute("maxlength");
 
@@ -70,3 +70,11 @@ const previewImage = (event) => {
         // Update the character count
         document.getElementById("charsLeft").innerHTML = remaining+"/255";
     }
+
+var images = ['/images/favorited.png','/images/favorite.png']
+var next = 0;
+function faved(){
+var image = document.getElementById("fav");
+image.src=images[next++];
+if(next== images.length) next = 0;
+}

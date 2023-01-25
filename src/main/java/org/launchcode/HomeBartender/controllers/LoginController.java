@@ -26,6 +26,9 @@ public class LoginController {
     @Autowired
     UserRecipeRepository userRecipeRepository;
 
+    @Autowired
+    HttpSession session;
+
     @GetMapping("login")
     public String displayLoginForm(Model model) {
         model.addAttribute(new LoginFormDTO());
@@ -61,7 +64,7 @@ public class LoginController {
             return "login";
         }
 
-//        setUserInSession(request.getSession(), theUser);
+        setUserInSession(request.getSession(), theUser);
         session.setAttribute("username",loginFormDTO.getUsername() );
 
 
@@ -71,10 +74,36 @@ public class LoginController {
         return "index";
     }
 
-    @GetMapping("logout")
-    public String logout(HttpServletRequest request){
-        request.getSession().invalidate();
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        session.invalidate();
         return "redirect:/login";
     }
 
+//    this is what I had before chapter 19.
 }
+//    @Autowired
+//    UserRepository userRepository;
+//    @RequestMapping("login")
+//    @ResponseBody
+//    public String index() {
+//        return "form";
+//    }
+////    need to code to display form
+//@GetMapping("login")
+//public String renderFormMethodName(Model model) {
+//
+//    return "login";
+//
+//}
+//
+//@PostMapping
+//public void addLogin(@ModelAttribute LoginData loginData) {
+//User user = userRepository.findByUserName(loginData.getUserName());
+//};
+
+////Aaron suggested using this.
+////localStorage.getItem('UserID');
+//
+//}
+

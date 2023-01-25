@@ -1,14 +1,19 @@
 package org.launchcode.HomeBartender.controllers;
 
-import org.launchcode.HomeBartender.Repositories.*;
+import org.launchcode.HomeBartender.Repositories.CocktailRepository;
+import org.launchcode.HomeBartender.Repositories.IngredientsRepository;
+import org.launchcode.HomeBartender.Repositories.RecipeRepository;
+import org.launchcode.HomeBartender.Repositories.UserRecipeRepository;
 import org.launchcode.HomeBartender.models.User;
 import org.launchcode.HomeBartender.data.LoginFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("")
@@ -27,21 +32,18 @@ public class MyDrinksController {
     @Autowired
     IngredientsRepository ingredientsRepository;
 
-    @Autowired
-    private ReviewRepository reviewRepository;
-
     private User user;
 
     private LoginFormDTO loggedUser;
 
 
     //the landing page once logged in
-    @GetMapping("/")
+    @GetMapping("")
     public String index(Model model, HttpSession session){
         String username = (String) session.getAttribute("username");
-
         model.addAttribute("username", username);
         model.addAttribute("recipes", userRecipeRepository.findAll());
+//        Iterable<Recipe> myRecipes = userRecipeRepository.findAll();
         return "/index";
     }
 
@@ -49,8 +51,8 @@ public class MyDrinksController {
     @RequestMapping("my_recipes")
     public String myRecipes(Model model, HttpSession session){
         String username = (String) session.getAttribute("username");
-
-        model.addAttribute("username", username);return "my_recipes";
+        model.addAttribute("username", username);
+        return "my_recipes";
     }
 
 
@@ -70,7 +72,6 @@ public class MyDrinksController {
 
         return "view_all";
     }
-
 
     //will show all the recipes the user's friends shared with them
 //    @RequestMapping("friends_recipes")

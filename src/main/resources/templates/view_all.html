@@ -12,70 +12,19 @@
     <div class="allRecipes">
 
         <div class="columns">
-            <div th:each="cocktail : ${allCocktails}" class="card" style="width: 18rem;">
-                <a th:href="@{/viewRecipes/{id}(id=${cocktail.id})}" class="btn btn-primary">
+                 <div th:each="cocktail : ${allCocktails}" class="card" style="width: 18rem;">
+            <a th:href="@{/viewRecipes/{id}(id=${cocktail.id})}" class="btn btn-primary">
                 <img th:each="recipe : ${allRecipes}" th:if="${recipe.cocktails.id} == ${cocktail.id}" th:src="${recipe.strDrinkThumb}" class="card-img-top" >
                 <div class="card-body">
                     <h5 th:text="${cocktail.strDrink}"></h5>
 
 
                 </div>
-                </a>
-            </div>
+            </a>
         </div>
-
-<!--        <div th:each="cocktail : ${allCocktails}" class="card" style="width: 18rem;">-->
-<!--            <img th:each="recipe : ${allRecipes}" th:if="${recipe.cocktails.id} == ${cocktail.id}" th:src="${recipe.strDrinkThumb}" class="card-img-top" >-->
-<!--            <div class="card-body">-->
-<!--                <h5 th:text="${cocktail.strDrink}"></h5>-->
-
-<!--                <a th:href="@{/viewRecipes/{id}(id=${cocktail.id})}" class="btn btn-primary">View</a>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="card" style="width: 18rem;">-->
-<!--            <img th:src="${recipe.strDrinkThumb}" class="card-img-top" >-->
-<!--            <div class="card-body">-->
-<!--                <a th:href="@{/viewRecipes/{id}(id=${cocktail.id})}" th:text="${cocktail.strDrink}" class="btn btn-primary">Button</a>-->
-<!--&lt;!&ndash;                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>&ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <div class="card w-50" th:each="cocktail : ${allCocktails}">-->
-<!--            <div class="card-body">-->
-<!--                <h5 th:text="${cocktail.strDrink}"></h5>-->
-<!--                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
-<!--                <a href="#" class="btn btn-primary">Button</a>-->
-<!--            </div>-->
-<!--        </div>-->
+        </div>
     </div>
 
 </body>
 <footer th:replace="fragments :: footer"></footer>
 </html>
-
-<!--<!DOCTYPE html>-->
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <title>Cocktails</title>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--<h1>All Cocktails</h1>-->
-
-<!--<ol>-->
-<!--    <li th:each="cocktail : ${cocktails}">-->
-<!--        <a th:href="@{/viewRecipes/{id}(id=${cocktail.id})}">-->
-
-<!--            <span th:text="${cocktail.strDrink}"></span>-->
-<!--            <ul>-->
-<!--                <li th:each="recipe : ${recipes}" th:if="${recipe.cocktails.id} == ${cocktail.id}" >-->
-<!--                    <span th:if="${recipe.cocktails.id} == ${cocktail.id}" th:text=" ${recipe.strInstructions}"></span>-->
-<!--                </li>-->
-<!--            </ul>-->
-
-<!--        </a>-->
-<!--    </li>-->
-<!--</ol>-->
-<!--</body>-->
-<!--</html>-->

@@ -245,6 +245,68 @@ input[type=file]::file-selector-button {
   --bs-gradient: none;
 }
 
+.reviews{
+border: 2px solid black;
+margin: 15px;
+width: 50%;
+padding: 5px;
+}
+
+.textField{
+padding: 10px;
+white-space: normal;
+word-wrap: break-word;
+}
+
+.reviewForm{
+margin: 15px;
+}
+
+.reviewedBy{
+border-bottom: 1px solid black
+}
+.submitReview{
+color:white;
+background-color: black;
+transition: background-color 0.5s ease;
+}
+
+.submitReview:hover{
+background-color: green;
+}
+
+.deleteReview{
+background-color:red;
+color: white;
+transition: background-color 0.5s ease;
+}
+
+.deleteReview:hover{
+ background-color:darkred;
+ }
+
+ .logoutBtn{
+ background-color:red;
+ color:white;
+ margin: 5px;
+transition: background-color 0.5s ease;
+ }
+
+  .logoutBtn:hover{
+ background-color:darkred;
+  }
+
+  .favorite{
+  width:40px;
+  height: 40px;
+  margin-bottom: 25px;
+  margin-right: 10px;
+  }
+
+  .share{
+  display: inline-block;
+  }
+
 
 
 /*  *******************************************
