@@ -22,6 +22,7 @@ import java.util.List;
 
 @RestController
 public class apiService {
+    private boolean initialized = false;
 
     private static final Logger log = LoggerFactory.getLogger(apiService.class);
 
@@ -66,178 +67,167 @@ public class apiService {
     };
 
     //post construct will run the below method right away when loading the program
-//    @PostConstruct
-//    @Transactional
-//    @GetMapping(value = "/cocktailAPI")
-    public void addApiToDB() {
-
-//        RestTemplate restTemplate = new RestTemplate();
-
+    //@PostConstruct
+    //@Transactional
+    //@GetMapping(value = "/cocktailAPI")
+    public List<Ingredients> addApiToDB() {
         List<Cocktails> cocktailList = new ArrayList<>();
         List<Recipes> recipesList = new ArrayList<>();
         List<Ingredients> ingredientsList = new ArrayList<>();
         List<JSONObject> list = new ArrayList<>();
-
-        //the try catch is for to ignore the error of not being able to reload the same data into the db after you have done it once
-        try {
-            for (int apiCount = 0; apiCount < apiArray.length; apiCount++) {
-                callDrinks response = restTemplate.getForObject(apiArray[apiCount], callDrinks.class);
-                List<Drinks> drinksList = response.getDrinks();
-
-                for(Drinks drink : drinksList) {
-                    Cocktails cocktails = new Cocktails();
-                    Recipes recipes = new Recipes();
-                    cocktails.setStrDrink(drink.getStrDrink());
-                    cocktailList.add(cocktails);
-                    recipes.setStrAlcoholic(drink.getStrAlcoholic());
-                    recipes.setStrInstructions(drink.getStrInstructions());
-                    recipes.setStrDrinkThumb(drink.getStrDrinkThumb());
-                    recipes.setStrTags(drink.getStrTags());
-                    recipes.setCocktails(cocktails);
-                    recipesList.add(recipes);
-
-                    if(drink.getStrIngredient1() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient1());
-                        obj.put("amount",drink.getStrMeasure1());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient2() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient2());
-                        obj.put("amount",drink.getStrMeasure2());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient3() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient3());
-                        obj.put("amount",drink.getStrMeasure3());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient4() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient4());
-                        obj.put("amount",drink.getStrMeasure4());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient5() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient5());
-                        obj.put("amount",drink.getStrMeasure5());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient6() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient6());
-                        obj.put("amount",drink.getStrMeasure6());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient7() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient7());
-                        obj.put("amount",drink.getStrMeasure7());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient8() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient8());
-                        obj.put("amount",drink.getStrMeasure8());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient9() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient9());
-                        obj.put("amount",drink.getStrMeasure9());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient10() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient10());
-                        obj.put("amount",drink.getStrMeasure10());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient11() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient11());
-                        obj.put("amount",drink.getStrMeasure11());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient12() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient12());
-                        obj.put("amount",drink.getStrMeasure12());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient13() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient13());
-                        obj.put("amount",drink.getStrMeasure13());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient14() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient14());
-                        obj.put("amount",drink.getStrMeasure14());
-                        list.add(obj);
-                    }
-                    if(drink.getStrIngredient15() != null)
-                    {
-                        JSONObject obj = new JSONObject();
-                        obj.put("ingredient",drink.getStrIngredient15());
-                        obj.put("amount",drink.getStrMeasure15());
-                        list.add(obj);
-                    }
+        if (!initialized) {
+//        RestTemplate restTemplate = new RestTemplate();
 
 
-                    for (JSONObject ingredNAmount : list) {
-                        Ingredients ingredients=new Ingredients();
-                        ingredients.setIngredient(ingredNAmount.get("ingredient").toString());
-                        //not all ingredients will have an amount check that it does if not continue
-                        if(ingredNAmount.has("amount")) {
-                            ingredients.setAmount(ingredNAmount.get("amount").toString());
+
+            //the try catch is for to ignore the error of not being able to reload the same data into the db after you have done it once
+            try {
+                for (int apiCount = 0; apiCount < apiArray.length; apiCount++) {
+                    callDrinks response = restTemplate.getForObject(apiArray[apiCount], callDrinks.class);
+                    List<Drinks> drinksList = response.getDrinks();
+
+                    for (Drinks drink : drinksList) {
+                        Cocktails cocktails = new Cocktails();
+                        Recipes recipes = new Recipes();
+                        cocktails.setStrDrink(drink.getStrDrink());
+                        cocktailList.add(cocktails);
+                        recipes.setStrAlcoholic(drink.getStrAlcoholic());
+                        recipes.setStrInstructions(drink.getStrInstructions());
+                        recipes.setStrDrinkThumb(drink.getStrDrinkThumb());
+                        recipes.setStrTags(drink.getStrTags());
+                        recipes.setCocktails(cocktails);
+                        recipesList.add(recipes);
+
+                        if (drink.getStrIngredient1() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient1());
+                            obj.put("amount", drink.getStrMeasure1());
+                            list.add(obj);
                         }
-                        ingredients.setRecipes(recipes);
+                        if (drink.getStrIngredient2() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient2());
+                            obj.put("amount", drink.getStrMeasure2());
+                            list.add(obj);
+                        }
+                        if (drink.getStrIngredient3() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient3());
+                            obj.put("amount", drink.getStrMeasure3());
+                            list.add(obj);
+                        }
+                        if (drink.getStrIngredient4() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient4());
+                            obj.put("amount", drink.getStrMeasure4());
+                            list.add(obj);
+                        }
+                        if (drink.getStrIngredient5() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient5());
+                            obj.put("amount", drink.getStrMeasure5());
+                            list.add(obj);
+                        }
+                        if (drink.getStrIngredient6() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient6());
+                            obj.put("amount", drink.getStrMeasure6());
+                            list.add(obj);
+                        }
+                        if (drink.getStrIngredient7() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient7());
+                            obj.put("amount", drink.getStrMeasure7());
+                            list.add(obj);
+                        }
+                        if (drink.getStrIngredient8() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient8());
+                            obj.put("amount", drink.getStrMeasure8());
+                            list.add(obj);
+                        }
+                        if (drink.getStrIngredient9() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient9());
+                            obj.put("amount", drink.getStrMeasure9());
+                            list.add(obj);
+                        }
+                        if (drink.getStrIngredient10() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient10());
+                            obj.put("amount", drink.getStrMeasure10());
+                            list.add(obj);
+                        }
+                        if (drink.getStrIngredient11() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient11());
+                            obj.put("amount", drink.getStrMeasure11());
+                            list.add(obj);
+                        }
+                        if (drink.getStrIngredient12() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient12());
+                            obj.put("amount", drink.getStrMeasure12());
+                            list.add(obj);
+                        }
+                        if (drink.getStrIngredient13() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient13());
+                            obj.put("amount", drink.getStrMeasure13());
+                            list.add(obj);
+                        }
+                        if (drink.getStrIngredient14() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient14());
+                            obj.put("amount", drink.getStrMeasure14());
+                            list.add(obj);
+                        }
+                        if (drink.getStrIngredient15() != null) {
+                            JSONObject obj = new JSONObject();
+                            obj.put("ingredient", drink.getStrIngredient15());
+                            obj.put("amount", drink.getStrMeasure15());
+                            list.add(obj);
+                        }
+
+
+                        for (JSONObject ingredNAmount : list) {
+                            Ingredients ingredients = new Ingredients();
+                            ingredients.setIngredient(ingredNAmount.get("ingredient").toString());
+                            //not all ingredients will have an amount check that it does if not continue
+                            if (ingredNAmount.has("amount")) {
+                                ingredients.setAmount(ingredNAmount.get("amount").toString());
+                            }
+                            ingredients.setRecipes(recipes);
+                            ingredientsList.add(ingredients);
+                        }
+                        //clearing the list of ingredients and amounts to prevent same data being entered multiple times
+                        list.clear();
                     }
-                    //clearing the list of ingredients and amounts to prevent same data being entered multiple times
-                    list.clear();
 
                 }
-
+            } catch (ConstraintViolationException | DataIntegrityViolationException e) {
+                log.warn("Duplicate key error while inserting entity", e);
             }
-        }catch (ConstraintViolationException | DataIntegrityViolationException e) {
-            log.warn("Duplicate key error while inserting entity", e);
-        }
+//            return ingredientsList;
 
-        // save the cocktails to the database
-        for (Cocktails cocktail : cocktailList) {
-            cocktailRepository.save(cocktail);
-        }
+            // save the cocktails to the database
+            for (Cocktails cocktail : cocktailList) {
+                cocktailRepository.save(cocktail);
+            }
 
-        // save the recipes to the database
-        for (Recipes recipe : recipesList) {
-            recipeRepository.save(recipe);
-        }
+            // save the recipes to the database
+            for (Recipes recipe : recipesList) {
+                recipeRepository.save(recipe);
+            }
 
-        // save the ingredients to the database
-        for (Ingredients ingredient : ingredientsList) {
-            ingredientsRepository.save(ingredient);
-        }
+            // save the ingredients to the database
+            for (Ingredients ingredient : ingredientsList) {
+                ingredientsRepository.save(ingredient);
+            }
 
+
+        }
+        initialized = true;
+        return ingredientsList;
     }
-
 }
-
