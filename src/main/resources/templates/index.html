@@ -10,48 +10,32 @@
     <br>
     <br>
     <br>
-
-    <div class="recipes">
+    <div>
         <h4>My Concoctions</h4>
-        <div class="recipes">
-            <th:block th:each="myRecipe : ${recipes}">
+        <br>
+        <p th:unless="${recipes} and ${recipes.size()}">no recipes added yet!</p>
+        <br>
+        <div class="allRecipes">
+            <div class="columns">
+
+            <th:block class="boxes" th:each="myRecipe : ${recipes}">
                 <div class="card" style="width: 18rem;">
-                    <!--                    <img src="..." class="card-img-top" alt="...">-->
+<!--                    <img src="..." class="card-img-top" alt="...">-->
                     <div class="card-body">
                         <h5 class="card-title" th:text="${myRecipe.name}"></h5>
-<!--                        <p class="card-text" th:text="${myRecipe.description}"></p>-->
+                        <p class="card-text" th:text="${myRecipe.description}"></p>
 <!--                        <p class="card-text" th:text="${myRecipe.instructions}"></p>-->
-                        <!--                    <a href="#" class="btn btn-primary">See Full Recipe</a>-->
+<!--                    <a href="#" class="btn btn-primary">See Full Recipe</a>-->
                     </div>
                 </div>
             </th:block>
+            </div>
         </div>
-<!--        <div class="card" style="width: 18rem;">-->
-<!--            <img src="..." class="card-img-top" alt="...">-->
-<!--            <div class="card-body" th:each="myRecipe : ${recipe}">-->
-<!--                <h5 class="card-title" th:text="${myRecipe.name}"></h5>-->
-<!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--&lt;!&ndash;                <a href="#" class="btn btn-primary">See Full Recipe</a>&ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="card" style="width: 18rem;">-->
-<!--            <img src="..." class="card-img-top" alt="...">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">My Concoction #2</h5>-->
-<!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--&lt;!&ndash;                <a href="#" class="btn btn-primary">See Full Recipe</a>&ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="card" style="width: 18rem;">-->
-<!--            <img src="..." class="card-img-top" alt="...">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">My Concoction #3</h5>-->
-<!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--&lt;!&ndash;                <a href="#" class="btn btn-primary">See Full Recipe</a>&ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
         <a class="seeMore" th:href="@{/my_recipes}">See More...</a>
     </div>
+
+
+
 <!--    <div class="recipes">-->
 <!--        <h2>My Friends' Recipes</h2>-->
 <!--        <div class="card" style="width: 18rem;">-->
@@ -62,24 +46,11 @@
 <!--                <a href="#" class="btn btn-primary">See Full Recipe</a>-->
 <!--            </div>-->
 <!--        </div>-->
-<!--        <div class="card" style="width: 18rem;">-->
-<!--            <img src="..." class="card-img-top" alt="...">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Friend Recipe #2</h5>-->
-<!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--                <a href="#" class="btn btn-primary">See Full Recipe</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="card" style="width: 18rem;">-->
-<!--            <img src="..." class="card-img-top" alt="...">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Friend Recipe #3</h5>-->
-<!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--                <a href="#" class="btn btn-primary">See Full Recipe</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <a class="seeMore" th:href="@{/friends_recipes}">See More...</a>-->
+<!--
+<!-        <a class="seeMore" th:href="@{/friends_recipes}">See More...</a>-->
 <!--    </div>-->
+
+
 <!--    <div class="recipes">-->
 <!--        <h2>My Fave Recipes</h2>-->
 <!--        <div class="card" style="width: 18rem;">-->
@@ -90,23 +61,8 @@
 <!--                <a href="#" class="btn btn-primary">See Full Recipe</a>-->
 <!--            </div>-->
 <!--        </div>-->
-<!--        <div class="card" style="width: 18rem;">-->
-<!--            <img src="..." class="card-img-top" alt="...">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Fave Recipe #2</h5>-->
-<!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--                <a href="#" class="btn btn-primary">See Full Recipe</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="card" style="width: 18rem;">-->
-<!--            <img src="..." class="card-img-top" alt="...">-->
-<!--            <div class="card-body">-->
-<!--                <h5 class="card-title">Fave Recipe #3</h5>-->
-<!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--                <a href="#" class="btn btn-primary">See Full Recipe</a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <a class="seeMore" th:href="@{/my_favorites}">See More...</a>-->
+<!--
+<!-        <a class="seeMore" th:href="@{/my_favorites}">See More...</a>-->
 <!--    </div>-->
 </body>
 <footer th:replace="fragments :: footer"></footer>

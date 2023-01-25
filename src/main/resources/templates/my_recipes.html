@@ -8,19 +8,48 @@
 
 <h2>Look at all the Recipes I have added</h2>
 
-        <div class="recipes">
-            <tr th:each="myRecipe : ${recipe}">
-                <div class="card" style="width: 18rem;">
-<!--                    <img src="..." class="card-img-top" alt="...">-->
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${myRecipe.name}"></h5>
-                        <p class="card-text" th:text="${myRecipe.ingredients}"></p>
-                        <p class="card-text" th:text="${myRecipe.instructions}"></p>
-<!--                    <a href="#" class="btn btn-primary">See Full Recipe</a>-->
+<br>
+
+<p th:unless="${recipe} and ${recipe.size()}">no recipes added yet!</p>
+
+        <div class="allRecipes">
+            <div class="columns">
+                <div class="boxes" th:each="myRecipe : ${recipe}">
+                    <div class="card" style="width: 18rem;">
+    <!--                    <img src="..." class="card-img-top" alt="...">-->
+                        <div class="card-body">
+                            <a th:href="@{/view-user-recipe/{id}(id=${myRecipe.id})}">
+                                <h5 class="card-title" th:text="${myRecipe.name}"></h5>
+                            </a>
+                            <p class="card-text" th:text="${myRecipe.description}"></p>
+                            <p class="card-text" th:text="${myRecipe.ingredients}"></p>
+                            <p class="card-text" th:text="${myRecipe.instructions}"></p>
+                        </div>
                     </div>
                 </div>
-            </tr>
+            </div>
         </div>
+
+<!--<div class="allRecipes">-->
+
+<!--    <div class="columns">-->
+<!--        <div class="boxes" th:each="cocktail : ${allCocktails}">-->
+<!--            <a th:href="@{/viewRecipes/{id}(id=${cocktail.id})}">-->
+<!--                <h5 th:text="${cocktail.strDrink}"></h5>-->
+<!--            </a>-->
+<!--            <div th:each="recipe : ${allRecipes}" >-->
+<!--                <p th:if="${recipe.cocktails.id} == ${cocktail.id}">-->
+<!--                    <span><img th:src="${recipe.strDrinkThumb}" width="200" height="200"></span>-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+
+
+
 </body>
 <footer th:replace="fragments :: footer"></footer>
 </html>

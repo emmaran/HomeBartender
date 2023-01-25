@@ -1,8 +1,64 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body class="container  body-content">
-<h1>Add Friend</h1>
+<body>
+<nav th:replace="fragments :: nav"></nav>
+
+<header th:replace="fragments :: header"></header>
+
+<h3>Add Friends</h3>
+
+<!--<br>-->
+<!--<a th:href="@{/searchFriends}">Return to Search</a>-->
+<!--<br>-->
+
+<!--<form action="#" th:action="@{/friends/add}" method="post" >-->
+<!--    <div class="form-group" >-->
+<!--        <th:block >-->
+<!--            <tr><th>Username</th></tr>-->
+<!--            <tr th:each="userFriend : ${userFriends}">-->
+<!--                <td th:text = "${userFriend.useName}"></td>-->
+<!--                <td><input type="hidden" th:value="${userFriend.id}"><button type="submit" class="addbutton" value="add">Add Friend</button></td>-->
+<!--            </tr>-->
+<!--        </th:block>-->
+
+<!--    </div>-->
+
+<!--</form>-->
+<!--<form th:action="@{/friends/add}" method="post">-->
+<!--    <div class="form-group">-->
+<!--        <th:block th:each="userFriend : ${userFriends}">-->
+<!--            <label for="friend" th:text="${userFriend.userName}">-->
+<!--                <input type="checkbox" id="friend" th:field="${newFriend.username}" th:value="${userFriend.userName}" class="form-control">-->
+<!--            </label>-->
+<!--            <p class="error" th:errors="${newFriend.username}"></p>-->
+<!--            <input type="hidden" th:field="${newFriend.user.id}" th:value="${session.id}">-->
+<!--            <input type="hidden" th:field="${newFriend.id}" th:value="${newFriend.id}">-->
+<!--            <br>-->
+<!--            <input type="submit" value="Add Friend" class="btn btn-success">-->
+<!--        </th:block>-->
+<!--    </div>-->
+<!--&lt;!&ndash;    <div class="form-group">&ndash;&gt;-->
+<!--&lt;!&ndash;        <input type="submit" value="Add Friend" class="btn btn-success">&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--</form>-->
+
+
+<form action="#" th:action="@{/friends/add}" method="post">
+
+    <div class="form-group" th:each="userFriend : ${userFriends}">
+        <label for="newFriend" th:text="${userFriend.userName}"></label>
+        <input type="checkbox" id="newFriend" th:field="${newFriend.username}" th:value="${userFriend.userName}"><br>
+        <input type="hidden" th:field="${newFriend.user.id}" th:value="${id}">
+<!--        <input type="hidden" th:field="${newFriend.id}" th:value="${newFriend.id}">-->
+
+    </div>
+    <input type="submit" th:value="Submit">
+
+</form>
+
+
 
 </body>
+<footer th:replace="fragments :: footer"></footer>
 </html>
