@@ -6,6 +6,7 @@
     <title>Search Recipes</title>
 </head>
 <body>
+<nav th:replace="fragments :: nav"></nav>
 <h1>Search Recipes</h1>
 <div class="container body-content">
 
@@ -31,13 +32,16 @@
     </form>
 
     <div>
-        <p th:if="${results != null}">No Results!</p>
-            <li th:each ="Cocktail: ${results}" th:text = "${Cocktail.strDrink}"></li>
 
+        <ol th:if = "${results}">
+            <li th:each ="Cocktail: ${results}" th:text = "${Cocktail.strDrink}"></li>
+        </ol>
+        <p th:unless = "${results}">No Results!</p>
     </div>
 
 
 </div>
 
 </body>
+<footer th:replace="fragments :: footer"></footer>
 </html>

@@ -81,7 +81,6 @@ public class SearchController {
             for (Ingredients ingredient: allIngredients) {
 
                 if (ingredient.getIngredient().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    System.out.println("2. Right here!");
                     ingredientSearchResults.add(ingredient);
                 }
             }
