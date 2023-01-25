@@ -1,3 +1,5 @@
+// ADD INGREDIENT AND INSTRUCTION
+
 function addExtraIngredientForm() {
   const ingredientForms = document.getElementById('ingredient-forms');
   const count = ingredientForms.getAttribute('ingredient-count');
@@ -38,3 +40,21 @@ function htmlToElement(html) {
   template.innerHTML = html;
   return template.content.firstChild;
 }
+
+// IMAGE UPLOAD PREVIEW
+
+const previewImage = (event) => {
+  var imageFiles = event.target.files;
+  var imageFilesLength = imageFiles.length;
+
+  if (imageFilesLength > 0) {
+    var imageSrc = URL.createObjectURL(imageFiles[0]);
+    var imagePreviewElement = document.querySelector("#preview-selected-image");
+
+    imagePreviewElement.setAttribute("class", "img-fluid");
+    imagePreviewElement.src = imageSrc;
+  }
+
+}
+
+
