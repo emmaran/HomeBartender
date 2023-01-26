@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -67,11 +68,9 @@ public class apiService {
     };
 
     //post construct will run the below method right away when loading the program
-    //@PostConstruct
-
- 
-    //@Transactional
-    //@GetMapping(value = "/cocktailAPI")
+//    @PostConstruct
+//    @Transactional
+//    @GetMapping(value = "/cocktailAPI")
     public List<Ingredients> addApiToDB() {
 
         List<Cocktails> cocktailList = new ArrayList<>();
