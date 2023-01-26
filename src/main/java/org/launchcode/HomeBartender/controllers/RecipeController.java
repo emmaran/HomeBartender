@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -94,13 +95,17 @@ public class RecipeController {
     }
 
     @PostMapping("/new-recipe")
-    public String processNewRecipe(@ModelAttribute("recipeForm") CreateRecipeFormData recipeFormData,/*
+    public String processNewRecipe(@ModelAttribute("recipeForm") @Valid CreateRecipeFormData recipeFormData,/*
                                    @RequestParam("userRecipeImage") MultipartFile multipartFile,*/
                                    HttpServletRequest request,
                                    Errors errors, Model model) throws IOException {
+
         if (errors.hasErrors()) {
-            System.out.println(errors);
-            System.out.println("end errors");
+            model.addAttribute("title", "Create A New Recipe");
+            model.addAttribute("h1", "Create a new recipe");
+            model.addAttribute("recipeForm", new CreateRecipeFormData());
+//            model.addAttribute("error", "Test error");
+
             return "recipes/create/build-recipe";
         }
 

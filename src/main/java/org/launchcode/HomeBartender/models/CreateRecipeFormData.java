@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class CreateRecipeFormData extends AbstractEntity {
 
-    @NotBlank
-    @Size(min = 3, max = 50, message = "UserRecipe Name must be between 3 and 50 characters.")
+    @NotBlank(message = "Name cannot be blank.")
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters.")
     private String name;
 
     private String description;
