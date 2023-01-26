@@ -1,9 +1,12 @@
 package org.launchcode.HomeBartender.controllers;
 
 import org.launchcode.HomeBartender.Service.UserImageStorageService;
-import org.launchcode.HomeBartender.data.UserIngredientRepository;
-import org.launchcode.HomeBartender.data.UserInstructionRepository;
-import org.launchcode.HomeBartender.data.UserRecipeRepository;
+import org.launchcode.HomeBartender.Repositories.UserIngredientRepository;
+import org.launchcode.HomeBartender.Repositories.UserInstructionRepository;
+import org.launchcode.HomeBartender.Repositories.UserRecipeRepository;
+import org.launchcode.HomeBartender.data.CreateRecipeFormData;
+import org.launchcode.HomeBartender.data.IngredientFormData;
+import org.launchcode.HomeBartender.data.InstructionFormData;
 import org.launchcode.HomeBartender.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -42,8 +45,6 @@ public class RecipeController {
     @Autowired
     private AuthenticationController authenticationController;
 
-//    @Autowired
-//    private UserImageController userImageController;
 
     @Autowired
     private UserImageStorageService service;
