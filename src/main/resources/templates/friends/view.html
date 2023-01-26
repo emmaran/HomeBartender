@@ -15,22 +15,15 @@
     <br>
     <p th:unless="${friends} and ${friends.size()}">no friends added yet!</p>
     <br>
-    <ul>
-        <li th:each="friend : ${friends}" th:text = "${friend.username}">
+    <div>
+        <p th:each="friend : ${friends}" th:text = "${friend.username}">
 <!--            <a th:href="@{'/friends/view/' + ${friend.id}}" th:text="${friend.name}"></a>-->
-        </li>
-    </ul>
+        </p>
+    </div>
     <a th:href="@{'/friends/search'}">Find More Friends</a>
 
 
-<!--    <div>-->
-<!--        <ol>-->
-<!--            <a>-->
-<!--                <li th:each ="Cocktail: ${results}" th:text = "${Cocktail.strDrink}"></li>-->
-<!--            </a>-->
-<!--        </ol>-->
 
-<!--    </div>-->
 
 </div>
 

@@ -23,8 +23,8 @@ public class SearchFriendsController {
     @Autowired
     UserRepository userRepository;
 
-//    @Autowired
-//    FriendsRepository friendsRepository;
+    @Autowired
+    FriendsRepository friendsRepository;
 
 
     private String friendName;
@@ -35,7 +35,7 @@ public class SearchFriendsController {
 
     @GetMapping("")
     public String search(Model model){
-//        model.addAttribute("name", userRepository.findAll());
+        model.addAttribute("name", userRepository.findAll());
         model.addAttribute("friendName", friendName);
         return "friends/search";
     }
@@ -45,17 +45,21 @@ public class SearchFriendsController {
         Iterable<User> usersList;
         usersList = userRepository.findAll();
 
-        for(User userFriend: usersList){
-            if(friendName.toLowerCase().equals(userFriend.getUserName().toLowerCase())){
+        for(User userFriend: usersList) {
+            if (friendName.toLowerCase().equals(userFriend.getUserName().toLowerCase())) {
                 userFriends.add(userFriend);
             }
-//            if(friendName.toLowerCase() != friend.getUserName()){
-//                return ""
+
+//            if (friendName.isBlank() || friendName.equals("")) {
+//                return "redirect: /";
 //            }
-            if(friendName.toLowerCase().isBlank()){
-                return "redirect: /searchFriends";
+
+            else{
+                return "friends/search";
             }
-        }
+
+
+//        }
 //        if(friendName.toLowerCase().equals("searchTerm")){
 //            for(User friend : friendsList) {
 //                friends.add(friend);
@@ -67,8 +71,9 @@ public class SearchFriendsController {
 //            user = User.findByValue(searchTerm, userRepository.findAll());
 //        }
 
-
+        }
         model.addAttribute("userFriends", userFriends);
         return "friends/results";
+
     }
 }

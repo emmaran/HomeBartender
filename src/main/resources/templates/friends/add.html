@@ -49,8 +49,6 @@
     <div class="form-group" th:each="userFriend : ${userFriends}">
         <label for="newFriend" th:text="${userFriend.userName}"></label>
         <input type="radio" id="newFriend" th:field="${newFriend.username}" th:value="${userFriend.userName}"><br>
-<!--        <input type="hidden" th:field="${newFriend.user.id}" th:value="${id}">-->
-<!--        <input type="hidden" th:field="${newFriend.id}" th:value="${newFriend.id}">-->
 
     </div>
     <input type="submit" th:value="Submit">
