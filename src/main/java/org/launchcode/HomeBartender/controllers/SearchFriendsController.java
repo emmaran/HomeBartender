@@ -1,9 +1,11 @@
 package org.launchcode.HomeBartender.controllers;
 
-import org.launchcode.HomeBartender.data.UserRepository;
+import org.launchcode.HomeBartender.Repositories.FriendsRepository;
+import org.launchcode.HomeBartender.Repositories.UserRepository;
+;
 import org.launchcode.HomeBartender.models.Friends;
 import org.launchcode.HomeBartender.models.User;
-import org.launchcode.HomeBartender.models.data.FriendsRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -3,12 +3,14 @@ package org.launchcode.HomeBartender.controllers;
 import org.launchcode.HomeBartender.Repositories.CocktailRepository;
 import org.launchcode.HomeBartender.Repositories.IngredientsRepository;
 import org.launchcode.HomeBartender.Repositories.RecipeRepository;
-import org.launchcode.HomeBartender.data.UserIngredientRepository;
-import org.launchcode.HomeBartender.data.UserRecipeRepository;
-import org.launchcode.HomeBartender.data.UserRepository;
+//import org.launchcode.HomeBartender.data.UserIngredientRepository;
+//import org.launchcode.HomeBartender.data.UserRecipeRepository;
+//import org.launchcode.HomeBartender.data.UserRepository;
 
+import org.launchcode.HomeBartender.Repositories.UserRecipeRepository;
+import org.launchcode.HomeBartender.data.LoginFormDTO;
 import org.launchcode.HomeBartender.models.User;
-import org.launchcode.HomeBartender.models.dto.LoginFormDTO;
+//import org.launchcode.HomeBartender.models.dto.LoginFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +45,7 @@ public class MyDrinksController {
     AuthenticationController authenticationController;
 
     private User user;
+
 
     private LoginFormDTO loggedUser;
 
