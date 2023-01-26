@@ -33,18 +33,21 @@
 
     </form>
 <hr/>
-    <div class="columns">
-        <div th:if = "${results}" >
-            <div th:each ="Cocktail: ${results}" class="card" style="width: 18rem;">
-                <a th:href="@{/viewRecipes/{id}(id=${Cocktail.id})}" class="btn btn-primary">
-                    <img th:each="recipe : ${resultsRecipes}" th:if="${recipe.cocktails.id} == ${Cocktail.id}" th:src="${recipe.strDrinkThumb}" class="card-img-top" >
-                    <div class="card-body">
-                        <h5 th:text="${Cocktail.strDrink}"></h5>
-                    </div>
-                </a>
-            </div>
-        </div>
 
+    <div class="allRecipes">
+        <div class="columns">
+            <div th:if = "${results}" >
+                <div th:each ="Cocktail: ${results}" class="card" style="width: 18rem;">
+                    <a th:href="@{/viewRecipes/{id}(id=${Cocktail.id})}" class="btn btn-primary">
+                        <img th:each="recipe : ${resultsRecipes}" th:if="${recipe.cocktails.id} == ${Cocktail.id}" th:src="${recipe.strDrinkThumb}" class="card-img-top" >
+                        <div class="card-body">
+                            <h5 th:text="${Cocktail.strDrink}"></h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
 
