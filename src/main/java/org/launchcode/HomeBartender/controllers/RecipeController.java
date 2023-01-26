@@ -1,14 +1,12 @@
 package org.launchcode.HomeBartender.controllers;
 
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.launchcode.HomeBartender.Service.UserImageStorageService;
-import org.launchcode.HomeBartender.data.UserImageRepository;
 import org.launchcode.HomeBartender.data.UserIngredientRepository;
 import org.launchcode.HomeBartender.data.UserInstructionRepository;
 import org.launchcode.HomeBartender.data.UserRecipeRepository;
 import org.launchcode.HomeBartender.models.*;
-import org.launchcode.HomeBartender.util.UserImageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,17 +18,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.security.Principal;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -64,10 +55,6 @@ public class RecipeController {
         model.addAttribute("h1", "Create a new recipe");
 //        model.addAttribute("lead", "Add another drink recipe to your home menu. You'll just need a creative name, the yummy ingredients, and some helpful steps!");
         model.addAttribute("recipeForm", new CreateRecipeFormData());
-
-//        HttpSession session = request.getSession();
-//        User user = authenticationController.getUserFromSession(session);
-//        model.addAttribute("user", user);
 
         return "recipes/create/build-recipe";
     }

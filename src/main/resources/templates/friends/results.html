@@ -9,26 +9,32 @@
 <h3>Friends Search Results</h3>
 
 
-<!--<div class="recipes">-->
-<!--  <tr th:each="friend : ${friends}">-->
-<!--    <div class="card" style="width: 18rem;">-->
-<!--      &lt;!&ndash;                    <img src="..." class="card-img-top" alt="...">&ndash;&gt;-->
-<!--      <div class="card-body">-->
-<!--        <h5 class="card-title" th:text="${myRecipe.name}"></h5>-->
-<!--        <p class="card-text" th:text="${myRecipe.ingredients}"></p>-->
-<!--        <p class="card-text" th:text="${myRecipe.instructions}"></p>-->
-<!--        &lt;!&ndash;                    <a href="#" class="btn btn-primary">See Full Recipe</a>&ndash;&gt;-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </tr>-->
-
 <div>
-  <ol th:each="friend : ${friends}">
-    <li th:text = "${friend.userName}"></li>
-  </ol>
+  <ul th:each="userFriend : ${userFriends}">
+    <li th:text = "${userFriend.userName}"></li>
+  </ul>
 </div>
 <br>
+
 <a th:href="@{/searchFriends}">Return to Search</a>
+
+
+<!--<form action="#" th:action="@{/friends/add}" method="post">-->
+
+<!--  <div class="form-group" th:each="userFriend : ${userFriends}">-->
+<!--    <label for="newFriend" th:text="${userFriend.userName}"></label>-->
+<!--    <input type="radio" id="newFriend" th:field="${newFriend.username}" th:value="${userFriend.userName}"><br>-->
+<!--    &lt;!&ndash;        <input type="hidden" th:field="${newFriend.user.id}" th:value="${id}">&ndash;&gt;-->
+<!--    &lt;!&ndash;        <input type="hidden" th:field="${newFriend.id}" th:value="${newFriend.id}">&ndash;&gt;-->
+
+<!--  </div>-->
+<!--  <input type="submit" th:value="Submit">-->
+
+<!--</form>-->
+
+
+
+
 
 </body>
 <footer th:replace="fragments :: footer"></footer>

@@ -1,4 +1,8 @@
-package org.launchcode.HomeBartender.models;
+package org.launchcode.HomeBartender.data;
+
+import org.launchcode.HomeBartender.models.AbstractEntity;
+import org.launchcode.HomeBartender.models.UserIngredient;
+import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.web.multipart.MultipartFile;
 

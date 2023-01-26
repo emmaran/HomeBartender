@@ -1,12 +1,11 @@
 package org.launchcode.HomeBartender;
 
 import org.launchcode.HomeBartender.controllers.AuthenticationController;
-import org.launchcode.HomeBartender.data.UserRepository;
+import org.launchcode.HomeBartender.Repositories.UserRepository;
 import org.launchcode.HomeBartender.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

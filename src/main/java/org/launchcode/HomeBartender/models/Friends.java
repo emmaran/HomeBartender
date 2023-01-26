@@ -6,20 +6,23 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Friends extends AbstractEntity{
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
+//    @ManyToOne(targetEntity = User.class)
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    //@JoinColumn(name="user_id")
     private User user;
 
 
     @NotNull
-    private String name;
+    private String username;
+
 
     //may add birthday info in the future
 //    private int birthday;
 
-    public Friends(int id, String name) {
+    public Friends(String username, User user) {
         super();
-        this.name = name;
+        this.username = username;
+        this.user = user;
 //        this.birthday = birthday;
     }
 
@@ -27,15 +30,25 @@ public class Friends extends AbstractEntity{
 
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-//    public int getBirthday() {
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
+
+    //    public int getBirthday() {
 //        return birthday;
 //    }
 //
@@ -43,14 +56,10 @@ public class Friends extends AbstractEntity{
 //        this.birthday = birthday;
 //    }
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="user_id")
-//    private User user;
-
 
     @Override
     public String toString() {
-        return name;
+        return username;
     }
 
     @Override

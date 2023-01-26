@@ -1,4 +1,4 @@
-package org.launchcode.HomeBartender.models.data;
+package org.launchcode.HomeBartender.Repositories;
 
 
 import org.launchcode.HomeBartender.models.Friends;
