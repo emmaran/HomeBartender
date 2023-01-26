@@ -67,10 +67,10 @@ public class apiService {
     };
 
     //post construct will run the below method right away when loading the program
-    //@PostConstruct
 
- 
-    //@Transactional
+
+//    @PostConstruct
+//    @Transactional
     //@GetMapping(value = "/cocktailAPI")
     public List<Ingredients> addApiToDB() {
 

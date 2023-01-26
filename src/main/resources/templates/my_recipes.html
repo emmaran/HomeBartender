@@ -16,9 +16,9 @@
             <div class="columns">
                 <div class="boxes" th:each="myRecipe : ${recipe}">
                     <div class="card" style="width: 18rem;">
-    <!--                    <img src="..." class="card-img-top" alt="...">-->
+                        <img src="@{'recipe/image/' + ${myRecipe.image.name}}" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <a th:href="@{/view-user-recipe/{id}(id=${myRecipe.id})}">
+                            <a th:href="@{'recipe/view?recipeId=' + ${myRecipe.id}}">
                                 <h5 class="card-title" th:text="${myRecipe.name}"></h5>
                             </a>
                             <p class="card-text" th:text="${myRecipe.description}"></p>

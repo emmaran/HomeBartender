@@ -26,6 +26,15 @@
 
     </form>
 </div>
+<br>
+<p th:unless="${userFriends} and ${userFriends.size()}">No Search Results Available</p>
+
+<div>
+    <ul th:each="userFriend : ${userFriends}">
+        <li th:text = "${userFriend.userName}"></li>
+    </ul>
+</div>
+<br>
 
 
 </body>
