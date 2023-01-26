@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.thymeleaf.org/ ">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Search Recipes</title>
-</head>
+<head th:replace="fragments :: head"></head>
 <body>
-
+<nav th:replace="fragments :: nav"></nav>
 
 <h1>Search Recipes</h1>
 
@@ -20,31 +17,42 @@
             <label th:for="searchTerm">Search:</label>
             <input type="text" class="form-control" name="searchTerm"
                    aria-label="Text input with segmented dropdown button" placeholder="text here..." required>
+            <br>
                 <div th:if="${#fields.hasErrors('searchTerm')}" th:errors="*{searchTerm}">Error</div>
             <select class="custom-select" name="searchType" required>
                 <option value="">Select Search Type</option>
                 <option value="keyword">Keyword</option>
                 <option value="ingredient">Ingredient</option>
-                <option value="isAlcholic">Search Mocktails</option>
+               <!-- <option value="isAlcholic">Search Mocktails</option> -->
 
             </select>
+            <br>
             <hr/>
             <input type="submit" value="Submit">
         </div>
 
-
-
     </form>
-
-    <div>
-        <p th:if="${results != null}">No Results!</p>
-            <li th:each ="Cocktail: ${results}" th:text = "${Cocktail.strDrink}"></li>
-
+<hr/>
+    <div class="columns">
+        <div th:if = "${results}" >
+            <div th:each ="Cocktail: ${results}" class="card" style="width: 18rem;">
+                <a th:href="@{/viewRecipes/{id}(id=${Cocktail.id})}" class="btn btn-primary">
+                    <img th:each="recipe : ${resultsRecipes}" th:if="${recipe.cocktails.id} == ${Cocktail.id}" th:src="${recipe.strDrinkThumb}" class="card-img-top" >
+                    <div class="card-body">
+                        <h5 th:text="${Cocktail.strDrink}"></h5>
+                    </div>
+                </a>
+            </div>
+        </div>
 
     </div>
-
-
 </div>
 
+<div th:unless = "${results}">Recipes will display here!</div>
+<div th:if = "${results} and ${results.size() < 1}">No recipes found!</div>
+
 </body>
+
+<footer th:replace="fragments :: footer"></footer>
+
 </html>

@@ -2,10 +2,12 @@ package org.launchcode.HomeBartender.controllers;
 
 import org.launchcode.HomeBartender.Repositories.CocktailRepository;
 import org.launchcode.HomeBartender.Repositories.IngredientsRepository;
+import org.launchcode.HomeBartender.Repositories.RecipeRepository;
 import org.launchcode.HomeBartender.models.Cocktails;
 import org.launchcode.HomeBartender.models.Ingredients;
 
 
+import org.launchcode.HomeBartender.models.Recipes;
 import org.launchcode.HomeBartender.models.data.SearchData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,7 @@ public class SearchController {
 
     @Autowired IngredientsRepository ingredientsRepository;
     @Autowired CocktailRepository cocktailRepository;
+    @Autowired RecipeRepository recipeRepository;
 
     private String searchTerm;
     private String searchType;
@@ -38,6 +41,7 @@ public class SearchController {
     private ArrayList<Cocktails> keywordSearchResults;
     private ArrayList<Ingredients> ingredientSearchResults;
     private ArrayList<Cocktails> cocktailResults;
+    private Iterable<Recipes> resultsRecipes;
 
     @GetMapping
     public String search(Model model){
@@ -54,8 +58,10 @@ public class SearchController {
                @RequestParam String searchType, @Valid SearchData searchData, BindingResult bindingResult) {
         Iterable<Cocktails> keywordResults;
         Iterable<Ingredients> allIngredients;
+        Iterable<Recipes> resultsRecipes;
         keywordResults = cocktailRepository.findAll();
         allIngredients = ingredientsRepository.findAll();
+        resultsRecipes = recipeRepository.findAll();
 
         if (searchData.getSearchType().equals("Select Search Type")) {
             bindingResult.rejectValue("searchType", "error.searchType", "Must Select Search Type");
@@ -78,6 +84,7 @@ public class SearchController {
             }
             model.addAttribute("results", keywordSearchResults);
             model.addAttribute("searchData", new SearchData());
+            model.addAttribute("resultsRecipes", resultsRecipes);
             return "/search/search_homepage";
 
         } else if (searchType.toLowerCase().equals("ingredient")) {
@@ -87,7 +94,6 @@ public class SearchController {
             for (Ingredients ingredient: allIngredients) {
 
                 if (ingredient.getIngredient().toLowerCase().contains(searchTerm.toLowerCase())) {
-                    System.out.println("2. Right here!");
                     ingredientSearchResults.add(ingredient);
                 }
             }
@@ -103,6 +109,7 @@ public class SearchController {
                 }
             model.addAttribute("results", cocktailResults);
             model.addAttribute("searchData", new SearchData());
+            model.addAttribute("resultsRecipes", resultsRecipes);
             return "/search/search_homepage";
 
         }
