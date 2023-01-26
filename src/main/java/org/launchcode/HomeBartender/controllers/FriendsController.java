@@ -71,7 +71,7 @@ public class FriendsController {
     public String processAddFriend(@ModelAttribute @Valid Friends newFriend, Errors errors, Model model, HttpServletRequest request){
         if(errors.hasErrors()){
             model.addAttribute("username", "Create Friend");
-            return "friends/results";
+            return "friends/search";
         }
 
         HttpSession session = request.getSession();
