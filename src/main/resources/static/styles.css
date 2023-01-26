@@ -517,3 +517,37 @@ transition: background-color 0.5s ease;
 .deleteReview:hover{
  background-color:darkred;
  }
+
+ .favorite{
+ width: 50;
+ height:50;
+ }
+
+ .share{
+ display:inline-block;
+ }
+
+ .createdBy{
+ border-bottom: 1px solid black
+ }
+
+.faqContainer{
+border: 1px solid black;
+width: 60%;
+margin: auto;
+margin-bottom: 25px;
+}
+
+.question{
+border-bottom: 1px solid black
+}
+
+.question, .answer{
+padding: 10px;
+}
+
+.faq{
+    text-align: center;
+}
+
+

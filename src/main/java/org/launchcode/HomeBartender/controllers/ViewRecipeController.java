@@ -1,12 +1,10 @@
 package org.launchcode.HomeBartender.controllers;
 
-import org.launchcode.HomeBartender.Repositories.CocktailRepository;
-import org.launchcode.HomeBartender.Repositories.IngredientsRepository;
-import org.launchcode.HomeBartender.Repositories.RecipeRepository;
-import org.launchcode.HomeBartender.Repositories.ReviewRepository;
+import org.launchcode.HomeBartender.Repositories.*;
 import org.launchcode.HomeBartender.data.CocktailData;
 import org.launchcode.HomeBartender.data.ReviewData;
 import org.launchcode.HomeBartender.models.Cocktails;
+import org.launchcode.HomeBartender.models.Favorites;
 import org.launchcode.HomeBartender.models.Recipes;
 import org.launchcode.HomeBartender.models.Review;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 @Controller
 public class ViewRecipeController {
@@ -33,6 +32,8 @@ public class ViewRecipeController {
     private RecipeRepository recipeRepository;
     @Autowired
     private ReviewRepository reviewRepository;
+    @Autowired
+    private FavoriteRepository favoriteRepository;
 
 
     @RequestMapping("/viewRecipes/{id}")
@@ -43,6 +44,10 @@ public class ViewRecipeController {
         model.addAttribute("username", username);
         Iterable<Cocktails> cocktails;
         Iterable<Recipes> recipes;
+        Iterable<Favorites> favorites = new ArrayList<>();
+
+        favorites = favoriteRepository.findAll();
+
         cocktails = CocktailData.findById(id,cocktailRepository.findAll());
         recipes = CocktailData.findByRId(id,recipeRepository.findAll());
         model.addAttribute("reviewData", new ReviewData());
@@ -50,6 +55,20 @@ public class ViewRecipeController {
         model.addAttribute("recipes" , recipes);
         model.addAttribute("ingredients",ingredientsRepository.findAll());
         model.addAttribute("reviews" , reviewRepository.findAll());
+
+        for(Favorites favs : favorites)
+        {
+            if(favs.getUsername().equals(username))
+            {
+                if(favs.getCocktailId() == id)
+                {
+                    System.out.println("saved");
+                    model.addAttribute("favorite" , "true");
+
+                }
+            }
+        }
+
         return "viewRecipes";
     }
 
@@ -99,6 +118,40 @@ public class ViewRecipeController {
         model.addAttribute("reviewData", new ReviewData());
 
         return "redirect:/viewRecipes/"+cocktailId;
+    }
+
+    @RequestMapping("/favorite/{id}")
+    public String favoriteRecipe(@PathVariable int id, Model model, HttpSession session)
+    {
+        String username = (String) session.getAttribute("username");
+        model.addAttribute("username", username);
+
+        Favorites myFavs = new Favorites();
+        Iterable<Favorites> favorites = new ArrayList<>();
+        favorites = favoriteRepository.findAll();
+
+
+        for(Favorites favs : favorites)
+        {
+            if(favs.getUsername().equals(username))
+            {
+                if(favs.getCocktailId() == id)
+                {
+                    model.addAttribute("favorite" , "false");
+                    System.out.println("deleting");
+                    favoriteRepository.deleteById(favs.getId());
+                }
+            }
+        }
+
+        model.addAttribute("favorite" , "true");
+
+        myFavs.setUsername(username);
+        myFavs.setCocktailId(id);
+
+        favoriteRepository.save(myFavs);
+
+        return "redirect:/viewRecipes/"+id;
     }
 
 }

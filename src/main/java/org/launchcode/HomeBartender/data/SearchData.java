@@ -1,4 +1,4 @@
-package org.launchcode.HomeBartender.models.data;
+package org.launchcode.HomeBartender.data;
 
 public class SearchData {
     private String searchTerm;
