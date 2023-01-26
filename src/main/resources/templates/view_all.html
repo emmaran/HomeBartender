@@ -12,16 +12,14 @@
     <div class="allRecipes">
 
         <div class="columns">
-                <div class="boxes" th:each="cocktail : ${allCocktails}">
-                    <a th:href="@{/viewRecipes/{id}(id=${cocktail.id})}">
-                        <h5 th:text="${cocktail.strDrink}"></h5>
-                    </a>
-                    <div th:each="recipe : ${allRecipes}" >
-                        <p th:if="${recipe.cocktails.id} == ${cocktail.id}">
-                        <span><img th:src="${recipe.strDrinkThumb}" width="200" height="200"></span>
-                        </p>
-                    </div>
+                 <div th:each="cocktail : ${allCocktails}" class="card" style="width: 18rem;">
+            <a th:href="@{/viewRecipes/{id}(id=${cocktail.id})}" class="btn btn-primary">
+                <img th:each="recipe : ${allRecipes}" th:if="${recipe.cocktails.id} == ${cocktail.id}" th:src="${recipe.strDrinkThumb}" class="card-img-top" >
+                <div class="card-body">
+                    <h5 th:text="${cocktail.strDrink}"></h5>
                 </div>
+            </a>
+        </div>
         </div>
     </div>
 

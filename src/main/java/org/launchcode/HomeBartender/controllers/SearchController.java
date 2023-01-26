@@ -8,7 +8,7 @@ import org.launchcode.HomeBartender.models.Ingredients;
 
 
 import org.launchcode.HomeBartender.models.Recipes;
-import org.launchcode.HomeBartender.models.data.SearchData;
+import org.launchcode.HomeBartender.data.SearchData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,11 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import org.thymeleaf.TemplateEngine;
-
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 
 @Controller
@@ -32,7 +28,8 @@ public class SearchController {
 
     @Autowired IngredientsRepository ingredientsRepository;
     @Autowired CocktailRepository cocktailRepository;
-    @Autowired RecipeRepository recipeRepository;
+    @Autowired
+    RecipeRepository recipeRepository;
 
     private String searchTerm;
     private String searchType;
@@ -94,6 +91,7 @@ public class SearchController {
             for (Ingredients ingredient: allIngredients) {
 
                 if (ingredient.getIngredient().toLowerCase().contains(searchTerm.toLowerCase())) {
+                    System.out.println("2. Right here!");
                     ingredientSearchResults.add(ingredient);
                 }
             }

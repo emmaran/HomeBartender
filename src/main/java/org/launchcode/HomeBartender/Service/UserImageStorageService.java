@@ -1,6 +1,6 @@
 package org.launchcode.HomeBartender.Service;
 
-import org.launchcode.HomeBartender.data.UserImageRepository;
+import org.launchcode.HomeBartender.Repositories.UserImageRepository;
 import org.launchcode.HomeBartender.models.UserImageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

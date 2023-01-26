@@ -10,7 +10,11 @@
 
       <div class="col-lg-8 col-xl-7 col-xxl-6">
         <div class="my-5 text-center text-xl-start">
-          <h1 class="display-5 fw-bolder text-white mb-2" th:text="${cocktail.strDrink}"></h1>
+
+          <span th:if="${favorite}">     <a th:href="@{/favorite/{id}(id=${cocktail.id})}" ><img class="share favorite " th:src="@{/images/favorited.png}"></a><h1 class=" share display-5 fw-bolder text-white mb-2" th:text="${cocktail.strDrink}"></h1></span>
+          <span th:unless="${favorite}"> <a th:href="@{/favorite/{id}(id=${cocktail.id})}" ><img class="share favorite " th:src="@{/images/favorite.png}"> </a><h1 class=" share display-5 fw-bolder text-white mb-2" th:text="${cocktail.strDrink}"></h1> </span>
+
+
         </div>
       </div>
 
@@ -64,7 +68,7 @@
   </form>
 
       <div class="reviews" th:each="review : ${reviews}" th:if="${review.cocktailId}==${cocktail.id}">
-        <div >
+        <div class="createdBy" >
           <h5 th:text=" ${review.userName} + ' - ' + ${review.currentDate}">class="modal-title">Modal title</h5>
         </div>
         <div >
