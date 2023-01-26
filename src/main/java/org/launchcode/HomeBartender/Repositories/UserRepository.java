@@ -1,4 +1,4 @@
-package org.launchcode.HomeBartender.data;
+package org.launchcode.HomeBartender.Repositories;
 
 import org.launchcode.HomeBartender.models.User;
 import org.springframework.data.repository.CrudRepository;

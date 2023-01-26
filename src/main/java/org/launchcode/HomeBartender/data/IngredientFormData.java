@@ -1,4 +1,6 @@
-package org.launchcode.HomeBartender.models;
+package org.launchcode.HomeBartender.data;
+
+import org.launchcode.HomeBartender.models.AbstractEntity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

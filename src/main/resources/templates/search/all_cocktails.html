@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cocktails</title>
+</head>
+<body>
+
+<h1>All Cocktails</h1>
+
+
+<ol>
+    <li th:each="cocktail : ${cocktails}">
+        <a th:href="@{/viewRecipes/{id}(id=${cocktail.id})}">
+
+            <span th:text="${cocktail.strDrink}"></span>
+            <ul>
+                <li th:each="ingred : ${ingredients}" th:if="${ingred.recipes.cocktails.id} == ${cocktail.id}">
+                    <span th:if="${ingred.amount} == null" th:text=" ${ingred.ingredient}"></span>
+                    <span th:if="${ingred.amount} != null" th:text="${ingred.amount} +' '+ ${ingred.ingredient}"></span>
+                </li>
+            </ul>
+            <div th:each="recipe : ${recipes}">
+                <span th:if="${recipe.cocktails.id} == ${cocktail.id}" th:text=" ${recipe.strInstructions}"></span>
+            </div>
+    </li>
+</ol>
+</a>
+</body>
+</html>

@@ -1,8 +1,8 @@
 package org.launchcode.HomeBartender.controllers;
 
-import org.launchcode.HomeBartender.data.UserRepository;
+import org.launchcode.HomeBartender.Repositories.UserRepository;
 import org.launchcode.HomeBartender.models.User;
-import org.launchcode.HomeBartender.models.dto.RegisterFormDTO;
+import org.launchcode.HomeBartender.data.RegisterFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

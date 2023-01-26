@@ -10,8 +10,8 @@
 
             <div class="col-lg-8 col-xl-7 col-xxl-6">
                 <div class="my-5 text-center text-xl-start">
-                    <h1 class="display-5 fw-bolder text-white mb-2" th:text="${recipe.name}"></h1>
-                    <p class="h2 white mb-4 opacity-50" th:text="${recipe.description}"></p>
+                    <h1 class="display-5 fw-bolder text-white mb-2" th:text="${cocktail.strDrink}"></h1>
+<!--                    <p class="h2 white mb-4 opacity-50" th:text="${recipe.description}"></p>-->
                 </div>
             </div>
 
@@ -30,19 +30,19 @@
 
         <div class="col-lg-8 col-xl-7 col-xxl-6">
             <div class="my-5 text-center text-xl-start">
-                <ol class="lead">
-                    <li th:each="instruction : ${recipe.instructions}" th:text="${instruction}"
-                        class="pb-3"></li>
-                </ol>
+<!--                <ol class="lead">-->
+<!--&lt;!&ndash;                    <li th:each="instruction : ${recipe.instructions}" th:text="${instruction}"&ndash;&gt;-->
+<!--                        class="pb-3"></li>-->
+<!--                </ol>-->
             </div>
         </div>
 
         <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
             <div class="ps-3 my-5 text-center text-xl-start border-start">
-                <div class="fw-bold pb-2"
-                     th:each="ingredient : ${recipe.ingredients}"
-                     th:text="${ingredient}">
-                </div>
+<!--                <div class="fw-bold pb-2"-->
+<!--&lt;!&ndash;                     th:each="ingredient : ${recipe.ingredients}"&ndash;&gt;-->
+<!--&lt;!&ndash;                     th:text="${ingredient}">&ndash;&gt;-->
+<!--                </div>-->
             </div>
         </div>
 

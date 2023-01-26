@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body th:each="cocktail : ${cocktails}">
+<nav th:replace="fragments :: nav"></nav>
+
+<header style="background-color: #151019" class="py-3">
+  <div class="container px-5">
+    <div class="row gx-5 align-items-center justify-content-center">
+
+      <div class="col-lg-8 col-xl-7 col-xxl-6">
+        <div class="my-5 text-center text-xl-start">
+          <h1 class="display-5 fw-bolder text-white mb-2" th:text="${cocktail.strDrink}"></h1>
+        </div>
+      </div>
+
+      <div th:each="recipe : ${recipes}" class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+        <img class="preview rounded-3 my-5"
+             th:src="${recipe.strDrinkThumb}"/>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+
+<div class="container px-5 py-3 pb-5">
+  <div class="row gx-5">
+
+    <div class="col-lg-8 col-xl-7 col-xxl-6">
+      <div class="my-5 text-center text-xl-start">
+        <ol class="lead">
+          <li th:each="recipe : ${recipes}" th:text="${recipe.strInstructions}"
+              class="pb-3"></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+      <div class="ps-3 my-5 text-center text-xl-start border-start">
+        <div class="fw-bold pb-2" th:each="ingred : ${ingredients}" th:if="${ingred.recipes.cocktails.id} == ${cocktail.id}">
+
+          <span th:if="${ingred.amount} == null" th:text=" ${ingred.ingredient}"></span>
+          <span th:if="${ingred.amount} != null" th:text="${ingred.amount} + ' ' +${ingred.ingredient}"></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div>
+
+  <form class = "reviewForm" th:action="@{/review/{id}(id=${cocktail.id})}" th:object="${reviewData}" method="post">
+    <h2>Reviews</h2>
+    <label for="review">Leave a Review:</label><br>
+    <textarea class = "textField"  type="text" th:field="*{review}" id="review" name="review" rows="3" cols="60" maxlength="255" oninput="updateCharCount(this)" ></textarea>
+    <div th:if="${#fields.hasErrors('review')}" th:errors="*{review}"> Error</div>
+    <input type="hidden"  th:value="${cocktail.strDrink}" name="cocktailName" id="cocktailName">
+    <input type="hidden"  th:value="${cocktail.id}" name="cocktailId" id="cocktailId">
+            <input type="hidden"  th:value="${user}" name="userName" id="userName">
+    <input class = "submitReview" type="submit" value="Submit">
+    <span id="charsLeft">255/255</span>
+  </form>
+
+      <div class="reviews" th:each="review : ${reviews}" th:if="${review.cocktailId}==${cocktail.id}">
+        <div >
+          <h5 th:text=" ${review.userName} + ' - ' + ${review.currentDate}">class="modal-title">Modal title</h5>
+        </div>
+        <div >
+          <p th:text="${review.review}"></p>
+          <form  th:if="${review.userName}==${username}" th:action="@{/deleteReview/{id}/{cocktailId}(id=${review.id}, cocktailId = ${cocktail.id})}" th:method="delete" >
+            <button type="submit" class = "deleteReview" th:text="Delete" ></button>
+          </form>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+</body>
+<footer th:replace="fragments :: footer"></footer>
+</html>
