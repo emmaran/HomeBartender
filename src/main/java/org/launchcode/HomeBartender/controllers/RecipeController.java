@@ -1,5 +1,6 @@
 package org.launchcode.HomeBartender.controllers;
 
+import org.launchcode.HomeBartender.Service.UserImageStorageService;
 import org.launchcode.HomeBartender.Repositories.UserIngredientRepository;
 import org.launchcode.HomeBartender.Repositories.UserInstructionRepository;
 import org.launchcode.HomeBartender.Repositories.UserRecipeRepository;
@@ -8,6 +9,10 @@ import org.launchcode.HomeBartender.data.IngredientFormData;
 import org.launchcode.HomeBartender.data.InstructionFormData;
 import org.launchcode.HomeBartender.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -15,8 +20,11 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -34,12 +42,16 @@ public class RecipeController {
     @Autowired
     private UserInstructionRepository userInstructionRepository;
 
+    @Autowired
+    private AuthenticationController authenticationController;
+
+
+    @Autowired
+    private UserImageStorageService service;
+
 
     @GetMapping("/new-recipe")
-    public String createNewRecipe(Model model,HttpSession session) {
-        String username = (String) session.getAttribute("username");
-
-        model.addAttribute("username", username);
+    public String createNewRecipe(Model model) {
         model.addAttribute("title", "Create A New Recipe");
         model.addAttribute("h1", "Create a new recipe");
 //        model.addAttribute("lead", "Add another drink recipe to your home menu. You'll just need a creative name, the yummy ingredients, and some helpful steps!");
@@ -49,12 +61,9 @@ public class RecipeController {
     }
 
     @GetMapping("/add-ingredient-fragment")
-    public String getAddIngredientFragment(Model model, @RequestParam("index") int index, HttpSession session) {
-
-        String username = (String) session.getAttribute("username");
-
-        model.addAttribute("username", username);
+    public String getAddIngredientFragment(Model model, @RequestParam("index") int index) {
         model.addAttribute("index", index);
+        System.out.println(index);
         model.addAttribute("holdRecipeName", "holdRecipe");;
         model.addAttribute("holdRecipe", new CreateRecipeFormData());
 
@@ -63,12 +72,9 @@ public class RecipeController {
     }
 
     @GetMapping("/add-instruction-fragment")
-    public String getAddInstructionFragment(Model model, @RequestParam("instructionIndex") int index, HttpSession session) {
-        String username = (String) session.getAttribute("username");
-
-        model.addAttribute("username", username);
+    public String getAddInstructionFragment(Model model, @RequestParam("instructionIndex") int index) {
         model.addAttribute("instructionIndex", index);
-
+        System.out.println(index);
         model.addAttribute("holdRecipeName2", "holdRecipe2");;
         model.addAttribute("holdRecipe2", new CreateRecipeFormData());
 
@@ -77,20 +83,27 @@ public class RecipeController {
     }
 
     @PostMapping("/new-recipe")
-    public String processNewRecipe(@ModelAttribute("recipeForm") CreateRecipeFormData recipeFormData, @RequestParam("userRecipeImage") MultipartFile multipartFile,Errors errors, Model model, HttpSession session) throws IOException {
-        if (errors.hasErrors()) {
-            String username = (String) session.getAttribute("username");
+    public String processNewRecipe(@ModelAttribute("recipeForm") @Valid CreateRecipeFormData recipeFormData,/*
+                                   @RequestParam("userRecipeImage") MultipartFile multipartFile,*/
+                                   HttpServletRequest request,
+                                   Errors errors, Model model) throws IOException {
 
-            model.addAttribute("username", username);
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Create A New Recipe");
+            model.addAttribute("h1", "Create a new recipe");
+            model.addAttribute("recipeForm", new CreateRecipeFormData());
+//            model.addAttribute("error", "Test error");
 
             return "recipes/create/build-recipe";
         }
-        String username = (String) session.getAttribute("username");
-
-        model.addAttribute("username", username);
 
         // create new User Recipe
         UserRecipe newUserRecipe = new UserRecipe();
+
+        // get and set User
+        HttpSession session = request.getSession();
+        User user = authenticationController.getUserFromSession(session);
+        newUserRecipe.setAuthor(user);
 
         // get and set Name from form
         newUserRecipe.setName(recipeFormData.getName());
@@ -129,18 +142,22 @@ public class RecipeController {
         // if Image exists, get file name
         // set Image on new User Recipe object
         // if Images does NOT exist, set Image to null on new User Recipe object
-        if (!multipartFile.isEmpty()) {
-            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-            newUserRecipe.setImage(fileName);
+        MultipartFile imageFromForm = recipeFormData.getImage();
 
-            // assign a variable for Saved Recipe in User Recipe Repository
+        if (!imageFromForm.isEmpty()) {
+
+            UserImageData imageData = new UserImageData(imageFromForm.getOriginalFilename(), imageFromForm.getContentType(), imageFromForm.getBytes(), newUserRecipe);
+
+            newUserRecipe.setImage(imageData);
+
+            uploadImage(imageData);
+
             UserRecipe savedRecipe = userRecipeRepository.save(newUserRecipe);
-
 
             // get Ingredients and Instructions from Saved Recipe, and save to repositories
             saveIngredientsAndInstructionsToRepository(savedRecipe);
 
-        } else if (recipeFormData.getUserRecipeImage().isEmpty()) {
+        } else if (imageFromForm.isEmpty()) {
             newUserRecipe.setImage(null);
 
             // assign a variable for Saved Recipe in User Recipe Repository
@@ -151,7 +168,7 @@ public class RecipeController {
 
         }
 
-        return "recipes/view/view-user-recipe";
+        return "redirect:/my_recipes";
 
     }
 
@@ -168,10 +185,8 @@ public class RecipeController {
     }
 
     @GetMapping("/view")
-    public String viewUserRecipe(Model model, @RequestParam Integer recipeId, HttpSession session) {
-        String username = (String) session.getAttribute("username");
+    public String viewUserRecipe(Model model, @RequestParam Integer recipeId) {
 
-        model.addAttribute("username", username);
         // get User Recipe to view
         Optional<UserRecipe> result = userRecipeRepository.findById(recipeId);
 
@@ -182,10 +197,30 @@ public class RecipeController {
             UserRecipe recipe = result.get();
             model.addAttribute("title", recipe.getName());
             model.addAttribute("recipe", recipe);
+//            model.addAttribute("name", recipe.getName());
+            model.addAttribute("author", recipe.getAuthor().getUserName());
+            model.addAttribute("imageName", recipe.getImage().getName());
 
         }
 
         return "recipes/view/view-user-recipe";
+    }
+
+
+    public ResponseEntity<?> uploadImage(@RequestParam("image") UserImageData file) throws IOException {
+        String uploadImage = service.uploadImage(file);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(uploadImage);
+    }
+
+    @GetMapping("/image/{fileName}")
+    public ResponseEntity<?> downloadImage(@PathVariable String fileName) {
+        byte[] imageData = service.downloadImage(fileName);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.valueOf("image/jpg"))
+                .body(imageData);
+
     }
 
 }

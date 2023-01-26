@@ -12,13 +12,13 @@ import java.util.ArrayList;
 
 public class CreateRecipeFormData extends AbstractEntity {
 
-    @NotBlank
-    @Size(min = 3, max = 50, message = "UserRecipe Name must be between 3 and 50 characters.")
+    @NotBlank(message = "Name cannot be blank.")
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters.")
     private String name;
 
     private String description;
 
-    private MultipartFile userRecipeImage;
+    private MultipartFile image;
 
 //    @NotNull
 //    @Size(min=1)
@@ -64,12 +64,12 @@ public class CreateRecipeFormData extends AbstractEntity {
         this.description = description;
     }
 
-    public MultipartFile getUserRecipeImage() {
-        return userRecipeImage;
+    public MultipartFile getImage() {
+        return image;
     }
 
-    public void setUserRecipeImage(MultipartFile userRecipeImage) {
-        this.userRecipeImage = userRecipeImage;
+    public void setImage(MultipartFile image) {
+        this.image = image;
     }
 
     public ArrayList<IngredientFormData> getIngredientForms() {

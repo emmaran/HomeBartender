@@ -1,62 +1,86 @@
 package org.launchcode.HomeBartender.controllers;
 
 
-import org.launchcode.HomeBartender.models.Friends;
+
 import org.launchcode.HomeBartender.Repositories.FriendsRepository;
+import org.launchcode.HomeBartender.Repositories.UserRepository;
+import org.launchcode.HomeBartender.models.Friends;
+import org.launchcode.HomeBartender.models.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("friends")
 public class FriendsController {
 
     @Autowired
-    private FriendsRepository friendsRepository;
+    FriendsRepository friendsRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    AuthenticationController authenticationController;
 
     @GetMapping("view")
-    public String list(Model model, HttpSession session){
-        String username = (String) session.getAttribute("username");
+    public String list(Model model, HttpServletRequest request){
 
-        model.addAttribute("username", username);
-        model.addAttribute("friends", friendsRepository.findAll());
+
+        HttpSession session = request.getSession();
+        User user = authenticationController.getUserFromSession(session);
+
+        int id = user.getId();
+        Iterable<Friends> allFriends = friendsRepository.findAll();
+        ArrayList<Friends> friends = new ArrayList<>();
+
+        for(Friends friend : allFriends ){
+            if(friend.getUser().getId() == id ){
+                friends.add(friend);
+            }
+        }
+
+        model.addAttribute("friends", friends);
         return "friends/view";
     }
 
     //This is to add a Friend to user's list & will return an updated list of Friends
     @GetMapping("add")
-    public String add(Model model, HttpSession session){
-        String username = (String) session.getAttribute("username");
+    public String addFriend(Model model, HttpServletRequest request){
+        model.addAttribute("userFriends", userRepository.findAll());
+        model.addAttribute("newFriend", new Friends());
+        model.addAttribute("username","Create Friend");
 
-        model.addAttribute("username", username);
-        model.addAttribute("title", "Add Friend");
-        model.addAttribute(new Friends());
+        HttpSession session = request.getSession();
+        User user = authenticationController.getUserFromSession(session);
+        model.addAttribute("id", user.getId());
 
-        return "friends/view";
+        return "friends/add";
     }
 
     @PostMapping("add")
-    public String processAddFriend(@ModelAttribute @Valid Friends newFriend, Errors errors, Model model, HttpSession session){
+    public String processAddFriend(@ModelAttribute @Valid Friends newFriend, Errors errors, Model model, HttpServletRequest request){
         if(errors.hasErrors()){
-            String username = (String) session.getAttribute("username");
-
-            model.addAttribute("username", username);
-            return "friends/add";
+            model.addAttribute("username", "Create Friend");
+            return "friends/results";
         }
-        String username = (String) session.getAttribute("username");
 
-        model.addAttribute("username", username);
+        HttpSession session = request.getSession();
+        User user = authenticationController.getUserFromSession(session);
+        newFriend.setUser(user);
 
         friendsRepository.save(newFriend);
-        return "friends/view";
+        return "redirect:/friends/view";
     }
+
 
 }

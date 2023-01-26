@@ -7,22 +7,33 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 
-public class User {
+public class User extends AbstractEntity {
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    @Id
-    @GeneratedValue
-    private int id;
+//    @Id
+//    @GeneratedValue
+//    private int id;
+
+//    added by Shannon for friends repository
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    //@JoinColumn(name="user_id")
+    private List<Friends> friends = new ArrayList<>();
 
     @Size(min = 6, max = 20, message = "Password must be at least 6 characters")
     private String pwHash;
@@ -33,21 +44,25 @@ public class User {
 
     private String userName;
 
+    @OneToMany(mappedBy = "author")
+    private List<UserRecipe> recipes = new ArrayList<>();
+
     public User() {
     }
 
     public User(String username, String pwHash) {
+        super(); //added by shannon
         this.userName=username;
         this.pwHash=pwHash;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public int getId() {
+//        return id;
+//    }
+//
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public String getPwHash() {
         return pwHash;
@@ -77,7 +92,20 @@ public class User {
         this.userName = userName;
     }
 
+    public List<UserRecipe> getRecipes() {
+        return recipes;
+    }
+//    added by Shannon
+    public List<Friends> getFriends() {
+        return friends;
+    }
 
+    public void setRecipes(List<UserRecipe> recipes) {
+        this.recipes = recipes;
+    }
+    public void setFriends(List<Friends> friends) {
+        this.friends = friends;
+    }
 
 //    not sure how to make this work.......
 //    public User(String username, String password) {

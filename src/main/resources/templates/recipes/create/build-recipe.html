@@ -19,11 +19,18 @@
                   method="post"
                   enctype="multipart/form-data">
 
+                <!--   ---- USER DATA ----    -->
+<!--                <div class="pb-5">-->
+<!--                    <input type="hidden" th:field="${recipeForm.user}" th:value="${user}"/>-->
+<!--                    <p th:text="${user.userName}"></p>-->
+<!--                </div>-->
+
 
                 <!--   ---- RECIPE NAME ----    -->
                 <div class="pb-5">
                     <label class="form-label">Recipe Name</label>
                     <input type="text" class="form-control" th:field="${recipeForm.name}" id="name" placeholder="Recipe Name">
+<!--                    <p th:errors="${recipeForm.name}"></p>-->
                 </div>
 
                 <div class="pb-5">
@@ -40,7 +47,7 @@
 
                     <label for="file-upload" class="form-label">Recipe Image</label>
                     <input  type="file" id="file-upload" name="userRecipeImage" class="form-control"
-                            th:field="${recipeForm.userRecipeImage}" accept="image/png, image/jpeg"
+                            th:field="${recipeForm.image}" accept="image/jpg"
                             onchange="previewImage(event);">
 
                     <div class="mt-5">
