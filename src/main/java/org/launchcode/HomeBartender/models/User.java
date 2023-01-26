@@ -8,10 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -39,6 +43,9 @@ public class User extends AbstractEntity {
     private String email;
 
     private String userName;
+
+    @OneToMany(mappedBy = "author")
+    private List<UserRecipe> recipes = new ArrayList<>();
 
     public User() {
     }
@@ -85,16 +92,22 @@ public class User extends AbstractEntity {
         this.userName = userName;
     }
 
+    public List<UserRecipe> getRecipes() {
+        return recipes;
+    }
 //    added by Shannon
     public List<Friends> getFriends() {
         return friends;
     }
 
+    public void setRecipes(List<UserRecipe> recipes) {
+        this.recipes = recipes;
+    }
     public void setFriends(List<Friends> friends) {
         this.friends = friends;
     }
 
-    //    not sure how to make this work.......
+//    not sure how to make this work.......
 //    public User(String username, String password) {
 //        this.username = username;
 //        this.pwHash = encoder.encode(password);
